@@ -1,0 +1,6 @@
+{
+  "name": "HelloBajo - Scooter Rental Labuan Bajo",
+  "description": "Hassle-Free Scooter Rental in Labuan Bajo with free delivery and no deposit by HelloBajo",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

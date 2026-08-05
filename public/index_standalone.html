@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HelloBajo - Labuan Bajo Land & Culture Day Tour</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            teal: {
+              50: '#f0fdf4',
+              100: '#dcfce7',
+              500: '#14b8a6',
+              600: '#0d9488',
+              700: '#0f766e',
+              900: '#134e4a',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+  </style>
+</head>
+<body class="bg-[#faf8f5] text-slate-800 antialiased selection:bg-teal-500 selection:text-white">
+
+  <!-- 1. HEADER & NAVIGATION -->
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-stone-200/80">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2.5">
+          <div class="w-11 h-11 bg-teal-50 rounded-xl flex items-center justify-center">
+            <svg viewBox="0 0 100 100" class="w-8 h-8 text-teal-600">
+              <circle cx="35" cy="35" r="16" fill="#f59e0b" opacity="0.9"/>
+              <path d="M15 75 Q40 50 85 75 T15 75" fill="none" stroke="#0284c7" stroke-width="6" stroke-linecap="round"/>
+              <path d="M65 30 Q75 10 85 25 Q70 35 65 30 Z" fill="#16a34a"/>
+              <path d="M65 30 Q50 15 45 32 Q60 40 65 30 Z" fill="#15803d"/>
+              <path d="M65 30 Q80 40 70 55 Q60 45 65 30 Z" fill="#22c55e"/>
+              <path d="M60 30 Q62 65 60 80" stroke="#78350f" stroke-width="5" fill="none" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-2xl font-extrabold tracking-tight text-slate-900 leading-none">
+              hello<span class="text-teal-600">bajo</span><span class="inline-block w-2 h-2 rounded-full bg-teal-500 ml-0.5"></span>
+            </span>
+            <span class="text-[10px] uppercase font-bold tracking-widest text-stone-500 mt-0.5">Labuan Bajo Travel</span>
+          </div>
+        </a>
+
+        <!-- Navigation -->
+        <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-700">
+          <a href="#itinerary" class="hover:text-teal-600" data-i18n="nav.cityTour">City Tour</a>
+          <a href="#pricing" class="hover:text-teal-600" data-i18n="pricing.badge">Pricing</a>
+          <a href="#alternatives" class="hover:text-teal-600" data-i18n="alternatives.badge">Flexibility</a>
+          <a href="#faq" class="hover:text-teal-600" data-i18n="nav.faq">FAQ</a>
+        </nav>
+
+        <!-- Actions -->
+        <div class="flex items-center space-x-3">
+          <!-- Language Switcher -->
+          <button id="lang-toggle-btn" onclick="toggleLanguage()" class="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-slate-700 bg-stone-100 hover:bg-stone-200 rounded-full border border-stone-300">
+            <i data-lucide="globe" class="w-3.5 h-3.5 text-slate-500"></i>
+            <span id="lang-label">EN</span>
+          </button>
+
+          <!-- WhatsApp Button -->
+          <a id="header-wa-btn" href="https://wa.me/6281234567890" target="_blank" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 bg-teal-600 hover:bg-teal-700 text-white text-xs sm:text-sm font-semibold rounded-full shadow-sm">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            <span data-i18n="nav.whatsappBtn">WhatsApp</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 2. HERO SECTION -->
+  <section class="relative bg-slate-950 text-white min-h-[85vh] flex items-center justify-center overflow-hidden py-20 lg:py-28">
+    <div class="absolute inset-0 z-0">
+      <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?auto=format&fit=crop&w=2000&q=85" alt="Labuan Bajo" class="w-full h-full object-cover opacity-45">
+      <div class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/60 to-slate-950/95"></div>
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto px-4 text-center flex flex-col items-center">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-teal-950/80 border border-teal-500/40 text-teal-300 text-xs font-semibold tracking-widest uppercase mb-6">
+        <span class="w-2 h-2 rounded-full bg-teal-400 animate-pulse"></span>
+        <span data-i18n="hero.badge">LABUAN BAJO CITY TOUR • PRIVATE & FLEXIBLE</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight max-w-4xl leading-[1.15]" data-i18n="hero.title">
+        Discover Labuan Bajo: Land & Culture Day Tour
+      </h1>
+
+      <p class="mt-5 text-base sm:text-lg lg:text-xl text-stone-200/90 max-w-2xl" data-i18n="hero.subtitle">
+        Comfort, scenic viewpoints, and authentic local culture without the hassle.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center gap-4 mt-10">
+        <a id="hero-wa-btn" href="https://wa.me/6281234567890" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-teal-600 hover:bg-teal-500 text-white font-bold text-base rounded-full shadow-lg">
+          <i data-lucide="message-circle" class="w-5 h-5"></i>
+          <span data-i18n="hero.ctaPrimary">Book via WhatsApp</span>
+        </a>
+        <a href="#itinerary" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-4 bg-white/10 hover:bg-white/20 text-white border border-white/30 font-semibold text-base rounded-full">
+          <i data-lucide="compass" class="w-5 h-5 text-teal-400"></i>
+          <span data-i18n="hero.ctaSecondary">Explore Itinerary</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. PRICING & PACKAGE CARD -->
+  <section id="pricing" class="py-20 bg-[#faf8f5]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold tracking-widest text-teal-600 uppercase bg-teal-50 px-3.5 py-1.5 rounded-full border border-teal-200" data-i18n="pricing.badge">TRANSPARENT PRICING</span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mt-4" data-i18n="pricing.title">All-Inclusive Private Car Package</h2>
+      </div>
+
+      <div class="max-w-4xl mx-auto bg-white rounded-3xl shadow-xl border border-stone-200 overflow-hidden">
+        <div class="grid grid-cols-1 lg:grid-cols-12">
+          <div class="lg:col-span-5 bg-slate-900 p-8 text-white flex flex-col justify-between">
+            <div>
+              <span class="text-3xl sm:text-5xl font-extrabold text-white">Rp 1.200.000</span>
+              <p class="text-stone-300 text-sm mt-1" data-i18n="pricing.unit">/ car / day</p>
+              <p class="text-xs text-stone-400 mt-4" data-i18n="pricing.capacity">Fits up to 5–6 passengers comfortably</p>
+            </div>
+            <a href="https://wa.me/6281234567890" target="_blank" class="mt-8 w-full py-3.5 bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-center rounded-full text-sm block" data-i18n="pricing.bookNow">
+              Book This Tour via WhatsApp
+            </a>
+          </div>
+
+          <div class="lg:col-span-7 p-8">
+            <h3 class="text-lg font-bold text-slate-900 mb-4">Package Features</h3>
+            <ul class="space-y-3 text-sm text-slate-700">
+              <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-teal-600"></i> Private 7-seater Toyota Rush / Avanza with AC</li>
+              <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-teal-600"></i> Full fuel for all city & mainland routes</li>
+              <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-teal-600"></i> Experienced English & Indonesian driver</li>
+              <li class="flex items-center gap-2"><i data-lucide="check-circle-2" class="w-4 h-4 text-teal-600"></i> Free hotel & airport pick-up / drop-off</li>
+            </ul>
+
+            <div class="mt-6 p-4 rounded-2xl bg-teal-50 border border-teal-200 text-xs text-teal-950">
+              <strong>No Deposit Required:</strong> Pay cash or transfer directly to driver upon tour completion.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Translation JavaScript Engine -->
+  <script>
+    const i18n = {
+      EN: {
+        "nav.cityTour": "City Tour",
+        "nav.faq": "FAQ",
+        "nav.whatsappBtn": "WhatsApp",
+        "pricing.badge": "Pricing",
+        "alternatives.badge": "Flexibility",
+        "hero.badge": "LABUAN BAJO CITY TOUR • PRIVATE & FLEXIBLE",
+        "hero.title": "Discover Labuan Bajo: Land & Culture Day Tour",
+        "hero.subtitle": "Comfort, scenic viewpoints, and authentic local culture without the hassle.",
+        "hero.ctaPrimary": "Book via WhatsApp",
+        "hero.ctaSecondary": "Explore Itinerary",
+        "pricing.title": "All-Inclusive Private Car Package",
+        "pricing.unit": "/ car / day",
+        "pricing.capacity": "Fits up to 5–6 passengers comfortably",
+        "pricing.bookNow": "Book This Tour via WhatsApp",
+      },
+      ID: {
+        "nav.cityTour": "Tur Kota",
+        "nav.faq": "FAQ",
+        "nav.whatsappBtn": "WhatsApp",
+        "pricing.badge": "Harga",
+        "alternatives.badge": "Fleksibilitas",
+        "hero.badge": "LABUAN BAJO CITY TOUR • PRIVAT & FLEKSIBEL",
+        "hero.title": "Jelajahi Labuan Bajo: Tur Darat & Budaya",
+        "hero.subtitle": "Kenyamanan, pemandangan indah, dan budaya lokal autentik tanpa ribet.",
+        "hero.ctaPrimary": "Pesan via WhatsApp",
+        "hero.ctaSecondary": "Lihat Itinerary",
+        "pricing.title": "Paket Mobil Privat All-Inclusive",
+        "pricing.unit": "/ mobil / hari",
+        "pricing.capacity": "Muat hingga 5–6 penumpang dengan nyaman",
+        "pricing.bookNow": "Pesan Tur Ini via WhatsApp",
+      }
+    };
+
+    let currentLang = 'EN';
+    function toggleLanguage() {
+      currentLang = currentLang === 'EN' ? 'ID' : 'EN';
+      document.getElementById('lang-label').innerText = currentLang;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (i18n[currentLang][key]) {
+          el.innerText = i18n[currentLang][key];
+        }
+      });
+    }
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>
