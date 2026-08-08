@@ -1,6 +1,6 @@
 import React from 'react';
 import { TranslationContent, Language } from '../data/translations';
-import { MessageCircle, Check, ShieldCheck, Truck, Clock, Key } from 'lucide-react';
+import { MessageCircle, Check, ShieldCheck, Truck, Clock, Key, Globe, ExternalLink } from 'lucide-react';
 import { HERO_IMAGE, SCOOTER_IMAGES } from '../data/images';
 import { SITE_CONFIG } from '../data/siteConfig';
 
@@ -17,7 +17,7 @@ export const Hero: React.FC<HeroProps> = ({ t, lang }) => {
   )}`;
 
   return (
-    <section className="relative bg-[#faf8f5] text-slate-900 pt-10 pb-16 sm:py-20 overflow-hidden border-b border-stone-200/60">
+    <section className="relative bg-[#faf8f5] text-slate-900 pt-10 pb-6 sm:pt-16 sm:pb-8 overflow-hidden">
       {/* Decorative background glow */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-teal-100/60 rounded-full blur-3xl pointer-events-none -z-0" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-amber-100/50 rounded-full blur-3xl pointer-events-none -z-0" />

@@ -29,22 +29,22 @@ export default function App() {
       {/* 1. Header & Navigation */}
       <Header lang={lang} onLanguageChange={setLang} t={t} />
 
-      {/* Main Content Sections matching exact screenshot order */}
+      {/* Main Content Sections */}
       <main className="flex-grow pt-16 sm:pt-20">
         {/* 2. Hero Section */}
         <Hero t={t} lang={lang} />
 
-        {/* 3. How It Works Section */}
+        {/* 3. Instant Scooter Booking Form (Immediately after Hero, blending seamlessly) */}
+        <ReserveForm t={t} lang={lang} selectedBikeId={selectedBikeId} />
+
+        {/* 4. How It Works Section */}
         <ItineraryTimeline t={t} lang={lang} />
 
-        {/* 4. Our Fleet Section */}
+        {/* 5. Our Fleet Section */}
         <PricingCard t={t} lang={lang} onSelectScooter={handleSelectScooter} />
 
-        {/* 5. Why Choose Us Section */}
+        {/* 6. Why Choose Us Section */}
         <WhyChooseUs t={t} />
-
-        {/* 6. Reserve Form Section */}
-        <ReserveForm t={t} lang={lang} selectedBikeId={selectedBikeId} />
 
         {/* 7. Explore More & Private Charter Banner */}
         <AlternativeDestinations t={t} lang={lang} />

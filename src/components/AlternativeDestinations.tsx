@@ -25,9 +25,9 @@ export const AlternativeDestinations: React.FC<AlternativeDestinationsProps> = (
         ? '无论是风景漫游还是团队出行，我们都能为您提供完美的车辆。安全可靠，由本地专业司机驾驶。'
         : 'Pilihan mobil MPV/SUV AC bersih dan HiAce Commuter rombongan. Pengemudi lokal ramah, profesional, dan berpengalaman.',
       badge: lang === 'EN' ? 'Car & HiAce Charter' : lang === 'ZH' ? '包车 & HiAce 租用' : 'Sewa Mobil & HiAce',
-      buttonText: lang === 'EN' ? 'Visit car.hellobajo.com' : lang === 'ZH' ? '访问 car.hellobajo.com' : 'Kunjungi car.hellobajo.com',
+      buttonText: lang === 'EN' ? 'Explore Car Charters' : lang === 'ZH' ? '查看包车与商务车' : 'Sewa Mobil & HiAce',
       buttonType: 'external',
-      url: 'https://car.hellobajo.com',
+      url: 'https://hellobajo.com/cars',
     },
     {
       id: 2,
@@ -41,9 +41,9 @@ export const AlternativeDestinations: React.FC<AlternativeDestinationsProps> = (
         ? '一天打卡帕达尔岛、粉红沙滩、科莫多巨蜥岛、塔卡麦加萨、魔鬼鱼点及卡纳瓦岛。含午餐便当、浮潜装备及本地导游。'
         : 'Jelajah Pulau Padar, Pink Beach, Pulau Komodo, Taka Makassar, Manta Point & Kanawa. Lengkap dengan lunch box, alat snorkeling & guide.',
       badge: lang === 'EN' ? 'Speedboat & Daytour' : lang === 'ZH' ? '快艇跳岛游' : 'Speedboat & Tour Laut',
-      buttonText: lang === 'EN' ? 'Visit speedboat.hellobajo.com' : lang === 'ZH' ? '访问 speedboat.hellobajo.com' : 'Kunjungi speedboat.hellobajo.com',
+      buttonText: lang === 'EN' ? 'Explore Speedboat Tours' : lang === 'ZH' ? '查看快艇一日游' : 'Lihat Paket Speedboat',
       buttonType: 'external',
-      url: 'https://speedboat.hellobajo.com',
+      url: 'https://hellobajo.com/boats',
     },
     {
       id: 3,
@@ -319,6 +319,48 @@ export const AlternativeDestinations: React.FC<AlternativeDestinationsProps> = (
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Clean, Catchy Minimalist Travel Blog Card */}
+        <div className="mt-12 bg-slate-900 text-white rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl border border-slate-800">
+          <div className="space-y-2 text-center sm:text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 text-teal-300 text-[11px] font-bold uppercase tracking-wider">
+              <FileText className="w-3.5 h-3.5 text-teal-400" />
+              <span>
+                {lang === 'EN' ? 'Official Travel Blog' : lang === 'ZH' ? '官方行程指南' : 'Blog Wisata Resmi'}
+              </span>
+            </div>
+            <h3 className="text-lg sm:text-xl font-extrabold tracking-tight text-white">
+              {lang === 'EN'
+                ? 'Looking for Travel Guides & Tips?'
+                : lang === 'ZH'
+                ? '寻找拉布安巴佐行程攻略与旅行指南？'
+                : 'Cari Panduan & Tips Liburan Labuan Bajo?'}
+            </h3>
+            <p className="text-xs sm:text-sm text-stone-300 max-w-xl font-medium leading-relaxed">
+              {lang === 'EN'
+                ? 'Read secret itineraries, local food recommendations, and complete travel guides on our official main blog.'
+                : lang === 'ZH'
+                ? '阅读本地特色美食推荐、离岛跳岛攻略及完整弗洛勒斯深度游指南。'
+                : 'Baca rekomendasi kuliner lokal, rute tersembunyi, dan panduan liburan terlengkap di blog resmi kami.'}
+            </p>
+          </div>
+
+          <a
+            href={SITE_CONFIG.mainWebsite}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="shrink-0 inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-teal-500 hover:bg-teal-400 text-slate-950 font-extrabold text-xs sm:text-sm transition-all shadow-lg shadow-teal-500/20 active:scale-95 group cursor-pointer"
+          >
+            <span>
+              {lang === 'EN'
+                ? 'Visit Blog (hellobajo.com/blog)'
+                : lang === 'ZH'
+                ? '访问官方博客 (hellobajo.com/blog)'
+                : 'Kunjungi Blog (hellobajo.com/blog)'}
+            </span>
+            <ExternalLink className="w-4 h-4 text-slate-950 group-hover:translate-x-0.5 transition-transform" />
+          </a>
         </div>
 
       </div>

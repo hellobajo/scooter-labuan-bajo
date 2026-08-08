@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Language, TranslationContent } from '../data/translations';
-import { MessageCircle, Menu, X } from 'lucide-react';
+import { MessageCircle, Menu, X, Globe, ExternalLink } from 'lucide-react';
 import { SITE_CONFIG } from '../data/siteConfig';
 
 interface HeaderProps {
@@ -56,13 +56,13 @@ export const Header: React.FC<HeaderProps> = ({ lang, onLanguageChange, t }) => 
           </nav>
 
           {/* Right Action Controls (Lang Toggle & WhatsApp CTA) */}
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 sm:space-x-3">
             
             {/* Language Selector Pill Capsule */}
             <div className="flex items-center bg-slate-100 p-1 rounded-full text-xs font-semibold border border-slate-200/60">
               <button
                 onClick={() => onLanguageChange('EN')}
-                className={`px-2.5 py-1 rounded-full transition-all duration-200 ${
+                className={`px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full transition-all duration-200 ${
                   lang === 'EN'
                     ? 'bg-white text-teal-600 shadow-sm font-bold'
                     : 'text-slate-500 hover:text-slate-800'
@@ -72,7 +72,7 @@ export const Header: React.FC<HeaderProps> = ({ lang, onLanguageChange, t }) => 
               </button>
               <button
                 onClick={() => onLanguageChange('ID')}
-                className={`px-2.5 py-1 rounded-full transition-all duration-200 ${
+                className={`px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full transition-all duration-200 ${
                   lang === 'ID'
                     ? 'bg-white text-teal-600 shadow-sm font-bold'
                     : 'text-slate-500 hover:text-slate-800'
@@ -82,7 +82,7 @@ export const Header: React.FC<HeaderProps> = ({ lang, onLanguageChange, t }) => 
               </button>
               <button
                 onClick={() => onLanguageChange('ZH')}
-                className={`px-2.5 py-1 rounded-full transition-all duration-200 ${
+                className={`px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full transition-all duration-200 ${
                   lang === 'ZH'
                     ? 'bg-white text-teal-600 shadow-sm font-bold'
                     : 'text-slate-500 hover:text-slate-800'
