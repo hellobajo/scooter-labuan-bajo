@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Language, TranslationContent } from '../data/translations';
 import { MessageCircle, Menu, X } from 'lucide-react';
 import { SITE_CONFIG } from '../data/siteConfig';
+import { MobileStickyTabs } from './MobileStickyTabs';
 
 interface HeaderProps {
   lang: Language;
@@ -119,6 +120,9 @@ export const Header: React.FC<HeaderProps> = ({ lang, onLanguageChange, t, onOpe
           </div>
         </div>
       </div>
+
+      {/* Mobile Horizontal Scrollable Sub-Menu / Sticky Tabs */}
+      <MobileStickyTabs lang={lang} />
 
       {/* Mobile Menu Dropdown */}
       {isMobileMenuOpen && (

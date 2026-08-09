@@ -18,7 +18,7 @@ export const Hero: React.FC<HeroProps> = ({ t, lang, onOpenReserveModal }) => {
   )}`;
 
   return (
-    <section className="relative bg-[#faf8f5] text-slate-900 pt-10 pb-16 sm:py-20 overflow-hidden border-b border-stone-200/60">
+    <section id="hero" className="relative bg-[#faf8f5] text-slate-900 pt-10 pb-16 sm:py-20 overflow-hidden border-b border-stone-200/60">
       {/* Decorative background glow */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-teal-100/60 rounded-full blur-3xl pointer-events-none -z-0" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-amber-100/50 rounded-full blur-3xl pointer-events-none -z-0" />
@@ -45,10 +45,10 @@ export const Hero: React.FC<HeroProps> = ({ t, lang, onOpenReserveModal }) => {
             {/* Subtitle */}
             <p className="text-slate-600 text-sm sm:text-base lg:text-lg leading-relaxed max-w-2xl">
               {lang === 'EN'
-                ? 'Explore Labuan Bajo on your own terms. We deliver well-maintained scooters directly to Komodo Airport (LBJ), your hotel, or villa. Zero deposit, free helmets, and fast WhatsApp response.'
+                ? 'Explore Labuan Bajo on your own terms. We deliver well-maintained scooters directly to Komodo Airport (LBJ), your hotel, or villa. Zero deposit and fast WhatsApp response.'
                 : lang === 'ZH'
-                ? '随心探索拉布安巴佐。免费送车至科莫多机场 (LBJ)、酒店或度假村。零押金，赠免费头盔，WhatsApp 快速回复。'
-                : 'Jelajahi Labuan Bajo dengan fleksibel. Motor siap antar ke Bandara Komodo (LBJ), hotel, atau villa Anda. Bebas deposit, helm gratis, dan respon cepat via WhatsApp.'}
+                ? '随心探索拉布安巴佐。免费送车至科莫多机场 (LBJ)、酒店或度假村。零押金，WhatsApp 快速回复。'
+                : 'Jelajahi Labuan Bajo dengan fleksibel. Motor siap antar ke Bandara Komodo (LBJ), hotel, atau villa Anda. Bebas deposit dan respon cepat via WhatsApp.'}
             </p>
           </div>
 

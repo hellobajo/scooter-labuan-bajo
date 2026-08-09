@@ -12,7 +12,7 @@ export const SocialProofGallery: React.FC<SocialProofGalleryProps> = ({ lang }) 
   const marqueeItems = [...HANDOVER_GALLERY_IMAGES, ...HANDOVER_GALLERY_IMAGES];
 
   return (
-    <section className="py-16 sm:py-24 bg-white border-t border-stone-100 overflow-hidden relative">
+    <section id="gallery" className="py-16 sm:py-24 bg-white border-t border-stone-100 overflow-hidden relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -30,13 +30,6 @@ export const SocialProofGallery: React.FC<SocialProofGalleryProps> = ({ lang }) 
               ? '实景交车与旅行者风采' 
               : 'Galeri Serah Terima Motor'}
           </h2>
-          <p className="text-sm sm:text-base text-slate-500 font-medium">
-            {lang === 'EN'
-              ? 'Hover or tap photos to pause. We deliver clean, fueled scooters directly to Komodo Airport (LBJ) and luxury hotels across Labuan Bajo.'
-              : lang === 'ZH'
-              ? '悬停或轻触照片可暂停滚动。我们直接将准备就绪的摩托车送到科莫多机场 (LBJ) 及各大酒店。'
-              : 'Arahkan kursor atau sentuh foto untuk jeda. Kami mengantar motor bersih dan siap pakai langsung ke Bandara & Hotel.'}
-          </p>
 
           <div className="flex flex-wrap justify-center gap-4 mt-5">
             <div className="flex items-center gap-1.5 text-xs font-bold text-slate-700 bg-stone-50 px-3 py-1.5 rounded-full border border-stone-200">

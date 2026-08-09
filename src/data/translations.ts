@@ -140,7 +140,7 @@ export const translations: Record<Language, TranslationContent> = {
       subtitle: 'Free delivery to Komodo airport, hotel, or anywhere in town. No deposit. Just pick a bike, chat us on WhatsApp, and we handle the rest.',
       badges: [
         'No deposit required',
-        'Helmets included free',
+        '2 SNI helmets provided',
         'Free town delivery',
         'Quick WhatsApp response',
       ],
@@ -177,7 +177,7 @@ export const translations: Record<Language, TranslationContent> = {
     fleet: {
       tag: 'OUR FLEET',
       title: 'Choose your ride',
-      subtitle: 'Helmet and delivery included on all bikes. Photos are examples — exact color may vary.',
+      subtitle: 'Clean helmets, phone holder, and initial fuel included with every bike. Delivery by staff (Rp 20k/trip). Photos are examples — exact color may vary.',
       bookBtn: 'Book This',
       items: [
         {
@@ -369,7 +369,7 @@ export const translations: Record<Language, TranslationContent> = {
     fleet: {
       tag: 'PILIHAN MOTOR',
       title: 'Pilih Motor Favorit Anda',
-      subtitle: 'Sudah termasuk helm dan antar jemput gratis untuk semua motor. Warna menyesuaikan ketersediaan.',
+      subtitle: 'Helm bersih, phone holder, dan bensin awal sudah termasuk untuk setiap motor. Pengantaran oleh staf (Rp 20rb/trip). Foto adalah contoh — warna menyesuaikan ketersediaan.',
       bookBtn: 'Pesan Motor Ini',
       items: [
         {
@@ -561,7 +561,7 @@ export const translations: Record<Language, TranslationContent> = {
     fleet: {
       tag: '车型选择',
       title: '挑选您的专属坐骑',
-      subtitle: '所有车型均包含免费头盔和送车服务。图片仅供参考，具体颜色以实车为准。',
+      subtitle: '每辆车均包含干净头盔、手机支架和初始燃油。工作人员送车（2万印尼盾/趟）。图片仅供参考，具体颜色以实车为准。',
       bookBtn: '预订此款',
       items: [
         {

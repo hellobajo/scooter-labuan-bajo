@@ -20,10 +20,5 @@
   .animate-marquee {
     animation: marquee 35s linear infinite;
   }
-  .animate-marquee:hover,
-  .animate-marquee:active,
-  .animate-marquee:focus-within {
-    animation-play-state: paused;
-  }
 }
 

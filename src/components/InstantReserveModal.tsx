@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Language } from '../data/translations';
 import { X, MessageCircle, Calendar, Clock, MapPin, Zap, AlertCircle, Info, Plus, Minus, CheckCircle2, ShieldCheck } from 'lucide-react';
 import { SITE_CONFIG } from '../data/siteConfig';
@@ -152,6 +152,41 @@ export const InstantReserveModal: React.FC<InstantReserveModalProps> = ({
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [isOpen, onClose]);
+
+  // Browser History State Management for Mobile / Hardware Back Button
+  const pushedHistoryRef = useRef<boolean>(false);
+  const onCloseRef = useRef(onClose);
+
+  useEffect(() => {
+    onCloseRef.current = onClose;
+  }, [onClose]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    // Push dummy history entry so pressing back closes the modal instead of exiting the page
+    window.history.pushState({ modalOpen: true }, '');
+    pushedHistoryRef.current = true;
+
+    const handlePopState = () => {
+      if (pushedHistoryRef.current) {
+        pushedHistoryRef.current = false;
+        onCloseRef.current();
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+
+      // If modal was closed via UI (X button, backdrop click, or submit) instead of back button
+      if (pushedHistoryRef.current) {
+        pushedHistoryRef.current = false;
+        window.history.back();
+      }
+    };
+  }, [isOpen]);
 
   // Selected Unit & Pricing Calculations
   const selectedUnit = SCOOTER_UNITS.find((u) => u.id === selectedBikeId) || null;

@@ -39,7 +39,7 @@ export default function App() {
       />
 
       {/* Main Content Sections matching exact screenshot order */}
-      <main className="flex-grow pt-16 sm:pt-20 pb-24 sm:pb-0">
+      <main className="flex-grow pt-28 sm:pt-20 pb-24 sm:pb-0">
         {/* 2. Hero Section */}
         <Hero 
           t={t} 
