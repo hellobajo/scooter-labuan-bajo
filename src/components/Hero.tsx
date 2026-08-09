@@ -1,15 +1,16 @@
 import React from 'react';
 import { TranslationContent, Language } from '../data/translations';
-import { MessageCircle, Check, ShieldCheck, Truck, Clock, Key, Globe, ExternalLink } from 'lucide-react';
+import { MessageCircle, Check, ShieldCheck, Truck, Clock, Key } from 'lucide-react';
 import { HERO_IMAGE, SCOOTER_IMAGES } from '../data/images';
 import { SITE_CONFIG } from '../data/siteConfig';
 
 interface HeroProps {
   t: TranslationContent;
   lang: Language;
+  onOpenReserveModal?: (bikeId?: string) => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ t, lang }) => {
+export const Hero: React.FC<HeroProps> = ({ t, lang, onOpenReserveModal }) => {
   const whatsappUrl = `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${encodeURIComponent(
     lang === 'EN'
       ? 'Hi HelloBajo! I am interested in renting a scooter in Labuan Bajo.'
@@ -17,7 +18,7 @@ export const Hero: React.FC<HeroProps> = ({ t, lang }) => {
   )}`;
 
   return (
-    <section className="relative bg-[#faf8f5] text-slate-900 pt-10 pb-6 sm:pt-16 sm:pb-8 overflow-hidden">
+    <section className="relative bg-[#faf8f5] text-slate-900 pt-10 pb-16 sm:py-20 overflow-hidden border-b border-stone-200/60">
       {/* Decorative background glow */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-teal-100/60 rounded-full blur-3xl pointer-events-none -z-0" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-amber-100/50 rounded-full blur-3xl pointer-events-none -z-0" />
@@ -135,19 +136,21 @@ export const Hero: React.FC<HeroProps> = ({ t, lang }) => {
           {/* ITEM 4: CTAs (4th position on Mobile) */}
           <div className="w-full lg:col-span-7 lg:col-start-1 order-4">
             <div className="flex flex-col sm:flex-row items-center gap-3.5">
+              <button
+                type="button"
+                onClick={() => onOpenReserveModal ? onOpenReserveModal('nmax') : null}
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-teal-600 hover:bg-teal-500 text-white font-black text-sm sm:text-base rounded-full shadow-xl shadow-teal-600/30 transition-all transform hover:-translate-y-0.5 active:scale-95 cursor-pointer"
+              >
+                <span>⚡</span>
+                <span>{lang === 'EN' ? 'BOOK NOW (Instant Delivery)' : lang === 'ZH' ? '立即预订 (即时送车)' : 'RESERVE NOW (Antar Instant)'}</span>
+              </button>
+
               <a
                 href="#fleet"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-teal-600 hover:bg-teal-500 text-white font-extrabold text-sm rounded-full shadow-lg shadow-teal-600/25 transition-all transform hover:-translate-y-0.5 active:scale-95 cursor-pointer"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 bg-white hover:bg-stone-100 text-slate-800 font-extrabold text-sm rounded-full border border-stone-300 shadow-sm transition-all transform hover:-translate-y-0.5 active:scale-95 cursor-pointer"
               >
                 <span>🛵</span>
                 <span>{lang === 'EN' ? 'Explore Scooter Fleet' : lang === 'ZH' ? '查看所有车型' : 'Lihat Pilihan Motor'}</span>
-              </a>
-
-              <a
-                href="#reserve"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-white hover:bg-stone-100 text-slate-800 font-extrabold text-sm rounded-full border border-stone-300 shadow-sm transition-all transform hover:-translate-y-0.5 active:scale-95 cursor-pointer"
-              >
-                <span>{lang === 'EN' ? 'Calculate Cost & Book' : lang === 'ZH' ? '计算费用与预订' : 'Hitung Estimasi & Sewa'}</span>
               </a>
             </div>
           </div>

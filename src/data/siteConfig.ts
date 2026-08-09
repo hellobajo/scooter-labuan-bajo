@@ -10,8 +10,6 @@ export const SITE_CONFIG = {
   logo: '/logo.png', // Main logo image path (change in /public/logo.png or set custom path)
   
   // Contact & Social Details
-  mainWebsite: 'https://hellobajo.com/blog',
-  websiteDisplay: 'hellobajo.com/blog',
   whatsappNumber: '628170788181', // Format: 628170788181 (without + or spaces)
   whatsappDisplay: '+62 817-0788-181',
   email: 'hellobajo.go@gmail.com',

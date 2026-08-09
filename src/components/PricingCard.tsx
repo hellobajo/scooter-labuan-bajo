@@ -59,7 +59,8 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
             return (
               <div 
                 key={item.id}
-                className="bg-white rounded-3xl shadow-lg shadow-stone-200/50 border border-stone-200/80 overflow-hidden flex flex-col justify-between hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+                onClick={() => handleBookClick(item.id)}
+                className="bg-white rounded-3xl shadow-lg shadow-stone-200/50 border border-stone-200/80 overflow-hidden flex flex-col justify-between hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer group"
               >
                 <div>
                   {/* Image Container with Badges - Full Edge to Edge Photo */}

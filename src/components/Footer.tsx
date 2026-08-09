@@ -1,6 +1,6 @@
 import React from 'react';
 import { TranslationContent, Language } from '../data/translations';
-import { MessageCircle, ShieldCheck, Heart, MapPin, Mail, Globe, ExternalLink } from 'lucide-react';
+import { MessageCircle, ShieldCheck, Heart, MapPin, Mail } from 'lucide-react';
 import { SITE_CONFIG } from '../data/siteConfig';
 
 interface FooterProps {
@@ -42,24 +42,13 @@ export const Footer: React.FC<FooterProps> = ({ t, lang }) => {
             </div>
           </div>
 
-          {/* Contact Buttons & Main Website */}
-          <div className="flex flex-col items-start md:items-end gap-3">
-            <a
-              href={SITE_CONFIG.mainWebsite}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs sm:text-sm rounded-full shadow-md transition-all active:scale-95 group"
-            >
-              <Globe className="w-4 h-4 text-teal-400 shrink-0" />
-              <span>Visit Travel Blog (hellobajo.com/blog)</span>
-              <ExternalLink className="w-3.5 h-3.5 text-slate-400 shrink-0 group-hover:translate-x-0.5 transition-transform" />
-            </a>
-
+          {/* Contact Buttons & Email */}
+          <div className="flex flex-col items-start md:items-end gap-2.5">
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2.5 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm rounded-full shadow-md hover:shadow-emerald-600/30 transition-all active:scale-95"
+              className="inline-flex items-center gap-2.5 px-6 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm rounded-full shadow-md hover:shadow-emerald-600/30 transition-all active:scale-95"
             >
               <MessageCircle className="w-4 h-4 fill-white text-emerald-600" />
               <span>{SITE_CONFIG.whatsappDisplay}</span>
@@ -67,7 +56,7 @@ export const Footer: React.FC<FooterProps> = ({ t, lang }) => {
 
             <a 
               href={`mailto:${SITE_CONFIG.email}`} 
-              className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-slate-600 hover:text-teal-700 transition-colors font-medium px-1"
+              className="inline-flex items-center gap-1.5 text-xs sm:text-sm text-slate-600 hover:text-teal-700 transition-colors font-medium"
             >
               <Mail className="w-3.5 h-3.5 text-slate-400" />
               <span>{SITE_CONFIG.email}</span>

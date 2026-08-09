@@ -1,6 +1,6 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { TranslationContent, Language } from '../data/translations';
-import { MessageCircle, Calendar, Clock, MapPin, Zap, Bike, Lock, AlertCircle } from 'lucide-react';
+import { MessageCircle, Calendar, Clock, MapPin, AtSign, ShieldCheck, Calculator, AlertCircle, Info } from 'lucide-react';
 import { SITE_CONFIG } from '../data/siteConfig';
 
 interface ReserveFormProps {
@@ -8,526 +8,670 @@ interface ReserveFormProps {
   lang: Language;
   selectedBikeId?: string;
   onBikeChange?: (bikeId: string) => void;
+  onOpenModal?: () => void;
 }
 
-const BIKES = [
-  {
-    id: 'nmax',
-    name: 'Yamaha NMAX',
-    rate: 175000,
-    labelEN: 'Yamaha NMAX (Maxi Scooter - Most Popular) – Rp 175k/day',
-    labelZH: 'Yamaha NMAX (豪华踏板 - 最受欢迎) – Rp 175k/天',
-    labelID: 'Yamaha NMAX (Maxi Scooter - Paling Populer) – Rp 175rb/hari',
-  },
-  {
-    id: 'scoopy',
-    name: 'Honda Scoopy',
-    rate: 120000,
-    labelEN: 'Honda Scoopy (Retro Style) – Rp 120k/day',
-    labelZH: 'Honda Scoopy (复古风格) – Rp 120k/天',
-    labelID: 'Honda Scoopy (Gaya Retro) – Rp 120rb/hari',
-  },
-  {
-    id: 'beat',
-    name: 'Honda Beat',
-    rate: 100000,
-    labelEN: 'Honda Beat (Compact & Nimble) – Rp 100k/day',
-    labelZH: 'Honda Beat (轻巧灵便) – Rp 100k/天',
-    labelID: 'Honda Beat (Lincah & Irit) – Rp 100rb/hari',
-  },
-];
-
-const TIME_SLOTS = [
-  '7:00 AM',
-  '7:30 AM',
+const HOURLY_TIMES = [
   '8:00 AM',
-  '8:30 AM',
   '9:00 AM',
-  '9:30 AM',
   '10:00 AM',
-  '10:30 AM',
   '11:00 AM',
-  '11:30 AM',
   '12:00 PM',
-  '12:30 PM',
   '1:00 PM',
-  '1:30 PM',
   '2:00 PM',
-  '2:30 PM',
   '3:00 PM',
-  '3:30 PM',
   '4:00 PM',
-  '4:30 PM',
   '5:00 PM',
-  '5:30 PM',
-  '6:00 PM',
-  '6:30 PM',
-  '7:00 PM',
-  '7:30 PM',
-  '8:00 PM',
 ];
 
-const DURATION_OPTIONS = [
-  { days: 1, labelEN: '1 Day (24 Hours)', labelZH: '1 天 (24小时)', labelID: '1 Hari (24 Jam)' },
-  { days: 2, labelEN: '2 Days', labelZH: '2 天', labelID: '2 Hari' },
-  { days: 3, labelEN: '3 Days', labelZH: '3 天', labelID: '3 Hari' },
-  { days: 4, labelEN: '4 Days', labelZH: '4 天', labelID: '4 Hari' },
-  { days: 5, labelEN: '5 Days', labelZH: '5 天', labelID: '5 Hari' },
-  { days: 7, labelEN: '1 Week (7 Days)', labelZH: '1 周 (7天)', labelID: '1 Minggu (7 Hari)' },
+const BIKES = [
+  { id: 'beat', name: 'Honda Beat (or similar)', rate: 100000, labelEN: 'Honda Beat (or similar) – Rp 100k/day', labelZH: 'Honda Beat (或同级车型) – Rp 100k/天', labelID: 'Honda Beat (atau sejenis) – Rp 100rb/hari' },
+  { id: 'scoopy', name: 'Honda Scoopy (or similar)', rate: 120000, labelEN: 'Honda Scoopy (or similar) – Rp 120k/day', labelZH: 'Honda Scoopy (或同级车型) – Rp 120k/天', labelID: 'Honda Scoopy (atau sejenis) – Rp 120rb/hari' },
+  { id: 'nmax', name: 'Yamaha NMAX (or similar)', rate: 175000, labelEN: 'Yamaha NMAX (or similar) – Rp 175k/day', labelZH: 'Yamaha NMAX (或同级车型) – Rp 175k/天', labelID: 'Yamaha NMAX (atau sejenis) – Rp 175rb/hari' },
 ];
 
-// WITA Timezone (UTC+8 - Labuan Bajo) helper
-const getWitaDateObj = () => {
+const LOCATION_OPTIONS_EN = [
+  'Komodo Airport (LBJ)',
+  'Labuan Bajo Town Center',
+  'Waecicu Area (Ayana, Meruorah, Sylvia)',
+  'Pelabuhan / Marina Harbour',
+  'Katamaran / La Prima Hotel',
+  'Marriott Ta\'aktana Resort',
+  'Sudamala / Bintang Flores Resort',
+  'Custom Hotel / Villa / Other',
+];
+
+const LOCATION_OPTIONS_ZH = [
+  '科莫多机场 (LBJ)',
+  '拉布安巴佐镇中心',
+  'Waecicu 区域 (阿雅娜, Meruorah, Sylvia)',
+  '码头 / Marina Harbour',
+  'Katamaran / La Prima 酒店',
+  'Marriott Ta\'aktana 渡假村',
+  'Sudamala / Bintang Flores 渡假村',
+  '自定义酒店 / 民宿 / 其他',
+];
+
+const LOCATION_OPTIONS_ID = [
+  'Komodo Airport (LBJ)',
+  'Labuan Bajo Town Center',
+  'Waecicu Area (Ayana, Meruorah, Sylvia)',
+  'Pelabuhan / Marina Harbour',
+  'Katamaran / La Prima Hotel',
+  'Marriott Ta\'aktana Resort',
+  'Sudamala / Bintang Flores Resort',
+  'Custom Hotel / Villa / Other',
+];
+
+// Helper to get WITA timezone (Labuan Bajo, UTC+8) date object
+const getWitaNow = () => {
   const now = new Date();
   const utcMs = now.getTime() + now.getTimezoneOffset() * 60 * 1000;
   const witaMs = utcMs + 8 * 60 * 60 * 1000;
   return new Date(witaMs);
 };
 
-const getWitaDateISO = (dateObj: Date) => {
-  const y = dateObj.getFullYear();
-  const m = String(dateObj.getMonth() + 1).padStart(2, '0');
-  const d = String(dateObj.getDate()).padStart(2, '0');
-  return `${y}-${m}-${d}`;
-};
+export const ReserveForm: React.FC<ReserveFormProps> = ({ t, lang, selectedBikeId: propSelectedBikeId, onBikeChange, onOpenModal }) => {
+  // Get WITA date and time
+  const witaNow = getWitaNow();
+  const witaYear = witaNow.getFullYear();
+  const witaMonth = String(witaNow.getMonth() + 1).padStart(2, '0');
+  const witaDay = String(witaNow.getDate()).padStart(2, '0');
+  const witaTodayISO = `${witaYear}-${witaMonth}-${witaDay}`;
+  const currentWitaHour = witaNow.getHours(); // e.g. 20 for 20:00
 
-// Convert time slot string like '4:30 PM' to total minutes from midnight
-const parseSlotToMinutes = (slot: string): number => {
-  const [time, period] = slot.split(' ');
-  const [hStr, mStr] = time.split(':');
-  let hour = parseInt(hStr, 10);
-  const min = parseInt(mStr, 10);
-  if (period === 'PM' && hour < 12) hour += 12;
-  if (period === 'AM' && hour === 12) hour = 0;
-  return hour * 60 + min;
-};
+  // Calculate WITA tomorrow
+  const witaTomorrowObj = new Date(witaNow);
+  witaTomorrowObj.setDate(witaTomorrowObj.getDate() + 1);
+  const witaTomorrowISO = `${witaTomorrowObj.getFullYear()}-${String(witaTomorrowObj.getMonth() + 1).padStart(2, '0')}-${String(witaTomorrowObj.getDate()).padStart(2, '0')}`;
 
-// Calculate initial pickup date (Today or Tomorrow if past operating hours today)
-const getInitialPickupDate = () => {
-  const witaNow = getWitaDateObj();
-  const currentWitaMinutes = witaNow.getHours() * 60 + witaNow.getMinutes();
-  const minAllowedMinutes = currentWitaMinutes + 45; // 45 min buffer
-  const lastSlotMinutes = parseSlotToMinutes(TIME_SLOTS[TIME_SLOTS.length - 1]);
+  const witaDayAfterObj = new Date(witaNow);
+  witaDayAfterObj.setDate(witaDayAfterObj.getDate() + 2);
+  const witaDayAfterISO = `${witaDayAfterObj.getFullYear()}-${String(witaDayAfterObj.getMonth() + 1).padStart(2, '0')}-${String(witaDayAfterObj.getDate()).padStart(2, '0')}`;
 
-  if (minAllowedMinutes > lastSlotMinutes) {
-    const tomorrow = new Date(witaNow);
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    return getWitaDateISO(tomorrow);
-  }
-  return getWitaDateISO(witaNow);
-};
-
-export const ReserveForm: React.FC<ReserveFormProps> = ({
-  lang,
-  selectedBikeId: propSelectedBikeId,
-}) => {
-  // WITA today ISO string
-  const witaTodayISO = getWitaDateISO(getWitaDateObj());
+  // If today in WITA is past operating hours (past 5:00 PM / 17:00), default pickup to tomorrow!
+  const isTodayPastHours = currentWitaHour >= 17;
+  const initialPickupDate = isTodayPastHours ? witaTomorrowISO : witaTodayISO;
+  const initialDropoffDate = isTodayPastHours ? witaDayAfterISO : witaTomorrowISO;
 
   // State
-  const [bikeId, setBikeId] = useState<string>(propSelectedBikeId || 'nmax');
-  const [quantity, setQuantity] = useState<number>(1);
-  const [pickupDate, setPickupDate] = useState<string>(getInitialPickupDate());
-  const [pickupTime, setPickupTime] = useState<string>('4:30 PM');
-  const [durationDays, setDurationDays] = useState<number>(1);
-  const [pickupMethod, setPickupMethod] = useState<'hotel' | 'airport' | 'garage'>('hotel');
-  const [hotelName, setHotelName] = useState<string>('');
+  const [selectedBikeId, setSelectedBikeId] = useState(propSelectedBikeId || '');
 
-  // Sync prop selected bike if passed
   useEffect(() => {
     if (propSelectedBikeId) {
-      setBikeId(propSelectedBikeId);
+      setSelectedBikeId(propSelectedBikeId);
     }
   }, [propSelectedBikeId]);
+  const [pickupDate, setPickupDate] = useState(initialPickupDate);
+  const [pickupTime, setPickupTime] = useState('8:00 AM');
+  const [dropoffDate, setDropoffDate] = useState(initialDropoffDate);
+  const [dropoffTime, setDropoffTime] = useState('8:00 AM');
 
-  // Available pickup times calculated dynamically in realtime (min 45 mins buffer for TODAY WITA)
-  const availablePickupTimes = useMemo(() => {
-    const witaNow = getWitaDateObj();
-    const currentTodayISO = getWitaDateISO(witaNow);
+  // Location state
+  const [deliveryAreaOption, setDeliveryAreaOption] = useState('');
+  const [customDeliveryText, setCustomDeliveryText] = useState('');
+  
+  const [returnAreaOption, setReturnAreaOption] = useState('');
+  const [customReturnText, setCustomReturnText] = useState('');
 
-    if (pickupDate === currentTodayISO) {
-      const currentWitaMinutes = witaNow.getHours() * 60 + witaNow.getMinutes();
-      const minAllowedMinutes = currentWitaMinutes + 45; // 45 minutes preparation buffer
-      return TIME_SLOTS.filter((slot) => parseSlotToMinutes(slot) >= minAllowedMinutes);
+  const [socialHandle, setSocialHandle] = useState('');
+  const [ageConfirmed, setAgeConfirmed] = useState(false);
+
+  // Helper to parse time string to hour number (0 - 23)
+  const parseHour = (timeStr: string): number => {
+    let hour = 8;
+    if (timeStr.includes('AM') || timeStr.includes('PM')) {
+      const parts = timeStr.replace(/(AM|PM)/i, '').trim().split(':');
+      hour = parseInt(parts[0], 10);
+      if (timeStr.toUpperCase().includes('PM') && hour < 12) hour += 12;
+      if (timeStr.toUpperCase().includes('AM') && hour === 12) hour = 0;
     }
+    return hour;
+  };
 
-    return TIME_SLOTS;
-  }, [pickupDate]);
+  // Filter pickup times dynamically based on selected date & current WITA time
+  const availablePickupTimes = useMemo(() => {
+    if (pickupDate === witaTodayISO) {
+      // Allow only hours strictly greater than current WITA hour
+      const filtered = HOURLY_TIMES.filter((timeStr) => {
+        const hour = parseHour(timeStr);
+        return hour > currentWitaHour;
+      });
+      return filtered;
+    }
+    return HOURLY_TIMES;
+  }, [pickupDate, witaTodayISO, currentWitaHour]);
 
-  // Auto-adjust pickupTime if selected time is not available
+  // Ensure pickupTime is valid whenever availablePickupTimes changes
   useEffect(() => {
-    if (availablePickupTimes.length > 0) {
-      if (!availablePickupTimes.includes(pickupTime)) {
-        setPickupTime(availablePickupTimes[0]);
-      }
+    if (availablePickupTimes.length > 0 && !availablePickupTimes.includes(pickupTime)) {
+      setPickupTime(availablePickupTimes[0]);
     }
   }, [availablePickupTimes, pickupTime]);
 
-  // Selected Bike Object
-  const currentBike = useMemo(() => {
-    return BIKES.find((b) => b.id === bikeId) || BIKES[0];
-  }, [bikeId]);
+  // Minimum dropoff date calculation: must be at least same date or 1 day after pickup
+  const minDropoffDateISO = useMemo(() => {
+    if (!pickupDate) return witaTodayISO;
+    const pDate = new Date(pickupDate);
+    pDate.setDate(pDate.getDate() + 1);
+    return pDate.toISOString().split('T')[0];
+  }, [pickupDate, witaTodayISO]);
 
-  // Delivery Fee Calculation per unit
-  const deliveryFeePerUnit = useMemo(() => {
-    if (pickupMethod === 'hotel' || pickupMethod === 'airport') {
-      return 20000;
-    }
-    return 0; // garage is free
-  }, [pickupMethod]);
+  // Handle pickup date change & ensure dropoff date is updated if invalid
+  const handlePickupDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newPickup = e.target.value;
+    setPickupDate(newPickup);
 
-  // Total Estimated Price Calculation
-  const totalEstimate = useMemo(() => {
-    const baseRental = currentBike.rate * quantity * durationDays;
-    const totalDeliveryFee = deliveryFeePerUnit * quantity;
-    return baseRental + totalDeliveryFee;
-  }, [currentBike.rate, quantity, durationDays, deliveryFeePerUnit]);
+    const pDate = new Date(newPickup);
+    const minDrop = new Date(pDate);
+    minDrop.setDate(minDrop.getDate() + 1);
+    const minDropISO = minDrop.toISOString().split('T')[0];
 
-  // Delivery Tag Text
-  const deliveryTagText = useMemo(() => {
-    if (pickupMethod === 'hotel') {
-      return quantity > 1 ? `+Rp ${(20000 * quantity) / 1000}k delivery (${quantity} units)` : '+Rp 20k delivery';
+    if (!dropoffDate || dropoffDate <= newPickup) {
+      setDropoffDate(minDropISO);
     }
-    if (pickupMethod === 'airport') {
-      return quantity > 1 ? `+Rp ${(20000 * quantity) / 1000}k airport delivery` : '+Rp 20k airport delivery';
-    }
-    return lang === 'EN' ? 'Free garage pickup' : lang === 'ZH' ? '自提免服务费' : 'Gratis ambil di garage';
-  }, [pickupMethod, quantity, lang]);
+  };
 
-  // Location details string for summary & WhatsApp
-  const locationDetailText = useMemo(() => {
-    if (pickupMethod === 'hotel') {
-      return hotelName.trim() || 'Hotel / Villa';
-    }
-    if (pickupMethod === 'airport') {
-      return 'Komodo International Airport (LBJ)';
-    }
-    return 'HelloBajo Main Garage';
-  }, [pickupMethod, hotelName]);
+  // Live Price Calculator
+  const calculation = useMemo(() => {
+    const currentBike = BIKES.find((b) => b.id === selectedBikeId) || BIKES[0];
+    const dailyRate = currentBike.rate;
 
-  // Handle Form Submission
+    if (!pickupDate || !dropoffDate) {
+      return {
+        fullDays: 1,
+        overtimeHours: 0,
+        basePrice: dailyRate,
+        overtimePrice: 0,
+        deliveryFee: 40000,
+        totalEstimate: dailyRate + 40000,
+      };
+    }
+
+    const pDate = new Date(pickupDate);
+    pDate.setHours(parseHour(pickupTime), 0, 0, 0);
+
+    const dDate = new Date(dropoffDate);
+    dDate.setHours(parseHour(dropoffTime), 0, 0, 0);
+
+    // Difference in milliseconds and hours
+    const diffMs = dDate.getTime() - pDate.getTime();
+    let totalHours = Math.max(1, Math.round(diffMs / (1000 * 60 * 60)));
+
+    // Minimum rental is 1 day (24 hours)
+    if (totalHours < 24) {
+      totalHours = 24;
+    }
+
+    let fullDays = Math.floor(totalHours / 24);
+    let overtimeHours = totalHours % 24;
+
+    // Overtime logic: Rp 15,000 / hour, up to 4 hours max.
+    // If overtime is 5+ hours, automatically count as +1 full additional day rental.
+    if (overtimeHours >= 5) {
+      fullDays += 1;
+      overtimeHours = 0;
+    }
+
+    const basePrice = fullDays * dailyRate;
+    const overtimePrice = overtimeHours * 15000;
+    const deliveryFee = 40000; // Rp 20,000 for pickup + Rp 20,000 for drop-off
+    const totalEstimate = basePrice + overtimePrice + deliveryFee;
+
+    return {
+      fullDays,
+      overtimeHours,
+      basePrice,
+      overtimePrice,
+      deliveryFee,
+      totalEstimate,
+    };
+  }, [selectedBikeId, pickupDate, pickupTime, dropoffDate, dropoffTime]);
+
+  // Form Submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (pickupMethod === 'hotel' && !hotelName.trim()) {
-      alert(
-        lang === 'EN'
-          ? 'Please enter your Hotel / Villa name.'
-          : lang === 'ZH'
-          ? '请输入您的酒店或民宿名称。'
-          : 'Harap masukkan nama Hotel / Villa tempat Anda menginap.'
-      );
+    if (!selectedBikeId) {
+      alert(lang === 'EN' ? 'Please select a scooter model.' : lang === 'ZH' ? '请选择摩托车型号。' : 'Harap pilih jenis motor terlebih dahulu.');
       return;
     }
 
-    let methodText = '';
-    if (pickupMethod === 'hotel') methodText = 'Deliver to Hotel / Villa';
-    else if (pickupMethod === 'airport') methodText = 'Komodo International Airport (LBJ)';
-    else methodText = 'Pick up at Garage (Free)';
+    if (!deliveryAreaOption) {
+      alert(lang === 'EN' ? 'Please select a delivery / pickup location area.' : lang === 'ZH' ? '请选择送车/取车地点。' : 'Harap pilih area lokasi pengantaran motor.');
+      return;
+    }
+
+    if (!returnAreaOption) {
+      alert(lang === 'EN' ? 'Please select a return / drop-off location area.' : lang === 'ZH' ? '请选择还车地点。' : 'Harap pilih area lokasi pengembalian motor.');
+      return;
+    }
+
+    if (!ageConfirmed) {
+      alert(lang === 'EN' ? 'Please confirm rider age (20 - 65 years).' : lang === 'ZH' ? '请确认骑行者年龄在 20 - 65 岁之间。' : 'Harap konfirmasi usia pengendara (20 - 65 tahun).');
+      return;
+    }
+
+    const selectedBike = BIKES.find((b) => b.id === selectedBikeId) || BIKES[0];
+
+    // Final Location Strings
+    const finalPickupLocation =
+      deliveryAreaOption === 'Custom Hotel / Villa / Other'
+        ? customDeliveryText || 'Custom Hotel / Villa'
+        : deliveryAreaOption;
+
+    let finalReturnLocation = '';
+    if (returnAreaOption === 'Same as Delivery Area') {
+      finalReturnLocation = `Same as Delivery Area (${finalPickupLocation})`;
+    } else if (returnAreaOption === 'Custom Hotel / Villa / Other') {
+      finalReturnLocation = customReturnText || 'Custom Return Location';
+    } else {
+      finalReturnLocation = returnAreaOption;
+    }
 
     const formattedMessage =
       lang === 'EN'
         ? `Hi HelloBajo! I would like to book a scooter:\n\n` +
-          `⚡ *INSTANT SCOOTER BOOKING*\n` +
-          `• *Model:* ${currentBike.name}\n` +
-          `• *Quantity:* ${quantity} Unit${quantity > 1 ? 's' : ''}\n` +
+          `🛵 *SCOOTER BOOKING REQUEST*\n` +
+          `• *Bike:* ${selectedBike.name}\n` +
           `• *Pick-up Date & Time:* ${pickupDate} at ${pickupTime}\n` +
-          `• *Duration:* ${durationDays} Day${durationDays > 1 ? 's' : ''}\n` +
-          `• *Pick-up Method:* ${methodText}\n` +
-          (pickupMethod === 'hotel' ? `• *Hotel / Villa:* ${hotelName}\n\n` : `\n`) +
-          `💰 *ESTIMATED TOTAL:* *Rp ${totalEstimate.toLocaleString('id-ID')}*\n` +
-          `(${quantity}x ${currentBike.name} @ Rp ${(currentBike.rate / 1000).toLocaleString()}k/day for ${durationDays} day${durationDays > 1 ? 's' : ''}` +
-          (deliveryFeePerUnit > 0 ? ` + Rp ${(deliveryFeePerUnit * quantity).toLocaleString('id-ID')} delivery fee` : ' + Free pickup') +
-          `)\n\n` +
-          `Please confirm unit availability. Thank you!`
+          `• *Drop-off Date & Time:* ${dropoffDate} at ${dropoffTime}\n` +
+          `• *Pickup Location:* ${finalPickupLocation}\n` +
+          `• *Return Location:* ${finalReturnLocation}\n` +
+          `• *Social Handle:* ${socialHandle || 'Will provide in chat'}\n` +
+          `• *Rider Age Verified:* Yes (20-65 yrs)\n\n` +
+          `💰 *PRICE ESTIMATE BREAKDOWN*\n` +
+          `• Base Rental (${calculation.fullDays} day${calculation.fullDays > 1 ? 's' : ''}): Rp ${calculation.basePrice.toLocaleString('id-ID')}\n` +
+          (calculation.overtimeHours > 0 ? `• Overtime (${calculation.overtimeHours} hrs @ Rp 15k/hr): + Rp ${calculation.overtimePrice.toLocaleString('id-ID')}\n` : '') +
+          `• Delivery & Pickup Fee: + Rp ${calculation.deliveryFee.toLocaleString('id-ID')} (Rp 20k/trip)\n` +
+          `• *TOTAL ESTIMATE:* *Rp ${calculation.totalEstimate.toLocaleString('id-ID')}*\n\n` +
+          `Please confirm availability. Thank you!`
         : lang === 'ZH'
         ? `你好 HelloBajo！我想预订摩托车：\n\n` +
-          `⚡ *极速摩托车预订*\n` +
-          `• *车型:* ${currentBike.name}\n` +
-          `• *数量:* ${quantity} 台\n` +
+          `🛵 *摩托车预订请求*\n` +
+          `• *车型:* ${selectedBike.name}\n` +
           `• *取车日期与时间:* ${pickupDate} ${pickupTime}\n` +
-          `• *租用天数:* ${durationDays} 天\n` +
-          `• *取车方式:* ${methodText}\n` +
-          (pickupMethod === 'hotel' ? `• *酒店/送车地点:* ${hotelName}\n\n` : `\n`) +
-          `💰 *预估总额:* *Rp ${totalEstimate.toLocaleString('id-ID')}*\n\n` +
+          `• *还车日期与时间:* ${dropoffDate} ${dropoffTime}\n` +
+          `• *送车地点:* ${finalPickupLocation}\n` +
+          `• *还车地点:* ${finalReturnLocation}\n` +
+          `• *社交账号:* ${socialHandle || '稍后在聊天中提供'}\n` +
+          `• *骑行者年龄核验:* 已确认 (20-65岁)\n\n` +
+          `💰 *预估费用明细*\n` +
+          `• 基础租金 (${calculation.fullDays} 天): Rp ${calculation.basePrice.toLocaleString('id-ID')}\n` +
+          (calculation.overtimeHours > 0 ? `• 超时费 (${calculation.overtimeHours} 小时 @ Rp 15k/小时): + Rp ${calculation.overtimePrice.toLocaleString('id-ID')}\n` : '') +
+          `• 接送服务费: + Rp ${calculation.deliveryFee.toLocaleString('id-ID')} (Rp 20k/单程)\n` +
+          `• *预估总额:* *Rp ${calculation.totalEstimate.toLocaleString('id-ID')}*\n\n` +
           `请确认是否有车。谢谢！`
-        : `Halo HelloBajo! Saya mau sewa motor:\n\n` +
-          `⚡ *PEMESANAN INSTANT MOTOR*\n` +
-          `• *Model Motor:* ${currentBike.name}\n` +
-          `• *Jumlah Unit:* ${quantity} Unit\n` +
+        : `Halo HelloBajo! Saya mau reservasi sewa motor:\n\n` +
+          `🛵 *PEMESANAN SEWA MOTOR*\n` +
+          `• *Pilihan Motor:* ${selectedBike.name}\n` +
           `• *Tanggal & Jam Ambil:* ${pickupDate} jam ${pickupTime}\n` +
-          `• *Durasi Sewa:* ${durationDays} Hari\n` +
-          `• *Metode Penyerahan:* ${methodText}\n` +
-          (pickupMethod === 'hotel' ? `• *Nama Hotel / Villa:* ${hotelName}\n\n` : `\n`) +
-          `💰 *TOTAL ESTIMASI:* *Rp ${totalEstimate.toLocaleString('id-ID')}*\n\n` +
+          `• *Tanggal & Jam Kembali:* ${dropoffDate} jam ${dropoffTime}\n` +
+          `• *Lokasi Antar / Hotel:* ${finalPickupLocation}\n` +
+          `• *Lokasi Pengembalian:* ${finalReturnLocation}\n` +
+          `• *Social Media:* ${socialHandle || 'Akan dikirim di chat'}\n` +
+          `• *Pengendara 20-65 Thn:* Ya\n\n` +
+          `💰 *RINCIAN ESTIMASI HARGA*\n` +
+          `• Sewa Pokok (${calculation.fullDays} hari): Rp ${calculation.basePrice.toLocaleString('id-ID')}\n` +
+          (calculation.overtimeHours > 0 ? `• Overtime (${calculation.overtimeHours} jam @ Rp 15rb/jam): + Rp ${calculation.overtimePrice.toLocaleString('id-ID')}\n` : '') +
+          `• Ongkir Antar & Jemput: + Rp ${calculation.deliveryFee.toLocaleString('id-ID')} (Rp 20rb/trip)\n` +
+          `• *TOTAL ESTIMASI:* *Rp ${calculation.totalEstimate.toLocaleString('id-ID')}*\n\n` +
           `Mohon konfirmasi ketersediaan unit. Terima kasih!`;
 
     window.open(`https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${encodeURIComponent(formattedMessage)}`, '_blank');
   };
 
   return (
-    <section id="reserve" className="relative bg-[#faf8f5] pt-2 pb-16 px-4 sm:px-6 lg:px-8 scroll-mt-20">
-      <div className="max-w-4xl mx-auto">
+    <section id="reserve" className="py-20 bg-[#faf8f5] border-t border-stone-200/60 scroll-mt-20 sm:scroll-mt-24">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Instant Scooter Booking Card Container */}
-        <div className="bg-white rounded-3xl shadow-xl sm:shadow-2xl border border-stone-200/90 p-5 sm:p-8 lg:p-10 transition-all">
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <span className="text-xs font-bold tracking-widest text-teal-600 uppercase bg-teal-50 px-3.5 py-1.5 rounded-full border border-teal-200/80">
+            {t.reserve.tag}
+          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mt-3">
+            {t.reserve.title}
+          </h2>
+          <p className="text-slate-700 mt-2 text-sm sm:text-base font-medium">
+            {t.reserve.subtitle}
+          </p>
+        </div>
+
+        {/* Clean Reservation Form Card */}
+        <div className="bg-white rounded-3xl shadow-xl shadow-stone-200/60 border border-stone-200/80 p-5 sm:p-8">
           
-          {/* Card Top Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-stone-200/80">
-            <div className="flex items-center gap-3.5">
-              <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-teal-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-teal-600/20">
-                <Zap className="w-6 h-6 fill-white text-teal-600" />
-              </div>
-              <div>
-                <div className="flex items-center gap-2">
-                  <h3 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-                    Instant Scooter Booking
-                  </h3>
-                  <span className="px-2.5 py-0.5 text-[10px] sm:text-xs font-black uppercase tracking-wider bg-teal-50 text-teal-700 border border-teal-200/80 rounded-full">
-                    EXPRESS
-                  </span>
+          {/* Quick Express Banner Callout */}
+          {onOpenModal && (
+            <div className="mb-6 p-4 rounded-2xl bg-slate-900 text-white flex flex-col sm:flex-row items-center justify-between gap-3 border border-slate-800 shadow-md">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center shrink-0 border border-teal-500/30">
+                  <span className="text-xl">⚡</span>
                 </div>
-                <p className="text-xs sm:text-sm text-slate-500 font-medium mt-0.5">
-                  Fast booking for tourists • Direct WhatsApp chat
+                <div>
+                  <h4 className="text-xs sm:text-sm font-extrabold text-white">
+                    {lang === 'EN' ? 'Need a Scooter RIGHT NOW?' : lang === 'ZH' ? '急需用车？即时送达' : 'Butuh Motor SEKARANG (Urgent)?'}
+                  </h4>
+                  <p className="text-[11px] text-slate-300 font-medium">
+                    {lang === 'EN' ? 'Fast 45-min delivery • Instant unit selector & cost calculation' : lang === 'ZH' ? '45分钟极速送达 • 实时计算费用' : 'Persiapan 45 menit • Hitung estimasi real-time'}
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={onOpenModal}
+                className="w-full sm:w-auto px-5 py-2.5 bg-teal-600 hover:bg-teal-500 text-white font-black text-xs rounded-xl shadow-md transition-all whitespace-nowrap cursor-pointer"
+              >
+                {lang === 'EN' ? 'OPEN INSTANT BOOKING' : lang === 'ZH' ? '打开即时预订' : 'BUKA FLOATING FORM'}
+              </button>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            
+            {/* 1. BIKE SELECT */}
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                {t.reserve.labels.bike} *
+              </label>
+              <select
+                required
+                value={selectedBikeId}
+                onChange={(e) => setSelectedBikeId(e.target.value)}
+                className={`w-full px-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all cursor-pointer font-medium ${
+                  !selectedBikeId ? 'text-slate-400' : 'text-slate-900'
+                }`}
+              >
+                <option value="" disabled>
+                  {lang === 'EN' ? '-- Select Scooter Model --' : lang === 'ZH' ? '-- 选择摩托车型号 --' : '-- Pilih Model Motor --'}
+                </option>
+                {BIKES.map((bike) => (
+                  <option key={bike.id} value={bike.id} className="text-slate-800">
+                    {lang === 'EN' ? bike.labelEN : lang === 'ZH' ? bike.labelZH : bike.labelID}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* 2. PICK-UP DATE & TIME */}
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                {t.reserve.labels.pickupDate} *
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <div className="relative">
+                  <Calendar className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <input
+                    type="date"
+                    required
+                    min={witaTodayISO}
+                    value={pickupDate}
+                    onChange={handlePickupDateChange}
+                    className="w-full pl-10 pr-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all cursor-pointer font-medium"
+                  />
+                </div>
+                <div className="relative">
+                  <Clock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <select
+                    required
+                    value={pickupTime}
+                    onChange={(e) => setPickupTime(e.target.value)}
+                    className="w-full pl-10 pr-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all cursor-pointer font-medium"
+                  >
+                    {availablePickupTimes.length > 0 ? (
+                      availablePickupTimes.map((time) => (
+                        <option key={time} value={time}>
+                          {time}
+                        </option>
+                      ))
+                    ) : (
+                      <option value="">
+                        {lang === 'EN' ? 'Closed for today' : lang === 'ZH' ? '今日营业已结束' : 'Hari ini sudah tutup'}
+                      </option>
+                    )}
+                  </select>
+                </div>
+              </div>
+              {pickupDate === witaTodayISO && availablePickupTimes.length === 0 && (
+                <p className="text-xs font-semibold text-amber-800 bg-amber-50 p-2 rounded-lg border border-amber-200 mt-2 flex items-center gap-1.5">
+                  <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
+                  <span>
+                    {lang === 'EN'
+                      ? 'Operational hours for today (8:00 AM - 5:00 PM WITA) have ended. Please select tomorrow.'
+                      : lang === 'ZH'
+                      ? '今日营业时间 (08:00 - 17:00 WITA) 已结束，请选择明日日期。'
+                      : 'Jam operasional hari ini (08:00 - 17:00 WITA) telah selesai. Silakan pilih tanggal besok.'}
+                  </span>
                 </p>
+              )}
+            </div>
+
+            {/* 3. DROP-OFF DATE & TIME */}
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                {t.reserve.labels.dropoffDate} *
+              </label>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                <div className="relative">
+                  <Calendar className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <input
+                    type="date"
+                    required
+                    min={minDropoffDateISO}
+                    value={dropoffDate}
+                    onChange={(e) => setDropoffDate(e.target.value)}
+                    className="w-full pl-10 pr-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all cursor-pointer font-medium"
+                  />
+                </div>
+                <div className="relative">
+                  <Clock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <select
+                    required
+                    value={dropoffTime}
+                    onChange={(e) => setDropoffTime(e.target.value)}
+                    className="w-full pl-10 pr-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all cursor-pointer font-medium"
+                  >
+                    {HOURLY_TIMES.map((time) => (
+                      <option key={time} value={time}>
+                        {time}
+                      </option>
+                    ))}
+                  </select>
+                </div>
               </div>
             </div>
 
-            {/* Zero Cash Deposit Badge */}
-            <div className="self-start sm:self-auto inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-emerald-50 text-emerald-800 border border-emerald-200/80 text-xs font-extrabold shadow-2xs">
-              <Lock className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-              <span>Zero Cash Deposit</span>
-            </div>
-          </div>
-
-          {/* Booking Form Fields */}
-          <form onSubmit={handleSubmit} className="mt-6 space-y-5">
-            
-            {/* ROW 1: UNIT MODEL & QUANTITY */}
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-              
-              {/* UNIT MODEL */}
-              <div className="md:col-span-8">
-                <label className="block text-xs font-black text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                  <Bike className="w-4 h-4 text-teal-600" />
-                  <span>UNIT MODEL *</span>
-                </label>
+            {/* 4. HOTEL / DELIVERY AREA */}
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                {t.reserve.labels.hotelPickup} *
+              </label>
+              <div className="relative">
+                <MapPin className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <select
                   required
-                  value={bikeId}
-                  onChange={(e) => setBikeId(e.target.value)}
-                  className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-2xl text-xs sm:text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all cursor-pointer shadow-2xs"
+                  value={deliveryAreaOption}
+                  onChange={(e) => setDeliveryAreaOption(e.target.value)}
+                  className={`w-full pl-10 pr-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all cursor-pointer font-medium ${
+                    !deliveryAreaOption ? 'text-slate-400' : 'text-slate-900'
+                  }`}
                 >
-                  {BIKES.map((bike) => (
-                    <option key={bike.id} value={bike.id}>
-                      {lang === 'EN' ? bike.labelEN : lang === 'ZH' ? bike.labelZH : bike.labelID}
+                  <option value="" disabled>
+                    {lang === 'EN' ? '-- Select Delivery / Hotel Area --' : lang === 'ZH' ? '-- 选择送车/酒店区域 --' : '-- Pilih Area Pengantaran --'}
+                  </option>
+                  {(lang === 'EN' ? LOCATION_OPTIONS_EN : lang === 'ZH' ? LOCATION_OPTIONS_ZH : LOCATION_OPTIONS_ID).map((loc, i) => (
+                    <option key={i} value={loc} className="text-slate-800">
+                      {loc}
                     </option>
                   ))}
                 </select>
               </div>
 
-              {/* QUANTITY */}
-              <div className="md:col-span-4">
-                <label className="block text-xs font-black text-slate-700 uppercase tracking-wider mb-2">
-                  <span>QUANTITY *</span>
-                </label>
-                <select
-                  required
-                  value={quantity}
-                  onChange={(e) => setQuantity(Number(e.target.value))}
-                  className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-2xl text-xs sm:text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all cursor-pointer shadow-2xs"
-                >
-                  <option value={1}>1 Unit</option>
-                  <option value={2}>2 Units</option>
-                  <option value={3}>3 Units</option>
-                  <option value={4}>4 Units</option>
-                  <option value={5}>5 Units</option>
-                </select>
-              </div>
-
-            </div>
-
-            {/* ROW 2: PICK-UP DATE & PICK-UP TIME */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              
-              {/* PICK-UP DATE */}
-              <div>
-                <label className="block text-xs font-black text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                  <Calendar className="w-4 h-4 text-teal-600" />
-                  <span>PICK-UP DATE *</span>
-                </label>
-                <input
-                  type="date"
-                  required
-                  min={witaTodayISO}
-                  value={pickupDate}
-                  onChange={(e) => setPickupDate(e.target.value)}
-                  className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-2xl text-xs sm:text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all cursor-pointer shadow-2xs"
-                />
-              </div>
-
-              {/* PICK-UP TIME */}
-              <div>
-                <label className="block text-xs font-black text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                  <Clock className="w-4 h-4 text-teal-600" />
-                  <span>PICK-UP TIME (MIN. 45 MIN PREP) *</span>
-                </label>
-                <select
-                  required
-                  value={pickupTime}
-                  onChange={(e) => setPickupTime(e.target.value)}
-                  disabled={availablePickupTimes.length === 0}
-                  className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-2xl text-xs sm:text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all cursor-pointer shadow-2xs disabled:bg-stone-100 disabled:text-slate-400"
-                >
-                  {availablePickupTimes.length > 0 ? (
-                    availablePickupTimes.map((time) => (
-                      <option key={time} value={time}>
-                        {time}
-                      </option>
-                    ))
-                  ) : (
-                    <option value="">
-                      {lang === 'EN'
-                        ? 'Fully booked for today • Select tomorrow'
-                        : lang === 'ZH'
-                        ? '今日预订已满 • 请选择明日'
-                        : 'Jam operasional hari ini selesai • Pilih tanggal besok'}
-                    </option>
-                  )}
-                </select>
-              </div>
-
-            </div>
-
-            {/* REALTIME TIME WARNING IF TODAY HAS NO SLOTS LEFT */}
-            {pickupDate === witaTodayISO && availablePickupTimes.length === 0 && (
-              <div className="p-3 bg-amber-50 rounded-xl border border-amber-200 text-amber-900 text-xs font-bold flex items-center gap-2">
-                <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
-                <span>
-                  {lang === 'EN'
-                    ? 'Earliest pickup requires at least 45 minutes preparation time. Today operating hours have ended. Please select tomorrow.'
-                    : lang === 'ZH'
-                    ? '最快取车需要至少 45 分钟准备时间。今日可预约时间已过，请选择明天。'
-                    : 'Pengambilan motor membutuhkan waktu penyiapan minimal 45 menit. Jam operasional hari ini sudah selesai. Silakan pilih tanggal besok.'}
-                </span>
-              </div>
-            )}
-
-            {/* ROW 3: PICK-UP METHOD & CONDITIONAL HOTEL / VILLA NAME */}
-            <div className={`grid grid-cols-1 ${pickupMethod === 'hotel' ? 'md:grid-cols-2' : ''} gap-4`}>
-              
-              {/* PICK-UP METHOD */}
-              <div>
-                <label className="block text-xs font-black text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-1.5">
-                  <MapPin className="w-4 h-4 text-teal-600" />
-                  <span>PICK-UP METHOD *</span>
-                </label>
-                <select
-                  required
-                  value={pickupMethod}
-                  onChange={(e) => setPickupMethod(e.target.value as 'hotel' | 'airport' | 'garage')}
-                  className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-2xl text-xs sm:text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all cursor-pointer shadow-2xs"
-                >
-                  <option value="hotel">🛵 Deliver to Hotel / Villa (+Rp 20k/unit)</option>
-                  <option value="airport">✈️ Komodo International Airport (LBJ) (+Rp 20k/unit)</option>
-                  <option value="garage">🏢 Pick up at Garage (Free)</option>
-                </select>
-              </div>
-
-              {/* HOTEL / VILLA NAME (ONLY SHOWN IF PICKUP METHOD IS HOTEL) */}
-              {pickupMethod === 'hotel' && (
-                <div>
-                  <label className="block text-xs font-black text-slate-700 uppercase tracking-wider mb-2">
-                    <span>HOTEL / VILLA NAME *</span>
-                  </label>
+              {/* Custom Input when Custom Hotel is selected */}
+              {(deliveryAreaOption === 'Custom Hotel / Villa / Other' || deliveryAreaOption === '自定义酒店 / 民宿 / 其他') && (
+                <div className="mt-2">
                   <input
                     type="text"
                     required
-                    value={hotelName}
-                    onChange={(e) => setHotelName(e.target.value)}
-                    placeholder="e.g., Ayana, Meruorah, Sudamala..."
-                    className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-2xl text-xs sm:text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all shadow-2xs"
+                    value={customDeliveryText}
+                    onChange={(e) => setCustomDeliveryText(e.target.value)}
+                    placeholder={lang === 'EN' ? 'Type hotel / villa name or address...' : lang === 'ZH' ? '请输入酒店/民宿名称或详细地址...' : 'Ketik nama hotel / villa / alamat...'}
+                    className="w-full px-3.5 py-2.5 bg-amber-50/60 border border-amber-300 rounded-xl text-xs sm:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500/30 font-medium"
                   />
                 </div>
               )}
-
             </div>
 
-            {/* OPTIONAL RENTAL DURATION / DAYS SELECTOR */}
-            <div className="pt-1">
-              <div className="flex items-center justify-between mb-1.5">
-                <label className="block text-xs font-black text-slate-700 uppercase tracking-wider">
-                  RENTAL DURATION
-                </label>
-                <span className="text-xs text-teal-700 font-bold">
-                  {durationDays} Day{durationDays > 1 ? 's' : ''}
+            {/* 5. RETURN AREA / DROP-OFF */}
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                {t.reserve.labels.hotelDropoff} *
+              </label>
+              <div className="relative">
+                <MapPin className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <select
+                  required
+                  value={returnAreaOption}
+                  onChange={(e) => setReturnAreaOption(e.target.value)}
+                  className={`w-full pl-10 pr-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all cursor-pointer font-medium ${
+                    !returnAreaOption ? 'text-slate-400' : 'text-slate-900'
+                  }`}
+                >
+                  <option value="" disabled>
+                    {lang === 'EN' ? '-- Select Return / Drop-off Area --' : lang === 'ZH' ? '-- 选择还车/退车区域 --' : '-- Pilih Area Pengembalian --'}
+                  </option>
+                  <option value="Same as Delivery Area" className="text-slate-800">
+                    {lang === 'EN' ? 'Same as Delivery Area' : lang === 'ZH' ? '与送车地点相同' : 'Sama dengan Lokasi Antar'}
+                  </option>
+                  {(lang === 'EN' ? LOCATION_OPTIONS_EN : lang === 'ZH' ? LOCATION_OPTIONS_ZH : LOCATION_OPTIONS_ID).map((loc, i) => (
+                    <option key={i} value={loc} className="text-slate-800">
+                      {loc}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Custom Input when Custom Return is selected */}
+              {(returnAreaOption === 'Custom Hotel / Villa / Other' || returnAreaOption === '自定义酒店 / 民宿 / 其他') && (
+                <div className="mt-2">
+                  <input
+                    type="text"
+                    required
+                    value={customReturnText}
+                    onChange={(e) => setCustomReturnText(e.target.value)}
+                    placeholder={lang === 'EN' ? 'Type return hotel / location name...' : lang === 'ZH' ? '请输入还车地点/酒店名称...' : 'Ketik lokasi pengembalian...'}
+                    className="w-full px-3.5 py-2.5 bg-amber-50/60 border border-amber-300 rounded-xl text-xs sm:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500/30 font-medium"
+                  />
+                </div>
+              )}
+            </div>
+
+            {/* 6. SOCIAL HANDLE */}
+            <div>
+              <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+                {t.reserve.labels.social} *
+              </label>
+              <div className="relative">
+                <AtSign className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <input
+                  type="text"
+                  required
+                  value={socialHandle}
+                  onChange={(e) => setSocialHandle(e.target.value)}
+                  placeholder={lang === 'EN' ? '@username (Instagram / TikTok / Facebook)' : lang === 'ZH' ? '@社交账号 (用于核验的 Instagram / TikTok / 脸书账号)' : '@username (Nama Instagram / TikTok / Facebook)'}
+                  className="w-full pl-10 pr-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all font-medium"
+                />
+              </div>
+            </div>
+
+            {/* 7. AGE CONFIRMATION CHECKBOX */}
+            <div className="p-3.5 rounded-xl bg-teal-50/60 border border-teal-200/70 flex items-center gap-2.5">
+              <input
+                type="checkbox"
+                id="ageCheck"
+                required
+                checked={ageConfirmed}
+                onChange={(e) => setAgeConfirmed(e.target.checked)}
+                className="w-4 h-4 text-teal-600 rounded focus:ring-teal-500 border-stone-300 cursor-pointer shrink-0"
+              />
+              <label htmlFor="ageCheck" className="text-xs sm:text-sm font-semibold text-slate-800 cursor-pointer select-none">
+                {t.reserve.labels.ageCheckbox} *
+              </label>
+            </div>
+
+            {/* 8. LIVE TOTAL ESTIMATE CALCULATOR BOX */}
+            <div className="p-5 rounded-2xl bg-sky-50/80 border border-sky-200 text-slate-800 space-y-2.5 shadow-sm">
+              <div className="flex justify-between items-center text-xs sm:text-sm font-semibold text-slate-700">
+                <span>
+                  {lang === 'EN' ? `Base Rental (${calculation.fullDays} day${calculation.fullDays > 1 ? 's' : ''})` : lang === 'ZH' ? `基础租金 (${calculation.fullDays} 天)` : `Sewa Pokok (${calculation.fullDays} hari)`}
+                </span>
+                <span className="font-bold text-slate-900">
+                  Rp {calculation.basePrice.toLocaleString('id-ID')}
                 </span>
               </div>
-              <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
-                {DURATION_OPTIONS.map((opt) => (
-                  <button
-                    key={opt.days}
-                    type="button"
-                    onClick={() => setDurationDays(opt.days)}
-                    className={`py-2 px-2.5 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
-                      durationDays === opt.days
-                        ? 'bg-teal-600 text-white border-teal-600 shadow-sm'
-                        : 'bg-stone-50 text-slate-700 border-stone-200 hover:bg-stone-100'
-                    }`}
-                  >
-                    {lang === 'EN' ? opt.labelEN : lang === 'ZH' ? opt.labelZH : opt.labelID}
-                  </button>
-                ))}
+
+              {calculation.overtimeHours > 0 && (
+                <div className="flex justify-between items-center text-xs sm:text-sm font-semibold text-sky-800">
+                  <span>
+                    {lang === 'EN'
+                      ? `Overtime (${calculation.overtimeHours} hrs @ Rp 15,000/hr)`
+                      : lang === 'ZH'
+                      ? `超时费 (${calculation.overtimeHours} 小时 @ Rp 15k/小时)`
+                      : `Overtime (${calculation.overtimeHours} jam @ Rp 15rb/jam)`}
+                  </span>
+                  <span className="font-bold">
+                    + Rp {calculation.overtimePrice.toLocaleString('id-ID')}
+                  </span>
+                </div>
+              )}
+
+              <div className="flex justify-between items-center text-xs sm:text-sm font-semibold text-slate-700">
+                <span>
+                  {lang === 'EN' ? 'Delivery & Pickup Fee (Rp 20k / trip)' : lang === 'ZH' ? '接送服务费 (Rp 20k / 单程)' : 'Ongkir Antar & Jemput (Rp 20rb / trip)'}
+                </span>
+                <span className="font-bold text-slate-900">
+                  + Rp {calculation.deliveryFee.toLocaleString('id-ID')}
+                </span>
+              </div>
+
+              <div className="border-t border-sky-200 pt-3 flex justify-between items-center">
+                <span className="text-sm sm:text-base font-extrabold text-sky-950">
+                  {lang === 'EN' ? 'Total Estimate' : lang === 'ZH' ? '预估总额' : 'Total Estimasi'}
+                </span>
+                <span className="text-lg sm:text-xl font-extrabold text-teal-700">
+                  Rp {calculation.totalEstimate.toLocaleString('id-ID')}
+                </span>
+              </div>
+
+              <div className="flex items-start gap-1.5 pt-1 text-[11px] text-slate-600 font-medium">
+                <Info className="w-3.5 h-3.5 text-sky-600 shrink-0 mt-0.5" />
+                <span>
+                  {lang === 'EN'
+                    ? 'Overtime rate is Rp 15,000/hr (up to 4 hrs max). Rentals exceeding 4 hrs overtime automatically count as 1 full additional day.'
+                    : lang === 'ZH'
+                    ? '超时费为 Rp 15,000/小时 (最多 4 小时)。超过 4 小时将自动按 1 天整算。'
+                    : 'Tarif overtime Rp 15.000/jam (maksimal 4 jam). Lebih dari 4 jam otomatis dihitung sewa 1 hari penuh.'}
+                </span>
               </div>
             </div>
 
-            {/* ROW 4: CALCULATION SUMMARY CARD BOX */}
-            <div className="mt-6 p-4 sm:p-5 rounded-2xl bg-[#f0fdfa] border border-[#ccfbf1] flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-2xs">
-              
-              {/* Summary Details */}
-              <div className="space-y-1">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-xs sm:text-sm font-bold text-slate-800">
-                    {quantity} Unit {currentBike.name}
-                  </span>
-                  <span className="px-2.5 py-0.5 text-xs font-extrabold rounded-md bg-teal-100/90 text-teal-800 border border-teal-200/80">
-                    {deliveryTagText}
-                  </span>
-                  {durationDays > 1 && (
-                    <span className="px-2.5 py-0.5 text-xs font-extrabold rounded-md bg-amber-100 text-amber-800 border border-amber-200">
-                      {durationDays} Days
-                    </span>
-                  )}
-                </div>
+            {/* SUBMIT BUTTON */}
+            <button
+              type="submit"
+              className="w-full py-4 bg-teal-600 hover:bg-teal-500 text-white font-extrabold text-sm sm:text-base rounded-2xl shadow-lg shadow-teal-600/25 transition-all flex items-center justify-center gap-2.5 active:scale-95 cursor-pointer mt-4"
+            >
+              <MessageCircle className="w-5 h-5 fill-white text-teal-600" />
+              <span>{t.reserve.labels.submitBtn}</span>
+            </button>
 
-                <div className="flex items-baseline gap-2 pt-0.5">
-                  <span className="text-xs font-extrabold text-slate-500 uppercase tracking-wider">
-                    EST. TOTAL:
-                  </span>
-                  <span className="text-2xl sm:text-3xl font-black text-teal-800 tracking-tight">
-                    Rp {totalEstimate.toLocaleString('id-ID')}
-                  </span>
-                </div>
-              </div>
-
-              {/* Send on WhatsApp Action Button */}
-              <button
-                type="submit"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 bg-[#0d9488] hover:bg-[#0b7269] text-white font-black text-sm sm:text-base rounded-2xl shadow-lg shadow-teal-700/20 transition-all transform hover:-translate-y-0.5 active:scale-95 cursor-pointer shrink-0"
-              >
-                <MessageCircle className="w-5 h-5 fill-white text-teal-600" />
-                <span>Send on WhatsApp</span>
-              </button>
-
-            </div>
+            <p className="text-center text-xs text-slate-500 mt-3">
+              {t.reserve.labels.note}
+            </p>
 
           </form>
-
         </div>
 
       </div>
     </section>
   );
 };
-
-

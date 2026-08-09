@@ -48,3 +48,77 @@ export const RIDING_DESTINATIONS = {
   waeRebo: waereboImg,
 };
 
+// 6. Real-World Delivery & Happy Customers Gallery (Handover Photos)
+// 💡 HOW TO REPLACE WITH YOUR OWN MANUAL JPG PHOTOS:
+// 1. Copy your JPG image files into `/src/assets/images/` (e.g. `handover_1.jpg`, `handover_2.jpg`, etc.)
+// 2. Import them at the top or replace the image assets below.
+import handover1Img from '../assets/images/hand1.jpg';
+import handover2Img from '../assets/images/hand2.jpg';
+import handover3Img from '../assets/images/hand3.jpg';
+import handover4Img from '../assets/images/hand4.jpg';
+import handover5Img from '../assets/images/hand5.jpg';
+import handover6Img from '../assets/images/hand6.jpg';
+
+export const HANDOVER_GALLERY_IMAGES = [
+  {
+    id: 1,
+    url: handover1Img,
+    caption: {
+      EN: 'Airport (LBJ) Instant Delivery',
+      ZH: '科莫多机场 (LBJ) 快速交车',
+      ID: 'Pengantaran Bandara Komodo (LBJ)',
+    },
+    location: 'Komodo International Airport (LBJ)'
+  },
+  {
+    id: 2,
+    url: handover2Img,
+    caption: {
+      EN: 'Luxury Villa Handover',
+      ZH: '豪华别墅送车上门',
+      ID: 'Pengantaran Villa & Resort',
+    },
+    location: 'Ayana Komodo Resort'
+  },
+  {
+    id: 3,
+    url: handover3Img,
+    caption: {
+      EN: 'Happy Sunset Roadtrip',
+      ZH: '满意的日落骑行客户',
+      ID: 'Pelanggan Happy Explore Sunset',
+    },
+    location: 'Sylvia Hill, Labuan Bajo'
+  },
+  {
+    id: 4,
+    url: handover4Img,
+    caption: {
+      EN: 'Clean & Well-Maintained Fleet',
+      ZH: '保养良好的干净车队',
+      ID: 'Armada Bersih & Terawat',
+    },
+    location: 'HelloBajo Garage'
+  },
+  {
+    id: 5,
+    url: handover5Img,
+    caption: {
+      EN: 'Hotel Lobby Delivery',
+      ZH: '酒店大堂直接交车',
+      ID: 'Pengantaran Lobi Hotel',
+    },
+    location: 'Meruorah Labuan Bajo'
+  },
+  {
+    id: 6,
+    url: handover6Img,
+    caption: {
+      EN: 'Waecicu Coastal Exploring',
+      ZH: 'Waecicu 沿海风景骑行',
+      ID: 'Eksplorasi Pantai Waecicu',
+    },
+    location: 'Waecicu Beach Area'
+  }
+];
+
