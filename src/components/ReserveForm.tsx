@@ -22,6 +22,8 @@ const HOURLY_TIMES = [
   '3:00 PM',
   '4:00 PM',
   '5:00 PM',
+  '6:00 PM',
+  '7:00 PM',
 ];
 
 const BIKES = [
@@ -89,8 +91,8 @@ export const ReserveForm: React.FC<ReserveFormProps> = ({ t, lang, selectedBikeI
   witaDayAfterObj.setDate(witaDayAfterObj.getDate() + 2);
   const witaDayAfterISO = `${witaDayAfterObj.getFullYear()}-${String(witaDayAfterObj.getMonth() + 1).padStart(2, '0')}-${String(witaDayAfterObj.getDate()).padStart(2, '0')}`;
 
-  // If today in WITA is past operating hours (past 5:00 PM / 17:00), default pickup to tomorrow!
-  const isTodayPastHours = currentWitaHour >= 17;
+  // If today in WITA is past operating hours (past 7:00 PM / 19:00), default pickup to tomorrow!
+  const isTodayPastHours = currentWitaHour >= 19;
   const initialPickupDate = isTodayPastHours ? witaTomorrowISO : witaTodayISO;
   const initialDropoffDate = isTodayPastHours ? witaDayAfterISO : witaTomorrowISO;
 

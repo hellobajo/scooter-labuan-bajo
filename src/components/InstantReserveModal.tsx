@@ -93,7 +93,7 @@ export const InstantReserveModal: React.FC<InstantReserveModalProps> = ({
   const witaTodayISO = formatDateISO(witaNow);
   const witaTomorrow = new Date(witaNow.getTime() + 24 * 60 * 60 * 1000);
   const witaTomorrowISO = formatDateISO(witaTomorrow);
-  const defaultDate = currentHour >= 17 ? witaTomorrowISO : witaTodayISO;
+  const defaultDate = currentHour >= 19 ? witaTomorrowISO : witaTodayISO;
 
   // Scheduled date & time state - Date pre-filled with defaultDate, time slot unselected
   const [scheduledDate, setScheduledDate] = useState<string>(defaultDate);
@@ -558,7 +558,7 @@ export const InstantReserveModal: React.FC<InstantReserveModalProps> = ({
 
               {scheduledDate === witaTodayISO && availableTimeSlots.length === 0 && (
                 <p className="text-[11px] text-amber-700 font-semibold mt-1">
-                  💡 {lang === 'EN' ? 'Today\'s slots are completed. Please select tomorrow\'s date.' : lang === 'ZH' ? '今日时段已结束，请选择明天的日期。' : 'Slot hari ini sudah lewat. Silakan pilih tanggal besok.'}
+                  💡 {lang === 'EN' ? 'Today\'s operational hours (08:00 - 19:00 WITA) have ended. Please select tomorrow\'s date.' : lang === 'ZH' ? '今日营业时间 (08:00 - 19:00 WITA) 已结束，请选择明天的日期。' : 'Jam operasional hari ini (08.00 - 19.00 WITA) telah selesai. Silakan pilih tanggal besok.'}
                 </p>
               )}
             </div>

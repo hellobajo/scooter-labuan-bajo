@@ -28,7 +28,13 @@ export const Header: React.FC<HeaderProps> = ({ lang, onLanguageChange, t, onOpe
         <div className="flex items-center justify-between h-16 sm:h-20">
           
           {/* Logo - easily updated in siteConfig.ts or /public/logo.png */}
-          <a href="#" className="flex items-center gap-3 group" aria-label="HelloBajo Home">
+          <a 
+            href="https://hellobajo.com/blog" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="flex items-center gap-3 group" 
+            aria-label="HelloBajo Blog"
+          >
             <div className="relative flex items-center justify-center h-10 sm:h-12">
               <img 
                 src={SITE_CONFIG.logo} 
