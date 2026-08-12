@@ -20,11 +20,19 @@ export const HERO_IMAGE = scooterHeroBgLocal;
 import beatImg from '../assets/images/scooter_beat_1785763028729.jpg';
 import scoopyImg from '../assets/images/scooter_scoopy_1785763049796.jpg';
 import nmaxImg from '../assets/images/scooter_nmax_1785763064245.jpg';
+import fazzioImg from '../assets/images/FAZZIO.jpg';
+import pcxImg from '../assets/images/PCX 150.jpg';
+import vario150Img from '../assets/images/VARIO 150.jpg';
+import vario160Img from '../assets/images/VARIO 160.jpg';
 
 export const SCOOTER_IMAGES = {
   beat: beatImg,
   scoopy: scoopyImg,
   nmax: nmaxImg,
+  fazzio: fazzioImg,
+  pcx: pcxImg,
+  vario150: vario150Img,
+  vario160: vario160Img,  
 };
 
 // 4. Private Car Charter Cross-Promotion Image
