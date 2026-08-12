@@ -29,7 +29,7 @@ const HOURLY_TIMES = [
 const BIKES = [
   { id: 'beat', name: 'Honda Beat (or similar)', rate: 100000, labelEN: 'Honda Beat (or similar) – Rp 100k/day', labelZH: 'Honda Beat (或同级车型) – Rp 100k/天', labelID: 'Honda Beat (atau sejenis) – Rp 100rb/hari' },
   { id: 'scoopy', name: 'Honda Scoopy (or similar)', rate: 120000, labelEN: 'Honda Scoopy (or similar) – Rp 120k/day', labelZH: 'Honda Scoopy (或同级车型) – Rp 120k/天', labelID: 'Honda Scoopy (atau sejenis) – Rp 120rb/hari' },
-  { id: 'nmax', name: 'Yamaha NMAX (or similar)', rate: 175000, labelEN: 'Yamaha NMAX (or similar) – Rp 175k/day', labelZH: 'Yamaha NMAX (或同级车型) – Rp 175k/天', labelID: 'Yamaha NMAX (atau sejenis) – Rp 175rb/hari' },
+  { id: 'nmax', name: 'Yamaha NMAX (or similar)', rate: 160000, labelEN: 'Yamaha NMAX (or similar) – Rp 160k/day', labelZH: 'Yamaha NMAX (或同级车型) – Rp 160k/天', labelID: 'Yamaha NMAX (atau sejenis) – Rp 160rb/hari' },
 ];
 
 const LOCATION_OPTIONS_EN = [
