@@ -77,7 +77,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
           image: SCOOTER_IMAGES.scoopy,
         },
         {
-          id: 'beat',
+          id: 'fazzio',
           name: 'Yamaha Fazzio',
           price: 100000,
           shortSpec: {
@@ -85,7 +85,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
             ID: '125cc Hybrid • Modern Chic',
             ZH: '125cc 混动 • 现代时尚',
           },
-          image: RIDING_DESTINATIONS.goloMori,
+          image: SCOOTER_IMAGES.fazzio,
         },
       ],
     },
@@ -114,7 +114,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
       },
       models: [
         {
-          id: 'scoopy',
+          id: 'vario150',
           name: 'Honda Vario 150',
           price: 130000,
           shortSpec: {
@@ -122,10 +122,10 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
             ID: '150cc eSP • Tangguh & Lincah',
             ZH: '150cc eSP • 强劲灵活',
           },
-          image: HERO_IMAGE,
+          image: SCOOTER_IMAGES.vario150,
         },
         {
-          id: 'scoopy',
+          id: 'vario160',
           name: 'Honda Vario 160',
           price: 140000,
           shortSpec: {
@@ -133,7 +133,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
             ID: '160cc eSP+ 4-Katup • Smart Key & Bertenaga',
             ZH: '160cc eSP+ 4气门 • 智能钥匙与强劲动力',
           },
-          image: RIDING_DESTINATIONS.guaRangko,
+          image: SCOOTER_IMAGES.vario160,
         },
       ],
     },
@@ -181,7 +181,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
             ID: '155cc eSP+ • Touring Mewah & Nyaman',
             ZH: '155cc eSP+ • 豪华舒适巡航',
           },
-          image: RIDING_DESTINATIONS.bukitCinta,
+          image: SCOOTER_IMAGES.pcx,
         },
       ],
     },
