@@ -57,7 +57,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
         {
           id: 'beat',
           name: 'Honda Beat',
-          price: 100000,
+          price: 120000,
           shortSpec: {
             EN: '110cc eSP • Ultra Fuel-Efficient',
             ID: '110cc eSP • Super Irit',
@@ -68,7 +68,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
         {
           id: 'scoopy',
           name: 'Honda Scoopy',
-          price: 100000,
+          price: 120000,
           shortSpec: {
             EN: '110cc Retro • Chic Style',
             ID: '110cc Retro • Gaya Chic',
@@ -79,7 +79,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
         {
           id: 'fazzio',
           name: 'Yamaha Fazzio',
-          price: 100000,
+          price: 120000,
           shortSpec: {
             EN: '125cc Hybrid • Modern Chic',
             ID: '125cc Hybrid • Modern Chic',
@@ -108,26 +108,26 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
       },
       badgeStyle: 'amber',
       specsPills: {
-        EN: ['Automatic', '150cc – 160cc', 'Liquid Cooled'],
-        ID: ['Matik', '150cc – 160cc', 'Pendingin Cairan'],
-        ZH: ['自动档', '150cc – 160cc', '水冷发动机'],
+        EN: ['Automatic', '125cc – 160cc', 'Liquid Cooled'],
+        ID: ['Matik', '125cc – 160cc', 'Pendingin Cairan'],
+        ZH: ['自动档', '125cc – 160cc', '水冷发动机'],
       },
       models: [
         {
-          id: 'vario150',
-          name: 'Honda Vario 150',
-          price: 130000,
+          id: 'vario125',
+          name: 'Honda Vario 125',
+          price: 140000,
           shortSpec: {
-            EN: '150cc eSP • Powerful & Agile',
-            ID: '150cc eSP • Tangguh & Lincah',
-            ZH: '150cc eSP • 强劲灵活',
+            EN: '125cc eSP • Powerful & Agile',
+            ID: '125cc eSP • Tangguh & Lincah',
+            ZH: '125cc eSP • 强劲灵活',
           },
-          image: SCOOTER_IMAGES.vario150,
+          image: SCOOTER_IMAGES.vario125,
         },
         {
           id: 'vario160',
           name: 'Honda Vario 160',
-          price: 140000,
+          price: 150000,
           shortSpec: {
             EN: '160cc eSP+ 4-Valve • Smart Key & Power',
             ID: '160cc eSP+ 4-Katup • Smart Key & Bertenaga',

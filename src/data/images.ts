@@ -31,6 +31,7 @@ export const SCOOTER_IMAGES = {
   nmax: nmaxImg,
   fazzio: fazzioImg,
   pcx: pcxImg,
+  vario125: vario150Img,
   vario150: vario150Img,
   vario160: vario160Img,  
 };

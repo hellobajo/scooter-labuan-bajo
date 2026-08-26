@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Language } from '../data/translations';
-import { X, MessageCircle, Zap, AlertCircle, Info, Plus, Minus, CheckCircle2, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
+import { X, MessageCircle, Zap, AlertCircle, Info, Plus, Minus, CheckCircle2, ChevronLeft, ChevronRight, Sparkles, Calendar, Plane, Building2, MapPin } from 'lucide-react';
 import { SITE_CONFIG } from '../data/siteConfig';
 import { SCOOTER_IMAGES, HERO_IMAGE, RIDING_DESTINATIONS } from '../data/images';
 
@@ -51,11 +51,11 @@ export const FLEET_CATEGORIES: CategoryOption[] = [
     },
     badgeStyle: 'teal',
     priceDisplay: {
-      EN: 'Rp 100.000 / day',
-      ID: 'Rp 100.000 / hari',
-      ZH: 'Rp 100.000 / 天',
+      EN: 'Rp 120.000 / day',
+      ID: 'Rp 120.000 / hari',
+      ZH: 'Rp 120.000 / 天',
     },
-    basePrice: 100000,
+    basePrice: 120000,
     specPills: {
       EN: ['Automatic', '110cc – 125cc', 'EFI / Hybrid'],
       ID: ['Matik', '110cc – 125cc', 'EFI / Hybrid'],
@@ -65,7 +65,7 @@ export const FLEET_CATEGORIES: CategoryOption[] = [
       {
         id: 'beat',
         name: 'Honda Beat',
-        price: 100000,
+        price: 120000,
         shortSpec: {
           EN: '110cc eSP • Super Fuel-Efficient',
           ID: '110cc eSP • Super Irit',
@@ -76,7 +76,7 @@ export const FLEET_CATEGORIES: CategoryOption[] = [
       {
         id: 'scoopy',
         name: 'Honda Scoopy',
-        price: 100000,
+        price: 120000,
         shortSpec: {
           EN: '110cc Retro • Chic Style',
           ID: '110cc Retro • Gaya Chic',
@@ -87,7 +87,7 @@ export const FLEET_CATEGORIES: CategoryOption[] = [
       {
         id: 'fazzio',
         name: 'Yamaha Fazzio',
-        price: 100000,
+        price: 120000,
         shortSpec: {
           EN: '125cc Hybrid • Modern Chic',
           ID: '125cc Hybrid • Modern Chic',
@@ -105,9 +105,9 @@ export const FLEET_CATEGORIES: CategoryOption[] = [
       ZH: '中型运动型',
     },
     subtitle: {
-      EN: '150cc – 160cc • Strong acceleration for hill climbs',
-      ID: '150cc – 160cc • Bertenaga & mantap menanjak',
-      ZH: '150cc – 160cc • 强劲加速与坡道动力',
+      EN: '125cc – 160cc • Strong acceleration for hill climbs',
+      ID: '125cc – 160cc • Bertenaga & mantap menanjak',
+      ZH: '125cc – 160cc • 强劲加速与坡道动力',
     },
     badge: {
       EN: 'HILL POWER',
@@ -116,32 +116,32 @@ export const FLEET_CATEGORIES: CategoryOption[] = [
     },
     badgeStyle: 'amber',
     priceDisplay: {
-      EN: 'Rp 130.000 – 140.000 / day',
-      ID: 'Rp 130.000 – 140.000 / hari',
-      ZH: 'Rp 130.000 – 140.000 / 天',
+      EN: 'Rp 140.000 – 150.000 / day',
+      ID: 'Rp 140.000 – 150.000 / hari',
+      ZH: 'Rp 140.000 – 150.000 / 天',
     },
-    basePrice: 130000,
+    basePrice: 140000,
     specPills: {
-      EN: ['Automatic', '150cc – 160cc', 'Liquid Cooled'],
-      ID: ['Matik', '150cc – 160cc', 'Pendingin Cairan'],
-      ZH: ['自动档', '150cc – 160cc', '水冷发动机'],
+      EN: ['Automatic', '125cc – 160cc', 'Liquid Cooled'],
+      ID: ['Matik', '125cc – 160cc', 'Pendingin Cairan'],
+      ZH: ['自动档', '125cc – 160cc', '水冷发动机'],
     },
     models: [
       {
-        id: 'vario150',
-        name: 'Honda Vario 150',
-        price: 130000,
+        id: 'vario125',
+        name: 'Honda Vario 125',
+        price: 140000,
         shortSpec: {
-          EN: '150cc eSP • Powerful & Agile',
-          ID: '150cc eSP • Tangguh & Lincah',
-          ZH: '150cc eSP • 强劲灵活',
+          EN: '125cc eSP • Powerful & Agile',
+          ID: '125cc eSP • Tangguh & Lincah',
+          ZH: '125cc eSP • 强劲灵活',
         },
-        image: SCOOTER_IMAGES.vario150,
+        image: SCOOTER_IMAGES.vario125,
       },
       {
         id: 'vario160',
         name: 'Honda Vario 160',
-        price: 140000,
+        price: 150000,
         shortSpec: {
           EN: '160cc eSP+ 4-Valve • Smart Key & Power',
           ID: '160cc eSP+ 4-Katup • Smart Key & Bertenaga',
@@ -244,7 +244,7 @@ export const InstantReserveModal: React.FC<InstantReserveModalProps> = ({
   // Optional Secondary Scooter Selection
   const [showSecondaryBike, setShowSecondaryBike] = useState<boolean>(false);
   const [secondaryCategoryId, setSecondaryCategoryId] = useState<string>('medium_sport');
-  const [secondaryModelId, setSecondaryModelId] = useState<string>('vario150');
+  const [secondaryModelId, setSecondaryModelId] = useState<string>('vario125');
   const [secondaryQty, setSecondaryQty] = useState<number>(1);
 
   // Form Field States
@@ -278,6 +278,55 @@ export const InstantReserveModal: React.FC<InstantReserveModalProps> = ({
   // Duration (default to 1 day for instant usability)
   const [durationDays, setDurationDays] = useState<number>(1);
 
+  // Delivery & Return Date Calculation
+  const deliveryDateObj = useMemo(() => {
+    if (!scheduledDate) return null;
+    const [y, m, d] = scheduledDate.split('-').map(Number);
+    if (!y || !m || !d) return null;
+    return new Date(y, m - 1, d);
+  }, [scheduledDate]);
+
+  const returnDateObj = useMemo(() => {
+    if (!deliveryDateObj) return null;
+    const date = new Date(deliveryDateObj);
+    date.setDate(date.getDate() + (durationDays > 0 ? durationDays : 1));
+    return date;
+  }, [deliveryDateObj, durationDays]);
+
+  const formatDateWithTime = (dateObj: Date | null, timeStr: string, currentLang: Language) => {
+    if (!dateObj || isNaN(dateObj.getTime())) return '';
+
+    const daysEN = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const daysID = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+    const daysZH = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'];
+
+    const monthsEN = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const monthsID = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'];
+
+    const dayOfWeek = dateObj.getDay();
+    const dayNum = dateObj.getDate();
+    const monthNum = dateObj.getMonth();
+    const yearNum = dateObj.getFullYear();
+
+    const formattedTime = timeStr ? `${timeStr} WITA` : (currentLang === 'EN' ? '(Time pending)' : currentLang === 'ZH' ? '(未选时间)' : '(Jam pending)');
+
+    if (currentLang === 'EN') {
+      return `${daysEN[dayOfWeek]}, ${dayNum} ${monthsEN[monthNum]} ${yearNum}, ${formattedTime}`;
+    } else if (currentLang === 'ZH') {
+      return `${daysZH[dayOfWeek]}, ${yearNum}年${monthNum + 1}月${dayNum}日 ${formattedTime}`;
+    } else {
+      return `${daysID[dayOfWeek]}, ${dayNum} ${monthsID[monthNum]} ${yearNum}, ${formattedTime}`;
+    }
+  };
+
+  const deliveryDateText = useMemo(() => {
+    return formatDateWithTime(deliveryDateObj, scheduledTime, lang);
+  }, [deliveryDateObj, scheduledTime, lang]);
+
+  const returnDateText = useMemo(() => {
+    return formatDateWithTime(returnDateObj, scheduledTime, lang);
+  }, [returnDateObj, scheduledTime, lang]);
+
   // Map initialBikeId to Category and Preferred Model
   useEffect(() => {
     if (!isOpen) return;
@@ -290,9 +339,9 @@ export const InstantReserveModal: React.FC<InstantReserveModalProps> = ({
       if (lower.includes('beat') || lower.includes('scoopy') || lower.includes('fazzio')) {
         initCat = 'compact_economy';
         initModel = lower.includes('scoopy') ? 'scoopy' : lower.includes('fazzio') ? 'fazzio' : 'beat';
-      } else if (lower.includes('vario') || lower.includes('sport')) {
+      } else if (lower.includes('vario') || lower.includes('sport') || lower.includes('125')) {
         initCat = 'medium_sport';
-        initModel = lower.includes('160') ? 'vario160' : 'vario150';
+        initModel = lower.includes('160') ? 'vario160' : 'vario125';
       } else if (lower.includes('nmax') || lower.includes('pcx') || lower.includes('maxi')) {
         initCat = 'maxi_scooter';
         initModel = lower.includes('pcx') ? 'pcx' : 'nmax';
@@ -305,7 +354,7 @@ export const InstantReserveModal: React.FC<InstantReserveModalProps> = ({
 
     setShowSecondaryBike(false);
     setSecondaryCategoryId('medium_sport');
-    setSecondaryModelId('vario150');
+    setSecondaryModelId('vario125');
     setSecondaryQty(1);
 
     setScheduledDate(defaultDate);
@@ -497,7 +546,12 @@ export const InstantReserveModal: React.FC<InstantReserveModalProps> = ({
 
     let locationText = '';
     if (locationType === 'AIRPORT') {
-      locationText = `Komodo International Airport (LBJ) [+Rp ${(20000 * totalUnits).toLocaleString('id-ID')}]`;
+      locationText =
+        lang === 'EN'
+          ? `Komodo Airport (LBJ) - Handover at main roadside in front of airport [+Rp ${(20000 * totalUnits).toLocaleString('id-ID')}]`
+          : lang === 'ZH'
+          ? `科莫多机场 (LBJ) - 机场正门路边交车 [+Rp ${(20000 * totalUnits).toLocaleString('id-ID')}]`
+          : `Bandara Komodo (LBJ) - Penyerahan di pinggir jalan depan bandara [+Rp ${(20000 * totalUnits).toLocaleString('id-ID')}]`;
     } else {
       locationText = `Hotel / Villa: ${hotelName.trim()} [+Rp ${(20000 * totalUnits).toLocaleString('id-ID')}]`;
     }
@@ -513,7 +567,8 @@ export const InstantReserveModal: React.FC<InstantReserveModalProps> = ({
       lang === 'EN'
         ? `⚡ *INSTANT SCOOTER RESERVATION - HELLOBAJO*\n\n` +
           `🛵 *SCOOTERS BOOKED (${totalUnits} Unit):*\n${scootersList}\n\n` +
-          `📅 *Delivery Schedule:* ${deliveryTimeText}\n` +
+          `📅 *Delivery / Pickup Date:* ${deliveryDateText}\n` +
+          `🔄 *Return Schedule:* ${returnDateText}\n` +
           `⏳ *Rental Duration:* ${durationDays} Day(s)\n` +
           `📍 *Delivery Location:* ${locationText}\n` +
           `\n💰 *ESTIMATED COST*\n` +
@@ -525,7 +580,8 @@ export const InstantReserveModal: React.FC<InstantReserveModalProps> = ({
         : lang === 'ZH'
         ? `⚡ *摩托车预订请求 - HELLOBAJO*\n\n` +
           `🛵 *预订车辆 (${totalUnits} 辆):*\n${scootersList}\n\n` +
-          `📅 *送车时间:* ${deliveryTimeText}\n` +
+          `📅 *送车 / 取车日期时间:* ${deliveryDateText}\n` +
+          `🔄 *还车日期与时间:* ${returnDateText}\n` +
           `⏳ *租用天数:* ${durationDays} 天\n` +
           `📍 *送车地点:* ${locationText}\n` +
           `\n💰 *预估费用明细*\n` +
@@ -536,7 +592,8 @@ export const InstantReserveModal: React.FC<InstantReserveModalProps> = ({
           `你好 HelloBajo！请帮我确认该时间段是否有车。谢谢！`
         : `⚡ *RESERVASI SEWA MOTOR - HELLOBAJO*\n\n` +
           `🛵 *DAFTAR MOTOR DISEWA (${totalUnits} Unit):*\n${scootersList}\n\n` +
-          `📅 *Jadwal Antar:* ${deliveryTimeText}\n` +
+          `📅 *Tanggal & Jam Antar:* ${deliveryDateText}\n` +
+          `🔄 *Tanggal & Jam Pengembalian:* ${returnDateText}\n` +
           `⏳ *Durasi Sewa:* ${durationDays} Hari\n` +
           `📍 *Lokasi Antar:* ${locationText}\n` +
           `\n💰 *ESTIMASI BIAYA*\n` +
@@ -651,18 +708,29 @@ export const InstantReserveModal: React.FC<InstantReserveModalProps> = ({
           </div>
 
           {/* High-Season Operational Safety Disclaimer Banner */}
-          <div className="p-3 bg-amber-50 border border-amber-200/90 rounded-2xl flex items-start gap-2 text-amber-900 text-xs">
-            <Info className="w-4 h-4 text-amber-700 shrink-0 mt-0.5" />
-            <div className="leading-relaxed">
-              <span className="font-extrabold block text-[11px] text-amber-950 uppercase tracking-wider">
-                {lang === 'EN' ? '⚡ High-Season Category Booking' : lang === 'ZH' ? '⚡ 旺季分类预订服务' : '⚡ Reservasi Kategori Layanan'}
-              </span>
-              <p className="text-[11px] font-medium text-amber-900/90 mt-0.5">
+          <div className="p-3.5 bg-amber-50/95 border-2 border-amber-300/90 rounded-2xl flex items-start gap-2.5 text-amber-950 text-xs shadow-xs relative overflow-hidden transition-all">
+            {/* Pulsing Live Dot */}
+            <div className="relative flex h-3 w-3 shrink-0 mt-0.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-500 opacity-80"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-amber-600 shadow-2xs"></span>
+            </div>
+
+            <div className="leading-relaxed space-y-1">
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="font-black text-xs text-amber-950 tracking-tight">
+                  {lang === 'EN' ? '⚡ High-Season Notice:' : lang === 'ZH' ? '⚡ 旺季预订须知:' : '⚡ Info High-Season:'}
+                </span>
+                <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9px] font-black bg-amber-200/90 text-amber-900 animate-pulse">
+                  {lang === 'EN' ? 'HIGH DEMAND' : lang === 'ZH' ? '预订火爆' : 'STOK TERBATAS'}
+                </span>
+              </div>
+
+              <p className="text-[11px] font-medium text-amber-900/95 leading-snug">
                 {lang === 'EN'
-                  ? 'Preferred model is subject to daily stock. We guarantee an equivalent unit with identical specs within your chosen category.'
+                  ? 'Units run fast & models are subject to stock. Chat WhatsApp first to check live availability, or submit your choice below to lock it. (Equivalent specs guaranteed if fully booked)'
                   : lang === 'ZH'
-                  ? '偏好车型视每日库存而定。我们保证提供同等分类下相同规格的高品质车型。'
-                  : 'Model pilihan menyesuaikan stok harian. Kami menjamin unit setara dengan spesifikasi identik dalam kategori yang dipilih.'}
+                  ? '车源非常紧俏，具体车型视实时库存而定。您可先 WhatsApp 咨询实时车况，或直接提交下方选项锁定车辆。（若所选车型满员，保证提供同等规格车型）'
+                  : 'Unit cepat habis & model tergantung stok harian. Chat WhatsApp dulu untuk cek ketersediaan terkini, atau kirim pilihan Anda di bawah untuk mengunci unit. (Spesifikasi setara dijamin jika model pilihan penuh)'}
               </p>
             </div>
           </div>
@@ -1004,8 +1072,8 @@ export const InstantReserveModal: React.FC<InstantReserveModalProps> = ({
                 3. {lang === 'EN' ? 'Delivery Location' : lang === 'ZH' ? '送车地点' : 'Lokasi Pengantaran'} <span className="text-rose-600">*</span>
               </label>
 
-              <div className={`grid grid-cols-2 gap-2 mb-2 p-1 rounded-2xl transition-all ${
-                showErrors && !locationType ? 'p-2 bg-rose-50/40 border-2 border-rose-500' : ''
+              <div className={`grid grid-cols-2 gap-2.5 mb-2.5 p-1 rounded-2xl transition-all ${
+                showErrors && !locationType ? 'p-2 bg-rose-50/60 border-2 border-rose-500' : ''
               }`}>
                 <button
                   type="button"
@@ -1013,14 +1081,15 @@ export const InstantReserveModal: React.FC<InstantReserveModalProps> = ({
                     setLocationType('AIRPORT');
                     if (showErrors) setShowErrors(false);
                   }}
-                  className={`p-3 rounded-2xl border flex flex-col items-center text-center gap-0.5 transition-all cursor-pointer ${
+                  className={`p-3.5 rounded-2xl border-2 flex flex-col items-center text-center gap-1 transition-all cursor-pointer ${
                     locationType === 'AIRPORT'
-                      ? 'border-[#0d9488] bg-teal-50 text-teal-950 font-extrabold shadow-xs'
-                      : 'border-stone-200 bg-stone-50 text-slate-600 hover:bg-stone-100 font-semibold'
+                      ? 'border-[#0d9488] bg-teal-50 text-teal-950 font-black shadow-sm ring-2 ring-teal-500/20'
+                      : 'border-stone-200 bg-white text-slate-700 hover:bg-slate-50 font-bold shadow-xs'
                   }`}
                 >
-                  <span className="text-xs">{lang === 'EN' ? 'Airport Komodo (LBJ)' : lang === 'ZH' ? '科莫多机场 (LBJ)' : 'Bandara Komodo (LBJ)'}</span>
-                  <span className="text-[10px] text-teal-700 font-extrabold">+Rp 20.000 / unit</span>
+                  <Plane className={`w-5 h-5 ${locationType === 'AIRPORT' ? 'text-[#0d9488]' : 'text-slate-400'}`} />
+                  <span className="text-xs leading-tight">{lang === 'EN' ? 'Airport Komodo (LBJ)' : lang === 'ZH' ? '科莫多机场 (LBJ)' : 'Bandara Komodo (LBJ)'}</span>
+                  <span className="text-[10px] text-teal-700 font-extrabold bg-teal-100/70 px-2 py-0.5 rounded-full mt-0.5">+Rp 20.000 / unit</span>
                 </button>
 
                 <button
@@ -1029,14 +1098,15 @@ export const InstantReserveModal: React.FC<InstantReserveModalProps> = ({
                     setLocationType('HOTEL');
                     if (showErrors && hotelName.trim()) setShowErrors(false);
                   }}
-                  className={`p-3 rounded-2xl border flex flex-col items-center text-center gap-0.5 transition-all cursor-pointer ${
+                  className={`p-3.5 rounded-2xl border-2 flex flex-col items-center text-center gap-1 transition-all cursor-pointer ${
                     locationType === 'HOTEL'
-                      ? 'border-[#0d9488] bg-teal-50 text-teal-950 font-extrabold shadow-xs'
-                      : 'border-stone-200 bg-stone-50 text-slate-600 hover:bg-stone-100 font-semibold'
+                      ? 'border-[#0d9488] bg-teal-50 text-teal-950 font-black shadow-sm ring-2 ring-teal-500/20'
+                      : 'border-stone-200 bg-white text-slate-700 hover:bg-slate-50 font-bold shadow-xs'
                   }`}
                 >
-                  <span className="text-xs">{lang === 'EN' ? 'Hotel / Villa' : lang === 'ZH' ? '酒店 / 度假村' : 'Hotel / Villa'}</span>
-                  <span className="text-[10px] text-teal-700 font-extrabold">+Rp 20.000 / unit</span>
+                  <Building2 className={`w-5 h-5 ${locationType === 'HOTEL' ? 'text-[#0d9488]' : 'text-slate-400'}`} />
+                  <span className="text-xs leading-tight">{lang === 'EN' ? 'Hotel / Villa / Resort' : lang === 'ZH' ? '酒店 / 度假村 / 民宿' : 'Hotel / Villa / Homestay'}</span>
+                  <span className="text-[10px] text-teal-700 font-extrabold bg-teal-100/70 px-2 py-0.5 rounded-full mt-0.5">+Rp 20.000 / unit</span>
                 </button>
               </div>
 
@@ -1047,35 +1117,71 @@ export const InstantReserveModal: React.FC<InstantReserveModalProps> = ({
                 </p>
               )}
 
+              {!locationType && (
+                <p className="text-[11px] text-slate-500 font-medium mt-1 flex items-center gap-1.5 px-1">
+                  <Info className="w-3.5 h-3.5 text-teal-600 shrink-0" />
+                  <span>{lang === 'EN' ? 'Tap Airport or Hotel above to specify your delivery point.' : lang === 'ZH' ? '请点击上方“机场”或“酒店”按钮。' : 'Pilih Bandara Komodo atau Hotel / Villa di atas.'}</span>
+                </p>
+              )}
+
               {locationType === 'HOTEL' && (
-                <div className="mt-2">
-                  <input
-                    type="text"
-                    required
-                    value={hotelName}
-                    onChange={(e) => {
-                      setHotelName(e.target.value);
-                      if (showErrors && e.target.value.trim()) setShowErrors(false);
-                    }}
-                    placeholder={
-                      lang === 'EN'
-                        ? 'Type Hotel / Villa name (e.g. Meruorah, Ayana, Sylvia)...'
-                        : lang === 'ZH'
-                        ? '请输入酒店或民宿名称 (例如 Meruorah, Ayana)...'
-                        : 'Ketik nama Hotel / Villa / Homestay...'
-                    }
-                    className={`w-full px-3.5 py-2.5 rounded-xl text-xs sm:text-sm text-slate-900 font-medium focus:outline-none focus:ring-2 ${
-                      showErrors && !hotelName.trim()
-                        ? 'bg-rose-50 border-2 border-rose-500 focus:ring-rose-500/30'
-                        : 'bg-amber-50/60 border border-amber-300 focus:ring-amber-500/30'
-                    }`}
-                  />
+                <div className="mt-3 p-3 bg-teal-50/50 border border-teal-200/80 rounded-2xl space-y-1.5 animate-in fade-in duration-200">
+                  <label className="text-xs font-extrabold text-slate-900 flex items-center gap-1.5">
+                    <MapPin className="w-4 h-4 text-[#0d9488] shrink-0" />
+                    <span>{lang === 'EN' ? 'Type Hotel / Villa / Homestay Name:' : lang === 'ZH' ? '请输入酒店 / 民宿名称及地址:' : 'Nama Hotel / Villa / Homestay / Alamat:'} <span className="text-rose-600">*</span></span>
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      required
+                      autoFocus
+                      value={hotelName}
+                      onChange={(e) => {
+                        setHotelName(e.target.value);
+                        if (showErrors && e.target.value.trim()) setShowErrors(false);
+                      }}
+                      placeholder={
+                        lang === 'EN'
+                          ? 'e.g. Meruorah, Ayana Komodo, Sylvia, Loco Hotel...'
+                          : lang === 'ZH'
+                          ? '例如：Meruorah, Ayana, Sylvia Resort...'
+                          : 'Contoh: Meruorah, Ayana Komodo, Sylvia, Homestay...'
+                      }
+                      className={`w-full px-3.5 py-3 rounded-xl text-xs sm:text-sm text-slate-900 font-bold bg-white border-2 transition-all focus:outline-none focus:ring-4 ${
+                        showErrors && !hotelName.trim()
+                          ? 'border-rose-500 bg-rose-50/50 focus:ring-rose-500/20'
+                          : 'border-[#0d9488] shadow-sm focus:ring-teal-500/20'
+                      }`}
+                    />
+                  </div>
                   {showErrors && !hotelName.trim() && (
                     <p className="text-[11px] text-rose-600 font-bold mt-1 flex items-center gap-1">
                       <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                       <span>{lang === 'EN' ? 'Required: Please enter your Hotel or Villa name.' : lang === 'ZH' ? '必填：请输入酒店或度假村名称。' : 'Wajib: Harap isi nama Hotel / Villa.'}</span>
                     </p>
                   )}
+                </div>
+              )}
+
+              {locationType === 'AIRPORT' && (
+                <div className="mt-3 p-3 bg-teal-50/60 border border-teal-200/80 rounded-2xl flex items-start gap-2.5 text-xs text-teal-950 animate-in fade-in duration-200">
+                  <Plane className="w-4 h-4 text-[#0d9488] shrink-0 mt-0.5" />
+                  <div>
+                    <span className="font-extrabold block text-teal-900">
+                      {lang === 'EN'
+                        ? '📍 Handover at Komodo Airport Roadside (LBJ)'
+                        : lang === 'ZH'
+                        ? '📍 科莫多机场正门路边交车 (LBJ)'
+                        : '📍 Penyerahan di Pinggir Jalan Depan Bandara Komodo (LBJ)'}
+                    </span>
+                    <p className="text-[11px] text-teal-800 font-medium mt-0.5">
+                      {lang === 'EN'
+                        ? 'Our team will meet you at the main roadside right in front of Komodo Airport with your scooter and helmets ready!'
+                        : lang === 'ZH'
+                        ? '我们的团队将在科莫多机场正前方路边与您会面，准备好摩托车与头盔！'
+                        : 'Tim kami akan meletakkan / menyerahkan motor & helm siap pakai di area pinggir jalan depan Bandara Komodo!'}
+                    </p>
+                  </div>
                 </div>
               )}
             </div>
@@ -1118,6 +1224,39 @@ export const InstantReserveModal: React.FC<InstantReserveModalProps> = ({
                   </button>
                 ))}
               </div>
+
+              {/* Side-by-Side Delivery & Return Schedule Information Banner */}
+              {(deliveryDateText || returnDateText) && (
+                <div className="mt-3 p-3.5 bg-teal-50/90 border border-teal-200/90 rounded-2xl animate-in fade-in duration-200">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 divide-y sm:divide-y-0 sm:divide-x divide-teal-200/80">
+                    {/* Delivery / Pickup */}
+                    <div className="flex items-start gap-2 pr-1">
+                      <Calendar className="w-4 h-4 text-[#0d9488] shrink-0 mt-0.5" />
+                      <div>
+                        <span className="text-[10px] font-extrabold text-teal-950 uppercase tracking-wider block">
+                          {lang === 'EN' ? '📅 DELIVERY / PICKUP:' : lang === 'ZH' ? '📅 送车 / 取车:' : '📅 TANGGAL & JAM ANTAR:'}
+                        </span>
+                        <span className="font-extrabold text-[#0d9488] text-xs leading-tight block mt-0.5">
+                          {deliveryDateText || (lang === 'EN' ? 'Select Date & Time' : lang === 'ZH' ? '请选择日期时间' : 'Pilih Tanggal & Jam')}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Return */}
+                    <div className="flex items-start gap-2 pt-2.5 sm:pt-0 sm:pl-3">
+                      <Calendar className="w-4 h-4 text-emerald-700 shrink-0 mt-0.5" />
+                      <div>
+                        <span className="text-[10px] font-extrabold text-teal-950 uppercase tracking-wider block">
+                          {lang === 'EN' ? '🔄 RETURN SCHEDULE:' : lang === 'ZH' ? '🔄 还车时间:' : '🔄 TANGGAL & JAM PENGEMBALIAN:'}
+                        </span>
+                        <span className="font-extrabold text-emerald-700 text-xs leading-tight block mt-0.5">
+                          {returnDateText || (lang === 'EN' ? 'Select Duration' : lang === 'ZH' ? '请选择天数' : 'Pilih Durasi')}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
 
               {/* Sub-text for 24-Hour Rental clarity */}
               <p className="text-[11px] text-slate-500 font-medium mt-1.5 flex items-center gap-1">

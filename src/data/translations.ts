@@ -188,8 +188,8 @@ export const translations: Record<Language, TranslationContent> = {
           minDaysLabel: 'Min 1 Day',
           description: 'Compact, fuel-efficient, and easy to park — perfect for exploring town and coastal roads.',
           specs: ['Automatic', '110cc', 'EFI'],
-          price: 100000,
-          priceFormatted: 'Rp 100k',
+          price: 120000,
+          priceFormatted: 'Rp 120k',
         },
         {
           id: 'scoopy',
@@ -380,8 +380,8 @@ export const translations: Record<Language, TranslationContent> = {
           minDaysLabel: 'Min 1 Hari',
           description: 'Ramping, irit bahan bakar, dan sangat lincah — pas untuk keliling kota dan jalanan pantai.',
           specs: ['Matic', '110cc', 'EFI'],
-          price: 100000,
-          priceFormatted: 'Rp 100rb',
+          price: 120000,
+          priceFormatted: 'Rp 120rb',
         },
         {
           id: 'scoopy',
@@ -572,8 +572,8 @@ export const translations: Record<Language, TranslationContent> = {
           minDaysLabel: '最少 1 天',
           description: '小巧省油，停车极其方便——非常适合探索市区和沿海公路。',
           specs: ['自动挡', '110cc', '电喷 Engine'],
-          price: 100000,
-          priceFormatted: 'Rp 100k',
+          price: 120000,
+          priceFormatted: 'Rp 120k',
         },
         {
           id: 'scoopy',
