@@ -57,7 +57,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
         {
           id: 'beat',
           name: 'Honda Beat',
-          price: 120000,
+          price: 110000,
           shortSpec: {
             EN: '110cc eSP • Ultra Fuel-Efficient',
             ID: '110cc eSP • Super Irit',
@@ -68,7 +68,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
         {
           id: 'scoopy',
           name: 'Honda Scoopy',
-          price: 120000,
+          price: 110000,
           shortSpec: {
             EN: '110cc Retro • Chic Style',
             ID: '110cc Retro • Gaya Chic',
@@ -79,7 +79,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
         {
           id: 'fazzio',
           name: 'Yamaha Fazzio',
-          price: 120000,
+          price: 110000,
           shortSpec: {
             EN: '125cc Hybrid • Modern Chic',
             ID: '125cc Hybrid • Modern Chic',
@@ -116,7 +116,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
         {
           id: 'vario125',
           name: 'Honda Vario 125',
-          price: 140000,
+          price: 130000,
           shortSpec: {
             EN: '125cc eSP • Powerful & Agile',
             ID: '125cc eSP • Tangguh & Lincah',
@@ -127,7 +127,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
         {
           id: 'vario160',
           name: 'Honda Vario 160',
-          price: 150000,
+          price: 140000,
           shortSpec: {
             EN: '160cc eSP+ 4-Valve • Smart Key & Power',
             ID: '160cc eSP+ 4-Katup • Smart Key & Bertenaga',
@@ -164,7 +164,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
         {
           id: 'nmax',
           name: 'Yamaha NMAX 155',
-          price: 160000,
+          price: 150000,
           shortSpec: {
             EN: '155cc VVA Engine • Big Storage & Plush Seat',
             ID: '155cc Mesin VVA • Bagasi Luas & Jok Empuk',
@@ -175,7 +175,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
         {
           id: 'pcx',
           name: 'Honda PCX 155',
-          price: 160000,
+          price: 150000,
           shortSpec: {
             EN: '155cc eSP+ • Luxury Comfort Touring',
             ID: '155cc eSP+ • Touring Mewah & Nyaman',

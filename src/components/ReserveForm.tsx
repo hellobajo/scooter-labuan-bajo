@@ -27,13 +27,13 @@ const HOURLY_TIMES = [
 ];
 
 const BIKES = [
-  { id: 'beat', name: 'Honda Beat (or similar)', rate: 120000, labelEN: 'Honda Beat (or similar) – Rp 120k/day', labelZH: 'Honda Beat (或同级车型) – Rp 120k/天', labelID: 'Honda Beat (atau sejenis) – Rp 120rb/hari' },
-  { id: 'scoopy', name: 'Honda Scoopy (or similar)', rate: 120000, labelEN: 'Honda Scoopy (or similar) – Rp 120k/day', labelZH: 'Honda Scoopy (或同级车型) – Rp 120k/天', labelID: 'Honda Scoopy (atau sejenis) – Rp 120rb/hari' },
-  { id: 'fazzio', name: 'Yamaha Fazzio (or similar)', rate: 120000, labelEN: 'Yamaha Fazzio (or similar) – Rp 120k/day', labelZH: 'Yamaha Fazzio (或同级车型) – Rp 120k/天', labelID: 'Yamaha Fazzio (atau sejenis) – Rp 120rb/hari' },
-  { id: 'vario125', name: 'Honda Vario 125', rate: 140000, labelEN: 'Honda Vario 125 – Rp 140k/day', labelZH: 'Honda Vario 125 – Rp 140k/天', labelID: 'Honda Vario 125 – Rp 140rb/hari' },
-  { id: 'vario160', name: 'Honda Vario 160', rate: 150000, labelEN: 'Honda Vario 160 – Rp 150k/day', labelZH: 'Honda Vario 160 – Rp 150k/天', labelID: 'Honda Vario 160 – Rp 150rb/hari' },
-  { id: 'nmax', name: 'Yamaha NMAX (or similar)', rate: 160000, labelEN: 'Yamaha NMAX (or similar) – Rp 160k/day', labelZH: 'Yamaha NMAX (或同级车型) – Rp 160k/天', labelID: 'Yamaha NMAX (atau sejenis) – Rp 160rb/hari' },
-  { id: 'pcx', name: 'Honda PCX 155', rate: 160000, labelEN: 'Honda PCX 155 – Rp 160k/day', labelZH: 'Honda PCX 155 – Rp 160k/天', labelID: 'Honda PCX 155 – Rp 160rb/hari' },
+  { id: 'beat', name: 'Honda Beat (or similar)', rate: 110000, labelEN: 'Honda Beat (or similar) – Rp 110k/day', labelZH: 'Honda Beat (或同级车型) – Rp 110k/天', labelID: 'Honda Beat (atau sejenis) – Rp 110rb/hari' },
+  { id: 'scoopy', name: 'Honda Scoopy (or similar)', rate: 110000, labelEN: 'Honda Scoopy (or similar) – Rp 110k/day', labelZH: 'Honda Scoopy (或同级车型) – Rp 110k/天', labelID: 'Honda Scoopy (atau sejenis) – Rp 110rb/hari' },
+  { id: 'fazzio', name: 'Yamaha Fazzio (or similar)', rate: 110000, labelEN: 'Yamaha Fazzio (or similar) – Rp 110k/day', labelZH: 'Yamaha Fazzio (或同级车型) – Rp 110k/天', labelID: 'Yamaha Fazzio (atau sejenis) – Rp 110rb/hari' },
+  { id: 'vario125', name: 'Honda Vario 125', rate: 130000, labelEN: 'Honda Vario 125 – Rp 130k/day', labelZH: 'Honda Vario 125 – Rp 130k/天', labelID: 'Honda Vario 125 – Rp 130rb/hari' },
+  { id: 'vario160', name: 'Honda Vario 160', rate: 140000, labelEN: 'Honda Vario 160 – Rp 140k/day', labelZH: 'Honda Vario 160 – Rp 140k/天', labelID: 'Honda Vario 160 – Rp 140rb/hari' },
+  { id: 'nmax', name: 'Yamaha NMAX (or similar)', rate: 150000, labelEN: 'Yamaha NMAX (or similar) – Rp 150k/day', labelZH: 'Yamaha NMAX (或同级车型) – Rp 150k/天', labelID: 'Yamaha NMAX (atau sejenis) – Rp 150rb/hari' },
+  { id: 'pcx', name: 'Honda PCX 155', rate: 150000, labelEN: 'Honda PCX 155 – Rp 150k/day', labelZH: 'Honda PCX 155 – Rp 150k/天', labelID: 'Honda PCX 155 – Rp 150rb/hari' },
 ];
 
 const LOCATION_OPTIONS_EN = [

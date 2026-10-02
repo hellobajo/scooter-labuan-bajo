@@ -51,11 +51,11 @@ export const FLEET_CATEGORIES: CategoryOption[] = [
     },
     badgeStyle: 'teal',
     priceDisplay: {
-      EN: 'Rp 120.000 / day',
-      ID: 'Rp 120.000 / hari',
-      ZH: 'Rp 120.000 / 天',
+      EN: 'Rp 110.000 / day',
+      ID: 'Rp 110.000 / hari',
+      ZH: 'Rp 110.000 / 天',
     },
-    basePrice: 120000,
+    basePrice: 110000,
     specPills: {
       EN: ['Automatic', '110cc – 125cc', 'EFI / Hybrid'],
       ID: ['Matik', '110cc – 125cc', 'EFI / Hybrid'],
@@ -65,7 +65,7 @@ export const FLEET_CATEGORIES: CategoryOption[] = [
       {
         id: 'beat',
         name: 'Honda Beat',
-        price: 120000,
+        price: 110000,
         shortSpec: {
           EN: '110cc eSP • Super Fuel-Efficient',
           ID: '110cc eSP • Super Irit',
@@ -76,7 +76,7 @@ export const FLEET_CATEGORIES: CategoryOption[] = [
       {
         id: 'scoopy',
         name: 'Honda Scoopy',
-        price: 120000,
+        price: 110000,
         shortSpec: {
           EN: '110cc Retro • Chic Style',
           ID: '110cc Retro • Gaya Chic',
@@ -87,7 +87,7 @@ export const FLEET_CATEGORIES: CategoryOption[] = [
       {
         id: 'fazzio',
         name: 'Yamaha Fazzio',
-        price: 120000,
+        price: 110000,
         shortSpec: {
           EN: '125cc Hybrid • Modern Chic',
           ID: '125cc Hybrid • Modern Chic',
@@ -116,11 +116,11 @@ export const FLEET_CATEGORIES: CategoryOption[] = [
     },
     badgeStyle: 'amber',
     priceDisplay: {
-      EN: 'Rp 140.000 – 150.000 / day',
-      ID: 'Rp 140.000 – 150.000 / hari',
-      ZH: 'Rp 140.000 – 150.000 / 天',
+      EN: 'Rp 130.000 – 140.000 / day',
+      ID: 'Rp 130.000 – 140.000 / hari',
+      ZH: 'Rp 130.000 – 140.000 / 天',
     },
-    basePrice: 140000,
+    basePrice: 130000,
     specPills: {
       EN: ['Automatic', '125cc – 160cc', 'Liquid Cooled'],
       ID: ['Matik', '125cc – 160cc', 'Pendingin Cairan'],
@@ -130,7 +130,7 @@ export const FLEET_CATEGORIES: CategoryOption[] = [
       {
         id: 'vario125',
         name: 'Honda Vario 125',
-        price: 140000,
+        price: 130000,
         shortSpec: {
           EN: '125cc eSP • Powerful & Agile',
           ID: '125cc eSP • Tangguh & Lincah',
@@ -141,7 +141,7 @@ export const FLEET_CATEGORIES: CategoryOption[] = [
       {
         id: 'vario160',
         name: 'Honda Vario 160',
-        price: 150000,
+        price: 140000,
         shortSpec: {
           EN: '160cc eSP+ 4-Valve • Smart Key & Power',
           ID: '160cc eSP+ 4-Katup • Smart Key & Bertenaga',
@@ -170,11 +170,11 @@ export const FLEET_CATEGORIES: CategoryOption[] = [
     },
     badgeStyle: 'emerald',
     priceDisplay: {
-      EN: 'Rp 160.000 / day',
-      ID: 'Rp 160.000 / hari',
-      ZH: 'Rp 160.000 / 天',
+      EN: 'Rp 150.000 / day',
+      ID: 'Rp 150.000 / hari',
+      ZH: 'Rp 150.000 / 天',
     },
-    basePrice: 160000,
+    basePrice: 150000,
     specPills: {
       EN: ['Automatic', '155cc VVA', 'ABS / Disc Brake'],
       ID: ['Matik', '155cc VVA', 'Rem ABS / Cakram'],
@@ -184,7 +184,7 @@ export const FLEET_CATEGORIES: CategoryOption[] = [
       {
         id: 'nmax',
         name: 'Yamaha NMAX 155',
-        price: 160000,
+        price: 150000,
         shortSpec: {
           EN: '155cc VVA Engine • Big Storage & Plush Seat',
           ID: '155cc Mesin VVA • Bagasi Luas & Jok Empuk',
@@ -195,7 +195,7 @@ export const FLEET_CATEGORIES: CategoryOption[] = [
       {
         id: 'pcx',
         name: 'Honda PCX 155',
-        price: 160000,
+        price: 150000,
         shortSpec: {
           EN: '155cc eSP+ • Luxury Comfort Touring',
           ID: '155cc eSP+ • Touring Mewah & Nyaman',
