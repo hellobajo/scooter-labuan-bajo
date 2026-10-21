@@ -25,7 +25,7 @@ export const SocialProofGallery: React.FC<SocialProofGalleryProps> = ({ lang }) 
             </span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-3">
-            {usesEnglishSource(lang) ? phrase(lang, "Trusted Handover Gallery") : lang === 'ZH' 
+            {usesEnglishSource(lang) ? phrase(lang, "Trusted Handover Gallery") : lang === 'ZH'
               ? '实景交车与旅行者风采' 
               : 'Galeri Serah Terima Motor'}
           </h2>
