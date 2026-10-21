@@ -1,3 +1,4 @@
+import { phrase, usesEnglishSource } from '../data/localization';
 import React, { useState, useEffect } from 'react';
 import { TranslationContent, Language } from '../data/translations';
 import { CAR_CHARTER_BANNER, SPEEDBOAT_BANNER, RIDING_DESTINATIONS } from '../data/images';
@@ -17,68 +18,58 @@ export const AlternativeDestinations: React.FC<AlternativeDestinationsProps> = (
     {
       id: 1,
       image: CAR_CHARTER_BANNER,
-      tag: lang === 'EN' ? 'PRIVATE CAR & HIACE' : lang === 'ZH' ? '私人包车与商务车' : 'SEWA MOBIL & HIACE',
-      title: lang === 'EN' ? 'Private Charter: Comfort, Your Way' : lang === 'ZH' ? '私人包车：舒适随心，专业出行' : 'Private Charter: Nyaman & Privat',
-      subtitle: lang === 'EN' ? 'Private Car (1-4 Pax) & HiAce Commuter (Up to 14 Pax)' : lang === 'ZH' ? '私人轿车 (1-4人) & HiAce 商务车 (最多14人)' : 'Sewa Mobil MPV (1-4 Orang) & HiAce (S.D 14 Orang)',
-      caption: lang === 'EN' 
-        ? 'Whether it is a scenic escape or a group adventure, we have the perfect ride for you. Safe, reliable, and driven by professionals.' 
-        : lang === 'ZH'
+      tag: usesEnglishSource(lang) ? phrase(lang, "PRIVATE CAR & HIACE") : lang === 'ZH' ? '私人包车与商务车' : 'SEWA MOBIL & HIACE',
+      title: usesEnglishSource(lang) ? phrase(lang, "Private Charter: Comfort, Your Way") : lang === 'ZH' ? '私人包车：舒适随心，专业出行' : 'Private Charter: Nyaman & Privat',
+      subtitle: usesEnglishSource(lang) ? phrase(lang, "Private Car (1-4 Pax) & HiAce Commuter (Up to 14 Pax)") : lang === 'ZH' ? '私人轿车 (1-4人) & HiAce 商务车 (最多14人)' : 'Sewa Mobil MPV (1-4 Orang) & HiAce (S.D 14 Orang)',
+      caption: usesEnglishSource(lang) ? phrase(lang, "Whether it is a scenic escape or a group adventure, we have the perfect ride for you. Safe, reliable, and driven by professionals.") : lang === 'ZH'
         ? '无论是风景漫游还是团队出行，我们都能为您提供完美的车辆。安全可靠，由本地专业司机驾驶。'
         : 'Pilihan mobil MPV/SUV AC bersih dan HiAce Commuter rombongan. Pengemudi lokal ramah, profesional, dan berpengalaman.',
-      badge: lang === 'EN' ? 'Car & HiAce Charter' : lang === 'ZH' ? '包车 & HiAce 租用' : 'Sewa Mobil & HiAce',
-      buttonText: lang === 'EN' ? 'Explore Cars' : lang === 'ZH' ? '查看租车' : 'Sewa Mobil',
+      badge: usesEnglishSource(lang) ? phrase(lang, "Car & HiAce Charter") : lang === 'ZH' ? '包车 & HiAce 租用' : 'Sewa Mobil & HiAce',
+      buttonText: usesEnglishSource(lang) ? phrase(lang, "Explore Cars") : lang === 'ZH' ? '查看租车' : 'Sewa Mobil',
       buttonType: 'external',
       url: 'https://hellobajo.com/cars',
     },
     {
       id: 2,
       image: SPEEDBOAT_BANNER,
-      tag: lang === 'EN' ? 'SPEEDBOAT FULLDAY TRIP' : lang === 'ZH' ? '快艇一日游套餐' : 'PAKET SPEEDBOAT 1 HARI',
-      title: lang === 'EN' ? 'Komodo Island Speedboat Daytour' : lang === 'ZH' ? '科莫多岛豪华快艇一日游' : 'Speedboat Fullday Trip Komodo',
-      subtitle: lang === 'EN' ? 'Premium AC Speedboat & Island Hopping' : lang === 'ZH' ? '空调快艇 & 6大经典岛屿跳岛游' : 'Speedboat AC Nyaman & Island Hopping 6 Destinasi',
-      caption: lang === 'EN'
-        ? 'Explore Padar Island, Pink Beach, Komodo Island, Taka Makassar, Manta Point & Kanawa in 1 day. Includes lunch box, snorkeling gear & local guide.'
-        : lang === 'ZH'
+      tag: usesEnglishSource(lang) ? phrase(lang, "SPEEDBOAT FULLDAY TRIP") : lang === 'ZH' ? '快艇一日游套餐' : 'PAKET SPEEDBOAT 1 HARI',
+      title: usesEnglishSource(lang) ? phrase(lang, "Komodo Island Speedboat Daytour") : lang === 'ZH' ? '科莫多岛豪华快艇一日游' : 'Speedboat Fullday Trip Komodo',
+      subtitle: usesEnglishSource(lang) ? phrase(lang, "Premium AC Speedboat & Island Hopping") : lang === 'ZH' ? '空调快艇 & 6大经典岛屿跳岛游' : 'Speedboat AC Nyaman & Island Hopping 6 Destinasi',
+      caption: usesEnglishSource(lang) ? phrase(lang, "Explore Padar Island, Pink Beach, Komodo Island, Taka Makassar, Manta Point & Kanawa in 1 day. Includes lunch box, snorkeling gear & local guide.") : lang === 'ZH'
         ? '一天打卡帕达尔岛、粉红沙滩、科莫多巨蜥岛、塔卡麦加萨、魔鬼鱼点及卡纳瓦岛。含午餐便当、浮潜装备及本地导游。'
         : 'Jelajah Pulau Padar, Pink Beach, Pulau Komodo, Taka Makassar, Manta Point & Kanawa. Lengkap dengan lunch box, alat snorkeling & guide.',
-      badge: lang === 'EN' ? 'Speedboat & Daytour' : lang === 'ZH' ? '快艇跳岛游' : 'Speedboat & Tour Laut',
-      buttonText: lang === 'EN' ? 'Explore Boats' : lang === 'ZH' ? '查看游船' : 'Sewa Speedboat',
+      badge: usesEnglishSource(lang) ? phrase(lang, "Speedboat & Daytour") : lang === 'ZH' ? '快艇跳岛游' : 'Speedboat & Tour Laut',
+      buttonText: usesEnglishSource(lang) ? phrase(lang, "Explore Boats") : lang === 'ZH' ? '查看游船' : 'Sewa Speedboat',
       buttonType: 'external',
       url: 'https://hellobajo.com/boats',
     },
     {
       id: 3,
       image: RIDING_DESTINATIONS.waeRebo,
-      tag: lang === 'EN' ? '2 DAYS 1 NIGHT TOUR' : lang === 'ZH' ? '两天一夜经典行程' : 'PAKET TOUR 2H1M',
-      title: lang === 'EN' ? 'Wae Rebo: Hidden Village Above the Clouds' : lang === 'ZH' ? '瓦埃雷博：云端之上的古老传统村落' : 'Wae Rebo: Desa Tradisional di Atas Awan',
-      subtitle: lang === 'EN' ? 'All-Inclusive 2D1N Overnight Trip' : lang === 'ZH' ? '全包式 2天1夜 深度研学体验' : 'Paket Tour Lengkap 2 Hari 1 Malam',
-      caption: lang === 'EN'
-        ? 'Step into the heart of Flores and discover Waerebo traditional village. Package includes AC transport, Mbaru Niang stay, meals, and local guide.'
-        : lang === 'ZH'
+      tag: usesEnglishSource(lang) ? phrase(lang, "2 DAYS 1 NIGHT TOUR") : lang === 'ZH' ? '两天一夜经典行程' : 'PAKET TOUR 2H1M',
+      title: usesEnglishSource(lang) ? phrase(lang, "Wae Rebo: Hidden Village Above the Clouds") : lang === 'ZH' ? '瓦埃雷博：云端之上的古老传统村落' : 'Wae Rebo: Desa Tradisional di Atas Awan',
+      subtitle: usesEnglishSource(lang) ? phrase(lang, "All-Inclusive 2D1N Overnight Trip") : lang === 'ZH' ? '全包式 2天1夜 深度研学体验' : 'Paket Tour Lengkap 2 Hari 1 Malam',
+      caption: usesEnglishSource(lang) ? phrase(lang, "Step into the heart of Flores and discover Waerebo traditional village. Package includes AC transport, Mbaru Niang stay, meals, and local guide.") : lang === 'ZH'
         ? '深入弗洛勒斯腹地，探秘瓦埃雷博特色圆锥形传统高脚屋。套餐含空调接送、传统圆屋住宿、餐食及本地导游。'
         : 'Nikmati keindahan Wae Rebo & rumah adat Mbaru Niang. Paket komplit termasuk transport AC, makan, tiket masuk, inap & guide.',
-      badge: lang === 'EN' ? 'Wae Rebo 2D1N Package' : lang === 'ZH' ? '瓦埃雷博 2天1夜 套餐' : 'Paket Wae Rebo 2H1M',
-      buttonText: lang === 'EN' ? 'See Package' : lang === 'ZH' ? '查看行程详情' : 'Lihat Paket',
+      badge: usesEnglishSource(lang) ? phrase(lang, "Wae Rebo 2D1N Package") : lang === 'ZH' ? '瓦埃雷博 2天1夜 套餐' : 'Paket Wae Rebo 2H1M',
+      buttonText: usesEnglishSource(lang) ? phrase(lang, "See Package") : lang === 'ZH' ? '查看行程详情' : 'Lihat Paket',
       buttonType: 'pdf_package',
-      waMsg: lang === 'EN'
-        ? 'Hi HelloBajo! Please send me the Wae Rebo 2D1N Tour Package details and PDF document.'
-        : lang === 'ZH'
+      waMsg: usesEnglishSource(lang) ? phrase(lang, "Hi HelloBajo! Please send me the Wae Rebo 2D1N Tour Package details and PDF document.") : lang === 'ZH'
         ? '你好 HelloBajo！请发送瓦埃雷博 2天1夜 旅游套餐详情及 PDF 资料。'
         : 'Halo HelloBajo! Tolong kirimkan rincian & dokumen PDF Paket Tour Wae Rebo 2D1N.',
     },
     {
       id: 4,
       image: RIDING_DESTINATIONS.goloMori,
-      tag: lang === 'EN' ? 'MORE ROADS, MORE STORIES, MORE BAJO' : lang === 'ZH' ? '骑行探秘弗洛勒斯' : 'RIDE & EXPLORE FLORES',
-      title: lang === 'EN' ? 'A Journey Worth Exploring' : lang === 'ZH' ? '开启值得期待的骑行之旅' : 'Sensasi Berkendara Jelajah Bajo',
-      subtitle: lang === 'EN' ? 'Discover Labuan Bajo Beyond the Sea' : lang === 'ZH' ? '探索拉布安巴佐陆地之美' : 'Jelajah Labuan Bajo Lebih Dari Sekadar Laut',
-      caption: lang === 'EN'
-        ? 'Labuan Bajo is not just about the sea. Explore breathtaking landscapes, hidden gems, and local culture on unforgettable scooter adventures.'
-        : lang === 'ZH'
+      tag: usesEnglishSource(lang) ? phrase(lang, "MORE ROADS, MORE STORIES, MORE BAJO") : lang === 'ZH' ? '骑行探秘弗洛勒斯' : 'RIDE & EXPLORE FLORES',
+      title: usesEnglishSource(lang) ? phrase(lang, "A Journey Worth Exploring") : lang === 'ZH' ? '开启值得期待的骑行之旅' : 'Sensasi Berkendara Jelajah Bajo',
+      subtitle: usesEnglishSource(lang) ? phrase(lang, "Discover Labuan Bajo Beyond the Sea") : lang === 'ZH' ? '探索拉布安巴佐陆地之美' : 'Jelajah Labuan Bajo Lebih Dari Sekadar Laut',
+      caption: usesEnglishSource(lang) ? phrase(lang, "Labuan Bajo is not just about the sea. Explore breathtaking landscapes, hidden gems, and local culture on unforgettable scooter adventures.") : lang === 'ZH'
         ? '拉布安巴佐不仅有大海。骑上品质踏板车，穿梭戈洛莫里景观大道与落日山丘，体验独特本地风情。'
         : 'Rasakan kebebasan riding menyusuri jalanan mulus Golo Mori, bukit sunset, & pantai rahasia dengan motor matic prima.',
-      badge: lang === 'EN' ? 'Scooter Land Adventures' : lang === 'ZH' ? '踏板车陆地探索' : 'Jelajah Motor Matic',
-      buttonText: lang === 'EN' ? 'Book a Scooter' : lang === 'ZH' ? '立即预订摩托车' : 'Sewa Motor Sekarang',
+      badge: usesEnglishSource(lang) ? phrase(lang, "Scooter Land Adventures") : lang === 'ZH' ? '踏板车陆地探索' : 'Jelajah Motor Matic',
+      buttonText: usesEnglishSource(lang) ? phrase(lang, "Book a Scooter") : lang === 'ZH' ? '立即预订摩托车' : 'Sewa Motor Sekarang',
       buttonType: 'scroll_reserve',
     },
   ];
@@ -140,29 +131,27 @@ export const AlternativeDestinations: React.FC<AlternativeDestinationsProps> = (
   }, [carouselSlides.length]);
 
   const carWhatsappUrl = `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${encodeURIComponent(
-    lang === 'EN'
-      ? 'Hi HelloBajo! I am interested in inquiring about Private Car Charter / Land Tours in Labuan Bajo.'
-      : 'Halo HelloBajo! Saya mau tanya info sewa mobil / tur darat privat di Labuan Bajo.'
+    usesEnglishSource(lang) ? phrase(lang, "Hi HelloBajo! I am interested in inquiring about Private Car Charter / Land Tours in Labuan Bajo.") : 'Halo HelloBajo! Saya mau tanya info sewa mobil / tur darat privat di Labuan Bajo.'
   )}`;
 
   const popularRoutes = [
     {
-      title: lang === 'EN' ? 'Golo Mori Coastal Highway' : lang === 'ZH' ? '戈洛莫里沿海景观大道' : 'Jalan Pesisir Golo Mori',
-      desc: lang === 'EN' ? 'Scenic smooth asphalt road along turquoise bays.' : lang === 'ZH' ? '沿着蔚蓝海湾蜿蜒而过的平整景观柏油路。' : 'Jalan mulus beraspal indah menyusuri teluk biru.',
+      title: usesEnglishSource(lang) ? phrase(lang, "Golo Mori Coastal Highway") : lang === 'ZH' ? '戈洛莫里沿海景观大道' : 'Jalan Pesisir Golo Mori',
+      desc: usesEnglishSource(lang) ? phrase(lang, "Scenic smooth asphalt road along turquoise bays.") : lang === 'ZH' ? '沿着蔚蓝海湾蜿蜒而过的平整景观柏油路。' : 'Jalan mulus beraspal indah menyusuri teluk biru.',
       img: RIDING_DESTINATIONS.goloMori,
-      tag: lang === 'EN' ? 'Must Ride' : lang === 'ZH' ? '骑行首选' : 'Must Ride',
+      tag: usesEnglishSource(lang) ? phrase(lang, "Must Ride") : lang === 'ZH' ? '骑行首选' : 'Must Ride',
     },
     {
-      title: lang === 'EN' ? 'Gua Rangko Cave' : lang === 'ZH' ? '朗科天然盐水溶洞' : 'Gua Rangko Salt Lake',
-      desc: lang === 'EN' ? 'Ride to the cave and swim in crystal clear blue cave pool.' : lang === 'ZH' ? '骑行至码头，畅游阳光穿透的晶莹天然溶洞水池。' : 'Mandi di kolam gua alami berkilau air asin.',
+      title: usesEnglishSource(lang) ? phrase(lang, "Gua Rangko Cave") : lang === 'ZH' ? '朗科天然盐水溶洞' : 'Gua Rangko Salt Lake',
+      desc: usesEnglishSource(lang) ? phrase(lang, "Ride to the cave and swim in crystal clear blue cave pool.") : lang === 'ZH' ? '骑行至码头，畅游阳光穿透的晶莹天然溶洞水池。' : 'Mandi di kolam gua alami berkilau air asin.',
       img: RIDING_DESTINATIONS.guaRangko,
-      tag: lang === 'EN' ? 'Popular' : lang === 'ZH' ? '热门推荐' : 'Popular',
+      tag: usesEnglishSource(lang) ? phrase(lang, "Popular") : lang === 'ZH' ? '热门推荐' : 'Popular',
     },
     {
-      title: lang === 'EN' ? 'Bukit Cinta Sunset View' : lang === 'ZH' ? 'Bukit Cinta 爱情山落日观景台' : 'Bukit Cinta Sunset',
-      desc: lang === 'EN' ? 'Panoramic hill top view overlooking Komodo islands sunset.' : lang === 'ZH' ? '登顶山丘全景俯瞰弗洛勒斯海绝美落日霞光。' : 'Pemandangan bukit indah melihat sunset laut Flores.',
+      title: usesEnglishSource(lang) ? phrase(lang, "Bukit Cinta Sunset View") : lang === 'ZH' ? 'Bukit Cinta 爱情山落日观景台' : 'Bukit Cinta Sunset',
+      desc: usesEnglishSource(lang) ? phrase(lang, "Panoramic hill top view overlooking Komodo islands sunset.") : lang === 'ZH' ? '登顶山丘全景俯瞰弗洛勒斯海绝美落日霞光。' : 'Pemandangan bukit indah melihat sunset laut Flores.',
       img: RIDING_DESTINATIONS.bukitCinta,
-      tag: lang === 'EN' ? 'Sunset Spot' : lang === 'ZH' ? '落日胜地' : 'Sunset Spot',
+      tag: usesEnglishSource(lang) ? phrase(lang, "Sunset Spot") : lang === 'ZH' ? '落日胜地' : 'Sunset Spot',
     },
   ];
 
@@ -291,7 +280,7 @@ export const AlternativeDestinations: React.FC<AlternativeDestinationsProps> = (
         {/* Popular Scooter Riding Routes in Labuan Bajo */}
         <div>
           <h3 className="text-lg font-bold text-slate-900 mb-5 text-center">
-            {lang === 'EN' ? 'Top Scooter Riding Spots in Labuan Bajo' : lang === 'ZH' ? '拉布安巴佐骑行热门景点' : 'Spot Favorit Berkendara Motor di Labuan Bajo'}
+            {usesEnglishSource(lang) ? phrase(lang, "Top Scooter Riding Spots in Labuan Bajo") : lang === 'ZH' ? '拉布安巴佐骑行热门景点' : 'Spot Favorit Berkendara Motor di Labuan Bajo'}
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

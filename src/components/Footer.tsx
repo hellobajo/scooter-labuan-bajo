@@ -1,3 +1,4 @@
+import { phrase, usesEnglishSource } from '../data/localization';
 import React from 'react';
 import { TranslationContent, Language } from '../data/translations';
 import { MessageCircle, ShieldCheck, Heart, MapPin, Mail } from 'lucide-react';
@@ -10,9 +11,7 @@ interface FooterProps {
 
 export const Footer: React.FC<FooterProps> = ({ t, lang }) => {
   const whatsappUrl = `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${encodeURIComponent(
-    lang === 'EN'
-      ? 'Hi HelloBajo! I have a question regarding scooter rental in Labuan Bajo.'
-      : lang === 'ZH'
+    usesEnglishSource(lang) ? phrase(lang, "Hi HelloBajo! I have a question regarding scooter rental in Labuan Bajo.") : lang === 'ZH'
       ? '你好 HelloBajo！我想咨询在拉布安巴佐租摩托车的相关信息。'
       : 'Halo HelloBajo! Saya mau tanya info sewa motor di Labuan Bajo.'
   )}`;

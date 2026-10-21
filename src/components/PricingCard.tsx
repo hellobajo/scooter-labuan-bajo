@@ -1,3 +1,4 @@
+import { phrase, translateData, usesEnglishSource } from '../data/localization';
 import React, { useState, useEffect, useRef } from 'react';
 import { TranslationContent, Language } from '../data/translations';
 import { SCOOTER_IMAGES, HERO_IMAGE, RIDING_DESTINATIONS } from '../data/images';
@@ -36,23 +37,35 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
         EN: 'Compact / Economy',
         ID: 'Compact / Economy',
         ZH: '紧凑经济型',
-      },
+ES: translateData('ES', 'Compact / Economy'),
+IT: translateData('IT', 'Compact / Economy'),
+JA: translateData('JA', 'Compact / Economy')
+},
       description: {
         EN: 'Compact, fuel-efficient, and highly agile. Ideal for solo riders and couples cruising town streets, cafes, and beach roads.',
         ID: 'Compact, irit bahan bakar, dan sangat lincah. Cocok untuk solo traveler & pasangan keliling kota, kafe, serta jalanan pantai.',
         ZH: '小巧省油且非常灵活。非常适合单人或情侣在小镇街道、咖啡馆和海滩曲折公路上骑行。',
-      },
+ES: translateData('ES', 'Compact, fuel-efficient, and highly agile. Ideal for solo riders and couples cruising town streets, cafes, and beach roads.'),
+IT: translateData('IT', 'Compact, fuel-efficient, and highly agile. Ideal for solo riders and couples cruising town streets, cafes, and beach roads.'),
+JA: translateData('JA', 'Compact, fuel-efficient, and highly agile. Ideal for solo riders and couples cruising town streets, cafes, and beach roads.')
+},
       categoryBadge: {
         EN: 'Best Value Choice',
         ID: 'Pilihan Paling Hemat',
         ZH: '超值性价比首选',
-      },
+ES: translateData('ES', 'Best Value Choice'),
+IT: translateData('IT', 'Best Value Choice'),
+JA: translateData('JA', 'Best Value Choice')
+},
       badgeStyle: 'teal',
       specsPills: {
         EN: ['Automatic', '110cc – 125cc', 'EFI / Hybrid'],
         ID: ['Matik', '110cc – 125cc', 'EFI / Hybrid'],
         ZH: ['自动档', '110cc – 125cc', '电喷 / 轻混'],
-      },
+ES: translateData('ES', ['Automatic', '110cc – 125cc', 'EFI / Hybrid']),
+IT: translateData('IT', ['Automatic', '110cc – 125cc', 'EFI / Hybrid']),
+JA: translateData('JA', ['Automatic', '110cc – 125cc', 'EFI / Hybrid'])
+},
       models: [
         {
           id: 'beat',
@@ -62,7 +75,10 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
             EN: '110cc eSP • Ultra Fuel-Efficient',
             ID: '110cc eSP • Super Irit',
             ZH: '110cc eSP • 超级省油',
-          },
+ES: translateData('ES', '110cc eSP • Ultra Fuel-Efficient'),
+IT: translateData('IT', '110cc eSP • Ultra Fuel-Efficient'),
+JA: translateData('JA', '110cc eSP • Ultra Fuel-Efficient')
+},
           image: SCOOTER_IMAGES.beat,
         },
         {
@@ -73,7 +89,10 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
             EN: '110cc Retro • Chic Style',
             ID: '110cc Retro • Gaya Chic',
             ZH: '110cc 复古 • 时尚外观',
-          },
+ES: translateData('ES', '110cc Retro • Chic Style'),
+IT: translateData('IT', '110cc Retro • Chic Style'),
+JA: translateData('JA', '110cc Retro • Chic Style')
+},
           image: SCOOTER_IMAGES.scoopy,
         },
         {
@@ -84,7 +103,10 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
             EN: '125cc Hybrid • Modern Chic',
             ID: '125cc Hybrid • Modern Chic',
             ZH: '125cc 混动 • 现代时尚',
-          },
+ES: translateData('ES', '125cc Hybrid • Modern Chic'),
+IT: translateData('IT', '125cc Hybrid • Modern Chic'),
+JA: translateData('JA', '125cc Hybrid • Modern Chic')
+},
           image: SCOOTER_IMAGES.fazzio,
         },
       ],
@@ -95,23 +117,35 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
         EN: 'Medium / Sport',
         ID: 'Medium / Sport',
         ZH: '中型运动型',
-      },
+ES: translateData('ES', 'Medium / Sport'),
+IT: translateData('IT', 'Medium / Sport'),
+JA: translateData('JA', 'Medium / Sport')
+},
       description: {
         EN: 'Stronger horsepower & sharp acceleration for effortlessly navigating steep Labuan Bajo hill climbs, scenic viewpoints, and longer island rides.',
         ID: 'Mesin lebih bertenaga & akselerasi responsif untuk melibas tanjakan terjal Labuan Bajo, bukit pemandangan, dan perjalanan jauh.',
         ZH: '更强劲的马力与极速响应，轻松征服拉布安巴佐陡峭山路、观景台及更长途的环岛骑行。',
-      },
+ES: translateData('ES', 'Stronger horsepower & sharp acceleration for effortlessly navigating steep Labuan Bajo hill climbs, scenic viewpoints, and longer island rides.'),
+IT: translateData('IT', 'Stronger horsepower & sharp acceleration for effortlessly navigating steep Labuan Bajo hill climbs, scenic viewpoints, and longer island rides.'),
+JA: translateData('JA', 'Stronger horsepower & sharp acceleration for effortlessly navigating steep Labuan Bajo hill climbs, scenic viewpoints, and longer island rides.')
+},
       categoryBadge: {
         EN: 'Hill Climbing Power',
         ID: 'Tenaga Mantap Menanjak',
         ZH: '强劲爬坡动力',
-      },
+ES: translateData('ES', 'Hill Climbing Power'),
+IT: translateData('IT', 'Hill Climbing Power'),
+JA: translateData('JA', 'Hill Climbing Power')
+},
       badgeStyle: 'amber',
       specsPills: {
         EN: ['Automatic', '125cc – 160cc', 'Liquid Cooled'],
         ID: ['Matik', '125cc – 160cc', 'Pendingin Cairan'],
         ZH: ['自动档', '125cc – 160cc', '水冷发动机'],
-      },
+ES: translateData('ES', ['Automatic', '125cc – 160cc', 'Liquid Cooled']),
+IT: translateData('IT', ['Automatic', '125cc – 160cc', 'Liquid Cooled']),
+JA: translateData('JA', ['Automatic', '125cc – 160cc', 'Liquid Cooled'])
+},
       models: [
         {
           id: 'vario125',
@@ -121,7 +155,10 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
             EN: '125cc eSP • Powerful & Agile',
             ID: '125cc eSP • Tangguh & Lincah',
             ZH: '125cc eSP • 强劲灵活',
-          },
+ES: translateData('ES', '125cc eSP • Powerful & Agile'),
+IT: translateData('IT', '125cc eSP • Powerful & Agile'),
+JA: translateData('JA', '125cc eSP • Powerful & Agile')
+},
           image: SCOOTER_IMAGES.vario125,
         },
         {
@@ -132,7 +169,10 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
             EN: '160cc eSP+ 4-Valve • Smart Key & Power',
             ID: '160cc eSP+ 4-Katup • Smart Key & Bertenaga',
             ZH: '160cc eSP+ 4气门 • 智能钥匙与强劲动力',
-          },
+ES: translateData('ES', '160cc eSP+ 4-Valve • Smart Key & Power'),
+IT: translateData('IT', '160cc eSP+ 4-Valve • Smart Key & Power'),
+JA: translateData('JA', '160cc eSP+ 4-Valve • Smart Key & Power')
+},
           image: SCOOTER_IMAGES.vario160,
         },
       ],
@@ -143,23 +183,35 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
         EN: 'Maxi Scooter',
         ID: 'Maxi Scooter',
         ZH: '豪华踏板巡航',
-      },
+ES: translateData('ES', 'Maxi Scooter'),
+IT: translateData('IT', 'Maxi Scooter'),
+JA: translateData('JA', 'Maxi Scooter')
+},
       description: {
         EN: 'Ultimate comfort & highway stability. Features generous under-seat storage for backpacks, wide plush double seat, and powerful 155cc engine.',
         ID: 'Kenyamanan maksimal & stabil di kecepatan tinggi. Bagasi ekstra luas untuk ransel, jok ganda empuk lebar, & mesin 155cc bertenaga.',
         ZH: '极佳骑乘舒适度与巡航稳定性。拥有超大座桶存储空间，宽大舒适双人座垫及强劲 155cc 引擎。',
-      },
+ES: translateData('ES', 'Ultimate comfort & highway stability. Features generous under-seat storage for backpacks, wide plush double seat, and powerful 155cc engine.'),
+IT: translateData('IT', 'Ultimate comfort & highway stability. Features generous under-seat storage for backpacks, wide plush double seat, and powerful 155cc engine.'),
+JA: translateData('JA', 'Ultimate comfort & highway stability. Features generous under-seat storage for backpacks, wide plush double seat, and powerful 155cc engine.')
+},
       categoryBadge: {
         EN: 'Most Popular & Comfortable',
         ID: 'Paling Populer & Nyaman',
         ZH: '最受欢迎与舒适',
-      },
+ES: translateData('ES', 'Most Popular & Comfortable'),
+IT: translateData('IT', 'Most Popular & Comfortable'),
+JA: translateData('JA', 'Most Popular & Comfortable')
+},
       badgeStyle: 'emerald',
       specsPills: {
         EN: ['Automatic', '155cc VVA', 'ABS / Disc Brake'],
         ID: ['Matik', '155cc VVA', 'Rem ABS / Cakram'],
         ZH: ['自动档', '155cc VVA', 'ABS / 碟刹'],
-      },
+ES: translateData('ES', ['Automatic', '155cc VVA', 'ABS / Disc Brake']),
+IT: translateData('IT', ['Automatic', '155cc VVA', 'ABS / Disc Brake']),
+JA: translateData('JA', ['Automatic', '155cc VVA', 'ABS / Disc Brake'])
+},
       models: [
         {
           id: 'nmax',
@@ -169,7 +221,10 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
             EN: '155cc VVA Engine • Big Storage & Plush Seat',
             ID: '155cc Mesin VVA • Bagasi Luas & Jok Empuk',
             ZH: '155cc VVA 引擎 • 大储物箱与舒适座垫',
-          },
+ES: translateData('ES', '155cc VVA Engine • Big Storage & Plush Seat'),
+IT: translateData('IT', '155cc VVA Engine • Big Storage & Plush Seat'),
+JA: translateData('JA', '155cc VVA Engine • Big Storage & Plush Seat')
+},
           image: SCOOTER_IMAGES.nmax,
         },
         {
@@ -180,7 +235,10 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
             EN: '155cc eSP+ • Luxury Comfort Touring',
             ID: '155cc eSP+ • Touring Mewah & Nyaman',
             ZH: '155cc eSP+ • 豪华舒适巡航',
-          },
+ES: translateData('ES', '155cc eSP+ • Luxury Comfort Touring'),
+IT: translateData('IT', '155cc eSP+ • Luxury Comfort Touring'),
+JA: translateData('JA', '155cc eSP+ • Luxury Comfort Touring')
+},
           image: SCOOTER_IMAGES.pcx,
         },
       ],
@@ -299,7 +357,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
   };
 
   const getBookBtnText = () => {
-    if (lang === 'EN') return 'Book Now';
+    if (usesEnglishSource(lang)) return phrase(lang, "Book Now");
     if (lang === 'ZH') return '立即预订';
     return 'Sewa Sekarang';
   };
@@ -356,14 +414,10 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
                         className="flex items-center gap-1.5 px-2.5 py-1 bg-slate-900/80 hover:bg-slate-900 text-white text-[10px] font-extrabold rounded-full backdrop-blur-md border border-white/20 shadow-sm cursor-pointer transition-all"
                         title={
                           cardIsPaused
-                            ? lang === 'EN'
-                              ? 'Auto slider paused (wait 10s or click to resume)'
-                              : lang === 'ZH'
+                            ? usesEnglishSource(lang) ? phrase(lang, "Auto slider paused (wait 10s or click to resume)") : lang === 'ZH'
                               ? '自动播放已暂停（等待10秒或点击恢复）'
                               : 'Slider otomatis dijedakan (tunggu 10d atau klik untuk lanjut)'
-                            : lang === 'EN'
-                            ? 'Auto slider active (3s)'
-                            : lang === 'ZH'
+                            : usesEnglishSource(lang) ? phrase(lang, "Auto slider active (3s)") : lang === 'ZH'
                             ? '自动播放模式 (3秒)'
                             : 'Slider otomatis aktif (3d)'
                         }
@@ -372,14 +426,14 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
                           <>
                             <Play className="w-2.5 h-2.5 fill-amber-300 text-amber-300" />
                             <span className="text-amber-200">
-                              {lang === 'EN' ? 'Paused (10s)' : lang === 'ZH' ? '已暂停 (10秒)' : 'Jeda (10d)'}
+                              {usesEnglishSource(lang) ? phrase(lang, "Paused (10s)") : lang === 'ZH' ? '已暂停 (10秒)' : 'Jeda (10d)'}
                             </span>
                           </>
                         ) : (
                           <>
                             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                             <span className="text-white">
-                              {lang === 'EN' ? '3s Auto' : lang === 'ZH' ? '3秒 自动' : 'Otomatis 3d'}
+                              {usesEnglishSource(lang) ? phrase(lang, "3s Auto") : lang === 'ZH' ? '3秒 自动' : 'Otomatis 3d'}
                             </span>
                             <Pause className="w-2.5 h-2.5 fill-white text-white opacity-80" />
                           </>
@@ -456,7 +510,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
                     {/* Available Models Section */}
                     <div>
                       <span className="text-[10px] font-extrabold text-slate-600 uppercase tracking-wider block mb-2">
-                        {lang === 'EN' ? 'AVAILABLE MODELS:' : lang === 'ZH' ? '可选车型:' : 'MODEL TERSEDIA:'}
+                        {usesEnglishSource(lang) ? phrase(lang, "AVAILABLE MODELS:") : lang === 'ZH' ? '可选车型:' : 'MODEL TERSEDIA:'}
                       </span>
                       
                       {/* Interactive Chips (Clicking temporarily pauses slider for 10s to view selection) */}
@@ -515,7 +569,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
                       {formatRupiah(activeModel.price)}
                     </span>
                     <span className="text-xs text-slate-600 font-bold whitespace-nowrap">
-                      / {lang === 'EN' ? 'day' : lang === 'ZH' ? '天' : 'hari'}
+                      / {usesEnglishSource(lang) ? phrase(lang, "day") : lang === 'ZH' ? '天' : 'hari'}
                     </span>
                   </div>
 
@@ -541,9 +595,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ t, lang, onSelectScoot
             <Info className="w-3.5 h-3.5 text-amber-900" />
           </div>
           <p className="font-semibold leading-relaxed">
-            {lang === 'EN'
-              ? 'Unit availability, exact color, and year may vary depending on daily stock. Photos are for visual reference.'
-              : lang === 'ZH'
+            {usesEnglishSource(lang) ? phrase(lang, "Unit availability, exact color, and year may vary depending on daily stock. Photos are for visual reference.") : lang === 'ZH'
               ? '车辆存货、颜色及年份以每日库存为准。图片仅供视觉参考。'
               : 'Ketersediaan unit, warna, dan tahun motor menyesuaikan stok harian. Foto adalah contoh visual.'}
           </p>
