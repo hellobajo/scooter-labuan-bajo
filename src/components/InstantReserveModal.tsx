@@ -61,14 +61,14 @@ JA: translateData('JA', 'BEST VALUE')
 },
     badgeStyle: 'teal',
     priceDisplay: {
-      EN: 'Rp 110.000 / day',
-      ID: 'Rp 110.000 / hari',
-      ZH: 'Rp 110.000 / 天',
-ES: translateData('ES', 'Rp 110.000 / day'),
-IT: translateData('IT', 'Rp 110.000 / day'),
-JA: translateData('JA', 'Rp 110.000 / day')
+      EN: 'Rp 100.000 / day',
+      ID: 'Rp 100.000 / hari',
+      ZH: 'Rp 100.000 / 天',
+ES: translateData('ES', 'Rp 100.000 / day'),
+IT: translateData('IT', 'Rp 100.000 / day'),
+JA: translateData('JA', 'Rp 100.000 / day')
 },
-    basePrice: 110000,
+    basePrice: 100000,
     specPills: {
       EN: ['Automatic', '110cc – 125cc', 'EFI / Hybrid'],
       ID: ['Matik', '110cc – 125cc', 'EFI / Hybrid'],
@@ -81,7 +81,7 @@ JA: translateData('JA', ['Automatic', '110cc – 125cc', 'EFI / Hybrid'])
       {
         id: 'beat',
         name: 'Honda Beat',
-        price: 110000,
+        price: 100000,
         shortSpec: {
           EN: '110cc eSP • Super Fuel-Efficient',
           ID: '110cc eSP • Super Irit',
@@ -95,7 +95,7 @@ JA: translateData('JA', '110cc eSP • Super Fuel-Efficient')
       {
         id: 'scoopy',
         name: 'Honda Scoopy',
-        price: 110000,
+        price: 100000,
         shortSpec: {
           EN: '110cc Retro • Chic Style',
           ID: '110cc Retro • Gaya Chic',
@@ -109,7 +109,7 @@ JA: translateData('JA', '110cc Retro • Chic Style')
       {
         id: 'fazzio',
         name: 'Yamaha Fazzio',
-        price: 110000,
+        price: 100000,
         shortSpec: {
           EN: '125cc Hybrid • Modern Chic',
           ID: '125cc Hybrid • Modern Chic',

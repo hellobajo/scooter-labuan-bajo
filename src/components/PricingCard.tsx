@@ -70,7 +70,7 @@ JA: translateData('JA', ['Automatic', '110cc – 125cc', 'EFI / Hybrid'])
         {
           id: 'beat',
           name: 'Honda Beat',
-          price: 110000,
+          price: 100000,
           shortSpec: {
             EN: '110cc eSP • Ultra Fuel-Efficient',
             ID: '110cc eSP • Super Irit',
@@ -84,7 +84,7 @@ JA: translateData('JA', '110cc eSP • Ultra Fuel-Efficient')
         {
           id: 'scoopy',
           name: 'Honda Scoopy',
-          price: 110000,
+          price: 100000,
           shortSpec: {
             EN: '110cc Retro • Chic Style',
             ID: '110cc Retro • Gaya Chic',
@@ -98,7 +98,7 @@ JA: translateData('JA', '110cc Retro • Chic Style')
         {
           id: 'fazzio',
           name: 'Yamaha Fazzio',
-          price: 110000,
+          price: 100000,
           shortSpec: {
             EN: '125cc Hybrid • Modern Chic',
             ID: '125cc Hybrid • Modern Chic',
