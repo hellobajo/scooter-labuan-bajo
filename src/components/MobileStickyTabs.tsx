@@ -1,3 +1,4 @@
+import { translateData } from '../data/localization';
 import React, { useEffect, useState, useRef } from 'react';
 import { Language } from '../data/translations';
 
@@ -7,20 +8,40 @@ interface MobileStickyTabsProps {
 
 interface TabItem {
   id: string;
-  labels: {
-    EN: string;
-    ID: string;
-    ZH: string;
-  };
+  labels: Record<Language, string>;
 }
 
 const TABS: TabItem[] = [
-  { id: 'hero', labels: { EN: "Let's Ride", ID: 'Beranda', ZH: '首页' } },
-  { id: 'how-it-works', labels: { EN: 'How It Works', ID: 'Cara Kerja', ZH: '预订流程' } },
-  { id: 'fleet', labels: { EN: 'Fleet & Rates', ID: 'Pilihan Motor', ZH: '车型价格' } },
-  { id: 'why-us', labels: { EN: 'Why Us', ID: 'Keunggulan', ZH: '选择我们' } },
-  { id: 'gallery', labels: { EN: 'Gallery', ID: 'Galeri', ZH: '客照展示' } },
-  { id: 'faq', labels: { EN: 'FAQ', ID: 'FAQ', ZH: '常见问题' } },
+  { id: 'hero', labels: { EN: "Let's Ride", ID: 'Beranda', ZH: '首页',
+ES: translateData('ES', "Let's Ride"),
+IT: translateData('IT', "Let's Ride"),
+JA: translateData('JA', "Let's Ride")
+} },
+  { id: 'how-it-works', labels: { EN: 'How It Works', ID: 'Cara Kerja', ZH: '预订流程',
+ES: translateData('ES', 'How It Works'),
+IT: translateData('IT', 'How It Works'),
+JA: translateData('JA', 'How It Works')
+} },
+  { id: 'fleet', labels: { EN: 'Fleet & Rates', ID: 'Pilihan Motor', ZH: '车型价格',
+ES: translateData('ES', 'Fleet & Rates'),
+IT: translateData('IT', 'Fleet & Rates'),
+JA: translateData('JA', 'Fleet & Rates')
+} },
+  { id: 'why-us', labels: { EN: 'Why Us', ID: 'Keunggulan', ZH: '选择我们',
+ES: translateData('ES', 'Why Us'),
+IT: translateData('IT', 'Why Us'),
+JA: translateData('JA', 'Why Us')
+} },
+  { id: 'gallery', labels: { EN: 'Gallery', ID: 'Galeri', ZH: '客照展示',
+ES: translateData('ES', 'Gallery'),
+IT: translateData('IT', 'Gallery'),
+JA: translateData('JA', 'Gallery')
+} },
+  { id: 'faq', labels: { EN: 'FAQ', ID: 'FAQ', ZH: '常见问题',
+ES: translateData('ES', 'FAQ'),
+IT: translateData('IT', 'FAQ'),
+JA: translateData('JA', 'FAQ')
+} },
 ];
 
 export const MobileStickyTabs: React.FC<MobileStickyTabsProps> = ({ lang }) => {

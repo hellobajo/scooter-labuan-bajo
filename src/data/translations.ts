@@ -1,3 +1,4 @@
+import { translateData } from './localization';
 // ==========================================================
 // CENTRALIZED TRANSLATION DICTIONARY
 //
@@ -7,7 +8,7 @@
 // 3. All components automatically use `t` from `translations[lang]`.
 // ==========================================================
 
-export type Language = 'EN' | 'ID' | 'ZH';
+export type Language = 'EN' | 'ID' | 'ZH' | 'ES' | 'IT' | 'JA';
 
 export interface ScooterFleetItem {
   id: string;
@@ -123,7 +124,7 @@ export interface TranslationContent {
   };
 }
 
-export const translations: Record<Language, TranslationContent> = {
+const baseTranslations: Record<'EN' | 'ID' | 'ZH', TranslationContent> = {
   EN: {
     nav: {
       howItWorks: 'How It Works',
@@ -701,3 +702,5 @@ export const translations: Record<Language, TranslationContent> = {
     },
   },
 };
+
+export const translations: Record<Language, TranslationContent> = { ...baseTranslations, ES: translateData('ES', baseTranslations.EN), IT: translateData('IT', baseTranslations.EN), JA: translateData('JA', baseTranslations.EN) };

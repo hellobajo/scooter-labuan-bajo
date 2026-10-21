@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import { LANGUAGE_OPTIONS } from './components/LanguageSelector';
+import { phrase, usesEnglishSource } from './data/localization';
+import React, { useEffect, useState } from 'react';
 import { Language, translations } from './data/translations';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
@@ -13,10 +15,17 @@ import { FloatingWhatsApp } from './components/FloatingWhatsApp';
 import { InstantReserveModal } from './components/InstantReserveModal';
 
 export default function App() {
-  const [lang, setLang] = useState<Language>('EN');
+  const [lang, setLang] = useState<Language>(() => {
+    try { const saved = localStorage.getItem('hellobajo-language'); return LANGUAGE_OPTIONS.find(option => option.code === saved)?.code ?? 'EN'; }
+    catch { return 'EN'; }
+  });
   const [selectedBikeId, setSelectedBikeId] = useState<string>('');
   const [isReserveModalOpen, setIsReserveModalOpen] = useState<boolean>(false);
   const t = translations[lang];
+  useEffect(() => {
+    document.documentElement.lang = LANGUAGE_OPTIONS.find(option => option.code === lang)?.locale ?? 'en';
+    try { localStorage.setItem('hellobajo-language', lang); } catch { /* Storage may be unavailable in private browsing. */ }
+  }, [lang]);
 
   const handleOpenReserveModal = (bikeId?: string) => {
     setSelectedBikeId(bikeId || '');
@@ -79,7 +88,7 @@ export default function App() {
           className="w-full flex items-center justify-center gap-2 px-6 py-3.5 bg-teal-600 active:bg-teal-700 text-white font-extrabold text-[15px] rounded-2xl shadow-lg shadow-teal-600/30 transition-all cursor-pointer"
         >
           <span>⚡</span>
-          <span>{lang === 'EN' ? 'BOOK NOW / INSTANT BOOKING' : lang === 'ZH' ? '立即预订 (即时)' : 'SEWA SEKARANG (Instant)'}</span>
+          <span>{usesEnglishSource(lang) ? phrase(lang, "BOOK NOW / INSTANT BOOKING") : lang === 'ZH' ? '立即预订 (即时)' : 'SEWA SEKARANG (Instant)'}</span>
         </button>
       </div>
 

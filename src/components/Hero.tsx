@@ -1,3 +1,4 @@
+import { phrase, usesEnglishSource } from '../data/localization';
 import React from 'react';
 import { TranslationContent, Language } from '../data/translations';
 import { MessageCircle, Check, ShieldCheck, Truck, Clock, Key } from 'lucide-react';
@@ -12,9 +13,7 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ t, lang, onOpenReserveModal }) => {
   const whatsappUrl = `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${encodeURIComponent(
-    lang === 'EN'
-      ? 'Hi HelloBajo! I am interested in renting a scooter in Labuan Bajo.'
-      : 'Halo HelloBajo! Saya mau tanya sewa motor di Labuan Bajo.'
+    usesEnglishSource(lang) ? phrase(lang, "Hi HelloBajo! I am interested in renting a scooter in Labuan Bajo.") : 'Halo HelloBajo! Saya mau tanya sewa motor di Labuan Bajo.'
   )}`;
 
   return (
@@ -44,9 +43,7 @@ export const Hero: React.FC<HeroProps> = ({ t, lang, onOpenReserveModal }) => {
 
             {/* Subtitle */}
             <p className="text-slate-600 text-sm sm:text-base lg:text-lg leading-relaxed max-w-2xl">
-              {lang === 'EN'
-                ? 'Explore Labuan Bajo on your own terms. We deliver well-maintained scooters directly to Komodo Airport (LBJ), your hotel, or villa for IDR 20,000 per scooter. Zero deposit and fast WhatsApp response.'
-                : lang === 'ZH'
+              {usesEnglishSource(lang) ? phrase(lang, "Explore Labuan Bajo on your own terms. We deliver well-maintained scooters directly to Komodo Airport (LBJ), your hotel, or villa for IDR 20,000 per scooter. Zero deposit and fast WhatsApp response.") : lang === 'ZH'
                 ? '随心探索拉布安巴佐。送车至科莫多机场 (LBJ)、酒店或度假村，每辆收费 IDR 20,000。零押金，WhatsApp 快速回复。'
                 : 'Jelajahi Labuan Bajo dengan fleksibel. Motor siap antar ke Bandara Komodo (LBJ), hotel, atau villa Anda dengan biaya Rp20.000 per unit. Bebas deposit dan respon cepat via WhatsApp.'}
             </p>
@@ -67,7 +64,7 @@ export const Hero: React.FC<HeroProps> = ({ t, lang, onOpenReserveModal }) => {
             <div className="absolute -top-3 -right-1 sm:-right-4 bg-white px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-2xl shadow-xl border border-stone-200/90 flex items-center gap-2 animate-bounce z-10">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
               <span className="text-xs font-extrabold text-slate-800">
-                {lang === 'EN' ? 'Airport LBJ Delivery' : lang === 'ZH' ? '科莫多机场 LBJ 送车' : 'Siap Antar Bandara LBJ'}
+                {usesEnglishSource(lang) ? phrase(lang, "Airport LBJ Delivery") : lang === 'ZH' ? '科莫多机场 LBJ 送车' : 'Siap Antar Bandara LBJ'}
               </span>
             </div>
           </div>
@@ -81,10 +78,10 @@ export const Hero: React.FC<HeroProps> = ({ t, lang, onOpenReserveModal }) => {
                 </div>
                 <div>
                   <h4 className="text-xs sm:text-sm font-bold text-slate-900 leading-tight">
-                    {lang === 'EN' ? 'No Security Deposit' : lang === 'ZH' ? '无需押金' : 'Bebas Deposit'}
+                    {usesEnglishSource(lang) ? phrase(lang, "No Security Deposit") : lang === 'ZH' ? '无需押金' : 'Bebas Deposit'}
                   </h4>
                   <p className="text-xs text-slate-600 font-normal mt-0.5">
-                    {lang === 'EN' ? 'Pay only daily rate on delivery' : lang === 'ZH' ? '送车时结清日租金即可' : 'Bayar saat motor diantar'}
+                    {usesEnglishSource(lang) ? phrase(lang, "Pay only daily rate on delivery") : lang === 'ZH' ? '送车时结清日租金即可' : 'Bayar saat motor diantar'}
                   </p>
                 </div>
               </div>
@@ -95,10 +92,10 @@ export const Hero: React.FC<HeroProps> = ({ t, lang, onOpenReserveModal }) => {
                 </div>
                 <div>
                   <h4 className="text-xs sm:text-sm font-bold text-slate-900 leading-tight">
-                    {lang === 'EN' ? 'Easy Delivery' : lang === 'ZH' ? '送到酒店 / 机场' : 'Antar s.d Hotel / Bandara'}
+                    {usesEnglishSource(lang) ? phrase(lang, "Easy Delivery") : lang === 'ZH' ? '送到酒店 / 机场' : 'Antar s.d Hotel / Bandara'}
                   </h4>
                   <p className="text-xs text-slate-600 font-normal mt-0.5">
-                    {lang === 'EN' ? 'Only Rp 20k per trip' : lang === 'ZH' ? '单程送车费仅 Rp 20k' : 'Hanya Rp 20rb per trip'}
+                    {usesEnglishSource(lang) ? phrase(lang, "Only Rp 20k per trip") : lang === 'ZH' ? '单程送车费仅 Rp 20k' : 'Hanya Rp 20rb per trip'}
                   </p>
                 </div>
               </div>
@@ -109,10 +106,10 @@ export const Hero: React.FC<HeroProps> = ({ t, lang, onOpenReserveModal }) => {
                 </div>
                 <div>
                   <h4 className="text-xs sm:text-sm font-bold text-slate-900 leading-tight">
-                    {lang === 'EN' ? '24h Minimum Rental' : lang === 'ZH' ? '最少 1 天 (24 小时)' : 'Minimal 1 Hari (24 Jam)'}
+                    {usesEnglishSource(lang) ? phrase(lang, "24h Minimum Rental") : lang === 'ZH' ? '最少 1 天 (24 小时)' : 'Minimal 1 Hari (24 Jam)'}
                   </h4>
                   <p className="text-xs text-slate-600 font-normal mt-0.5">
-                    {lang === 'EN' ? 'Overtime Rp 15k/hr (Max 4h)' : lang === 'ZH' ? '超时费 Rp 15k/小时 (最多 4 小时)' : 'Overtime Rp 15rb/jam (Max 4 jam)'}
+                    {usesEnglishSource(lang) ? phrase(lang, "Overtime Rp 15k/hr (Max 4h)") : lang === 'ZH' ? '超时费 Rp 15k/小时 (最多 4 小时)' : 'Overtime Rp 15rb/jam (Max 4 jam)'}
                   </p>
                 </div>
               </div>
@@ -123,10 +120,10 @@ export const Hero: React.FC<HeroProps> = ({ t, lang, onOpenReserveModal }) => {
                 </div>
                 <div>
                   <h4 className="text-xs sm:text-sm font-bold text-slate-900 leading-tight">
-                    {lang === 'EN' ? 'Quick WA Approval' : lang === 'ZH' ? 'WhatsApp 快速审核' : 'Proses Cepat WhatsApp'}
+                    {usesEnglishSource(lang) ? phrase(lang, "Quick WA Approval") : lang === 'ZH' ? 'WhatsApp 快速审核' : 'Proses Cepat WhatsApp'}
                   </h4>
                   <p className="text-xs text-slate-600 font-normal mt-0.5">
-                    {lang === 'EN' ? 'Ready in 5 minutes' : lang === 'ZH' ? '5 分钟内即可确认' : 'Siap dalam 5 menit'}
+                    {usesEnglishSource(lang) ? phrase(lang, "Ready in 5 minutes") : lang === 'ZH' ? '5 分钟内即可确认' : 'Siap dalam 5 menit'}
                   </p>
                 </div>
               </div>
@@ -142,7 +139,7 @@ export const Hero: React.FC<HeroProps> = ({ t, lang, onOpenReserveModal }) => {
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-teal-600 hover:bg-teal-500 text-white font-black text-sm sm:text-base rounded-full shadow-xl shadow-teal-600/30 transition-all transform hover:-translate-y-0.5 active:scale-95 cursor-pointer"
               >
                 <span>⚡</span>
-                <span>{lang === 'EN' ? 'BOOK NOW (Instant Delivery)' : lang === 'ZH' ? '立即预订 (即时送车)' : 'RESERVE NOW (Antar Instant)'}</span>
+                <span>{usesEnglishSource(lang) ? phrase(lang, "BOOK NOW (Instant Delivery)") : lang === 'ZH' ? '立即预订 (即时送车)' : 'RESERVE NOW (Antar Instant)'}</span>
               </button>
 
               <a
@@ -150,7 +147,7 @@ export const Hero: React.FC<HeroProps> = ({ t, lang, onOpenReserveModal }) => {
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 bg-white hover:bg-stone-100 text-slate-800 font-extrabold text-sm rounded-full border border-stone-300 shadow-sm transition-all transform hover:-translate-y-0.5 active:scale-95 cursor-pointer"
               >
                 <span>🛵</span>
-                <span>{lang === 'EN' ? 'Explore Scooter Fleet' : lang === 'ZH' ? '查看所有车型' : 'Lihat Pilihan Motor'}</span>
+                <span>{usesEnglishSource(lang) ? phrase(lang, "Explore Scooter Fleet") : lang === 'ZH' ? '查看所有车型' : 'Lihat Pilihan Motor'}</span>
               </a>
             </div>
           </div>

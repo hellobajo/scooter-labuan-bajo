@@ -1,3 +1,4 @@
+import { phrase, usesEnglishSource } from '../data/localization';
 import React, { useState, useEffect, useMemo } from 'react';
 import { TranslationContent, Language } from '../data/translations';
 import { MessageCircle, Calendar, Clock, MapPin, AtSign, ShieldCheck, Calculator, AlertCircle, Info } from 'lucide-react';
@@ -239,22 +240,22 @@ export const ReserveForm: React.FC<ReserveFormProps> = ({ t, lang, selectedBikeI
     e.preventDefault();
 
     if (!selectedBikeId) {
-      alert(lang === 'EN' ? 'Please select a scooter model.' : lang === 'ZH' ? '请选择摩托车型号。' : 'Harap pilih jenis motor terlebih dahulu.');
+      alert(usesEnglishSource(lang) ? phrase(lang, "Please select a scooter model.") : lang === 'ZH' ? '请选择摩托车型号。' : 'Harap pilih jenis motor terlebih dahulu.');
       return;
     }
 
     if (!deliveryAreaOption) {
-      alert(lang === 'EN' ? 'Please select a delivery / pickup location area.' : lang === 'ZH' ? '请选择送车/取车地点。' : 'Harap pilih area lokasi pengantaran motor.');
+      alert(usesEnglishSource(lang) ? phrase(lang, "Please select a delivery / pickup location area.") : lang === 'ZH' ? '请选择送车/取车地点。' : 'Harap pilih area lokasi pengantaran motor.');
       return;
     }
 
     if (!returnAreaOption) {
-      alert(lang === 'EN' ? 'Please select a return / drop-off location area.' : lang === 'ZH' ? '请选择还车地点。' : 'Harap pilih area lokasi pengembalian motor.');
+      alert(usesEnglishSource(lang) ? phrase(lang, "Please select a return / drop-off location area.") : lang === 'ZH' ? '请选择还车地点。' : 'Harap pilih area lokasi pengembalian motor.');
       return;
     }
 
     if (!ageConfirmed) {
-      alert(lang === 'EN' ? 'Please confirm rider age (20 - 65 years).' : lang === 'ZH' ? '请确认骑行者年龄在 20 - 65 岁之间。' : 'Harap konfirmasi usia pengendara (20 - 65 tahun).');
+      alert(usesEnglishSource(lang) ? phrase(lang, "Please confirm rider age (20 - 65 years).") : lang === 'ZH' ? '请确认骑行者年龄在 20 - 65 岁之间。' : 'Harap konfirmasi usia pengendara (20 - 65 tahun).');
       return;
     }
 
@@ -276,23 +277,21 @@ export const ReserveForm: React.FC<ReserveFormProps> = ({ t, lang, selectedBikeI
     }
 
     const formattedMessage =
-      lang === 'EN'
-        ? `Hi HelloBajo! I would like to book a scooter:\n\n` +
-          `🛵 *SCOOTER BOOKING REQUEST*\n` +
-          `• *Bike:* ${selectedBike.name}\n` +
-          `• *Pick-up Date & Time:* ${pickupDate} at ${pickupTime}\n` +
-          `• *Drop-off Date & Time:* ${dropoffDate} at ${dropoffTime}\n` +
-          `• *Pickup Location:* ${finalPickupLocation}\n` +
-          `• *Return Location:* ${finalReturnLocation}\n` +
-          `• *Social Handle:* ${socialHandle || 'Will provide in chat'}\n` +
-          `• *Rider Age Verified:* Yes (20-65 yrs)\n\n` +
-          `💰 *PRICE ESTIMATE BREAKDOWN*\n` +
-          `• Base Rental (${calculation.fullDays} day${calculation.fullDays > 1 ? 's' : ''}): Rp ${calculation.basePrice.toLocaleString('id-ID')}\n` +
-          (calculation.overtimeHours > 0 ? `• Overtime (${calculation.overtimeHours} hrs @ Rp 15k/hr): + Rp ${calculation.overtimePrice.toLocaleString('id-ID')}\n` : '') +
-          `• Delivery & Pickup Fee: + Rp ${calculation.deliveryFee.toLocaleString('id-ID')} (Rp 20k/trip)\n` +
-          `• *TOTAL ESTIMATE:* *Rp ${calculation.totalEstimate.toLocaleString('id-ID')}*\n\n` +
-          `Please confirm availability. Thank you!`
-        : lang === 'ZH'
+      usesEnglishSource(lang) ? phrase(lang, "Hi HelloBajo! I would like to book a scooter:\n\n") +
+          phrase(lang, "🛵 *SCOOTER BOOKING REQUEST*\n") +
+          phrase(lang, "• *Bike:* {0}\n", selectedBike.name) +
+          phrase(lang, "• *Pick-up Date & Time:* {0} at {1}\n", pickupDate, pickupTime) +
+          phrase(lang, "• *Drop-off Date & Time:* {0} at {1}\n", dropoffDate, dropoffTime) +
+          phrase(lang, "• *Pickup Location:* {0}\n", finalPickupLocation) +
+          phrase(lang, "• *Return Location:* {0}\n", finalReturnLocation) +
+          phrase(lang, "• *Social Handle:* {0}\n", socialHandle || 'Will provide in chat') +
+          phrase(lang, "• *Rider Age Verified:* Yes (20-65 yrs)\n\n") +
+          phrase(lang, "💰 *PRICE ESTIMATE BREAKDOWN*\n") +
+          phrase(lang, "• Base Rental ({0} day{1}): Rp {2}\n", calculation.fullDays, calculation.fullDays > 1 ? 's' : '', calculation.basePrice.toLocaleString('id-ID')) +
+          (calculation.overtimeHours > 0 ? phrase(lang, "• Overtime ({0} hrs @ Rp 15k/hr): + Rp {1}\n", calculation.overtimeHours, calculation.overtimePrice.toLocaleString('id-ID')) : '') +
+          phrase(lang, "• Delivery & Pickup Fee: + Rp {0} (Rp 20k/trip)\n", calculation.deliveryFee.toLocaleString('id-ID')) +
+          phrase(lang, "• *TOTAL ESTIMATE:* *Rp {0}*\n\n", calculation.totalEstimate.toLocaleString('id-ID')) +
+          phrase(lang, "Please confirm availability. Thank you!") : lang === 'ZH'
         ? `你好 HelloBajo！我想预订摩托车：\n\n` +
           `🛵 *摩托车预订请求*\n` +
           `• *车型:* ${selectedBike.name}\n` +
@@ -356,10 +355,10 @@ export const ReserveForm: React.FC<ReserveFormProps> = ({ t, lang, selectedBikeI
                 </div>
                 <div>
                   <h4 className="text-xs sm:text-sm font-extrabold text-white">
-                    {lang === 'EN' ? 'Need a Scooter RIGHT NOW?' : lang === 'ZH' ? '急需用车？即时送达' : 'Butuh Motor SEKARANG (Urgent)?'}
+                    {usesEnglishSource(lang) ? phrase(lang, "Need a Scooter RIGHT NOW?") : lang === 'ZH' ? '急需用车？即时送达' : 'Butuh Motor SEKARANG (Urgent)?'}
                   </h4>
                   <p className="text-[11px] text-slate-300 font-medium">
-                    {lang === 'EN' ? 'Fast 45-min delivery • Instant unit selector & cost calculation' : lang === 'ZH' ? '45分钟极速送达 • 实时计算费用' : 'Persiapan 45 menit • Hitung estimasi real-time'}
+                    {usesEnglishSource(lang) ? phrase(lang, "Fast 45-min delivery • Instant unit selector & cost calculation") : lang === 'ZH' ? '45分钟极速送达 • 实时计算费用' : 'Persiapan 45 menit • Hitung estimasi real-time'}
                   </p>
                 </div>
               </div>
@@ -368,7 +367,7 @@ export const ReserveForm: React.FC<ReserveFormProps> = ({ t, lang, selectedBikeI
                 onClick={onOpenModal}
                 className="w-full sm:w-auto px-5 py-2.5 bg-teal-600 hover:bg-teal-500 text-white font-black text-xs rounded-xl shadow-md transition-all whitespace-nowrap cursor-pointer"
               >
-                {lang === 'EN' ? 'OPEN INSTANT BOOKING' : lang === 'ZH' ? '打开即时预订' : 'BUKA FLOATING FORM'}
+                {usesEnglishSource(lang) ? phrase(lang, "OPEN INSTANT BOOKING") : lang === 'ZH' ? '打开即时预订' : 'BUKA FLOATING FORM'}
               </button>
             </div>
           )}
@@ -389,11 +388,11 @@ export const ReserveForm: React.FC<ReserveFormProps> = ({ t, lang, selectedBikeI
                 }`}
               >
                 <option value="" disabled>
-                  {lang === 'EN' ? '-- Select Scooter Model --' : lang === 'ZH' ? '-- 选择摩托车型号 --' : '-- Pilih Model Motor --'}
+                  {usesEnglishSource(lang) ? phrase(lang, "-- Select Scooter Model --") : lang === 'ZH' ? '-- 选择摩托车型号 --' : '-- Pilih Model Motor --'}
                 </option>
                 {BIKES.map((bike) => (
                   <option key={bike.id} value={bike.id} className="text-slate-800">
-                    {lang === 'EN' ? bike.labelEN : lang === 'ZH' ? bike.labelZH : bike.labelID}
+                    {usesEnglishSource(lang) ? bike.labelEN : lang === 'ZH' ? bike.labelZH : bike.labelID}
                   </option>
                 ))}
               </select>
@@ -432,7 +431,7 @@ export const ReserveForm: React.FC<ReserveFormProps> = ({ t, lang, selectedBikeI
                       ))
                     ) : (
                       <option value="">
-                        {lang === 'EN' ? 'Closed for today' : lang === 'ZH' ? '今日营业已结束' : 'Hari ini sudah tutup'}
+                        {usesEnglishSource(lang) ? phrase(lang, "Closed for today") : lang === 'ZH' ? '今日营业已结束' : 'Hari ini sudah tutup'}
                       </option>
                     )}
                   </select>
@@ -442,9 +441,7 @@ export const ReserveForm: React.FC<ReserveFormProps> = ({ t, lang, selectedBikeI
                 <p className="text-xs font-semibold text-amber-800 bg-amber-50 p-2 rounded-lg border border-amber-200 mt-2 flex items-center gap-1.5">
                   <AlertCircle className="w-4 h-4 text-amber-600 shrink-0" />
                   <span>
-                    {lang === 'EN'
-                      ? 'Operational hours for today (8:00 AM - 5:00 PM WITA) have ended. Please select tomorrow.'
-                      : lang === 'ZH'
+                    {usesEnglishSource(lang) ? phrase(lang, "Operational hours for today (8:00 AM - 5:00 PM WITA) have ended. Please select tomorrow.") : lang === 'ZH'
                       ? '今日营业时间 (08:00 - 17:00 WITA) 已结束，请选择明日日期。'
                       : 'Jam operasional hari ini (08:00 - 17:00 WITA) telah selesai. Silakan pilih tanggal besok.'}
                   </span>
@@ -503,9 +500,9 @@ export const ReserveForm: React.FC<ReserveFormProps> = ({ t, lang, selectedBikeI
                   }`}
                 >
                   <option value="" disabled>
-                    {lang === 'EN' ? '-- Select Delivery / Hotel Area --' : lang === 'ZH' ? '-- 选择送车/酒店区域 --' : '-- Pilih Area Pengantaran --'}
+                    {usesEnglishSource(lang) ? phrase(lang, "-- Select Delivery / Hotel Area --") : lang === 'ZH' ? '-- 选择送车/酒店区域 --' : '-- Pilih Area Pengantaran --'}
                   </option>
-                  {(lang === 'EN' ? LOCATION_OPTIONS_EN : lang === 'ZH' ? LOCATION_OPTIONS_ZH : LOCATION_OPTIONS_ID).map((loc, i) => (
+                  {(usesEnglishSource(lang) ? LOCATION_OPTIONS_EN : lang === 'ZH' ? LOCATION_OPTIONS_ZH : LOCATION_OPTIONS_ID).map((loc, i) => (
                     <option key={i} value={loc} className="text-slate-800">
                       {loc}
                     </option>
@@ -521,7 +518,7 @@ export const ReserveForm: React.FC<ReserveFormProps> = ({ t, lang, selectedBikeI
                     required
                     value={customDeliveryText}
                     onChange={(e) => setCustomDeliveryText(e.target.value)}
-                    placeholder={lang === 'EN' ? 'Type hotel / villa name or address...' : lang === 'ZH' ? '请输入酒店/民宿名称或详细地址...' : 'Ketik nama hotel / villa / alamat...'}
+                    placeholder={usesEnglishSource(lang) ? phrase(lang, "Type hotel / villa name or address...") : lang === 'ZH' ? '请输入酒店/民宿名称或详细地址...' : 'Ketik nama hotel / villa / alamat...'}
                     className="w-full px-3.5 py-2.5 bg-amber-50/60 border border-amber-300 rounded-xl text-xs sm:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500/30 font-medium"
                   />
                 </div>
@@ -544,12 +541,12 @@ export const ReserveForm: React.FC<ReserveFormProps> = ({ t, lang, selectedBikeI
                   }`}
                 >
                   <option value="" disabled>
-                    {lang === 'EN' ? '-- Select Return / Drop-off Area --' : lang === 'ZH' ? '-- 选择还车/退车区域 --' : '-- Pilih Area Pengembalian --'}
+                    {usesEnglishSource(lang) ? phrase(lang, "-- Select Return / Drop-off Area --") : lang === 'ZH' ? '-- 选择还车/退车区域 --' : '-- Pilih Area Pengembalian --'}
                   </option>
                   <option value="Same as Delivery Area" className="text-slate-800">
-                    {lang === 'EN' ? 'Same as Delivery Area' : lang === 'ZH' ? '与送车地点相同' : 'Sama dengan Lokasi Antar'}
+                    {usesEnglishSource(lang) ? phrase(lang, "Same as Delivery Area") : lang === 'ZH' ? '与送车地点相同' : 'Sama dengan Lokasi Antar'}
                   </option>
-                  {(lang === 'EN' ? LOCATION_OPTIONS_EN : lang === 'ZH' ? LOCATION_OPTIONS_ZH : LOCATION_OPTIONS_ID).map((loc, i) => (
+                  {(usesEnglishSource(lang) ? LOCATION_OPTIONS_EN : lang === 'ZH' ? LOCATION_OPTIONS_ZH : LOCATION_OPTIONS_ID).map((loc, i) => (
                     <option key={i} value={loc} className="text-slate-800">
                       {loc}
                     </option>
@@ -565,7 +562,7 @@ export const ReserveForm: React.FC<ReserveFormProps> = ({ t, lang, selectedBikeI
                     required
                     value={customReturnText}
                     onChange={(e) => setCustomReturnText(e.target.value)}
-                    placeholder={lang === 'EN' ? 'Type return hotel / location name...' : lang === 'ZH' ? '请输入还车地点/酒店名称...' : 'Ketik lokasi pengembalian...'}
+                    placeholder={usesEnglishSource(lang) ? phrase(lang, "Type return hotel / location name...") : lang === 'ZH' ? '请输入还车地点/酒店名称...' : 'Ketik lokasi pengembalian...'}
                     className="w-full px-3.5 py-2.5 bg-amber-50/60 border border-amber-300 rounded-xl text-xs sm:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-amber-500/30 font-medium"
                   />
                 </div>
@@ -584,7 +581,7 @@ export const ReserveForm: React.FC<ReserveFormProps> = ({ t, lang, selectedBikeI
                   required
                   value={socialHandle}
                   onChange={(e) => setSocialHandle(e.target.value)}
-                  placeholder={lang === 'EN' ? '@username (Instagram / TikTok / Facebook)' : lang === 'ZH' ? '@社交账号 (用于核验的 Instagram / TikTok / 脸书账号)' : '@username (Nama Instagram / TikTok / Facebook)'}
+                  placeholder={usesEnglishSource(lang) ? phrase(lang, "@username (Instagram / TikTok / Facebook)") : lang === 'ZH' ? '@社交账号 (用于核验的 Instagram / TikTok / 脸书账号)' : '@username (Nama Instagram / TikTok / Facebook)'}
                   className="w-full pl-10 pr-3.5 py-2.5 bg-stone-50 border border-stone-200 rounded-xl text-xs sm:text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-teal-500/20 focus:border-teal-500 transition-all font-medium"
                 />
               </div>
@@ -609,7 +606,7 @@ export const ReserveForm: React.FC<ReserveFormProps> = ({ t, lang, selectedBikeI
             <div className="p-5 rounded-2xl bg-sky-50/80 border border-sky-200 text-slate-800 space-y-2.5 shadow-sm">
               <div className="flex justify-between items-center text-xs sm:text-sm font-semibold text-slate-700">
                 <span>
-                  {lang === 'EN' ? `Base Rental (${calculation.fullDays} day${calculation.fullDays > 1 ? 's' : ''})` : lang === 'ZH' ? `基础租金 (${calculation.fullDays} 天)` : `Sewa Pokok (${calculation.fullDays} hari)`}
+                  {usesEnglishSource(lang) ? phrase(lang, "Base Rental ({0} day{1})", calculation.fullDays, calculation.fullDays > 1 ? 's' : '') : lang === 'ZH' ? `基础租金 (${calculation.fullDays} 天)` : `Sewa Pokok (${calculation.fullDays} hari)`}
                 </span>
                 <span className="font-bold text-slate-900">
                   Rp {calculation.basePrice.toLocaleString('id-ID')}
@@ -619,9 +616,7 @@ export const ReserveForm: React.FC<ReserveFormProps> = ({ t, lang, selectedBikeI
               {calculation.overtimeHours > 0 && (
                 <div className="flex justify-between items-center text-xs sm:text-sm font-semibold text-sky-800">
                   <span>
-                    {lang === 'EN'
-                      ? `Overtime (${calculation.overtimeHours} hrs @ Rp 15,000/hr)`
-                      : lang === 'ZH'
+                    {usesEnglishSource(lang) ? phrase(lang, "Overtime ({0} hrs @ Rp 15,000/hr)", calculation.overtimeHours) : lang === 'ZH'
                       ? `超时费 (${calculation.overtimeHours} 小时 @ Rp 15k/小时)`
                       : `Overtime (${calculation.overtimeHours} jam @ Rp 15rb/jam)`}
                   </span>
@@ -633,7 +628,7 @@ export const ReserveForm: React.FC<ReserveFormProps> = ({ t, lang, selectedBikeI
 
               <div className="flex justify-between items-center text-xs sm:text-sm font-semibold text-slate-700">
                 <span>
-                  {lang === 'EN' ? 'Delivery & Pickup Fee (Rp 20k / trip)' : lang === 'ZH' ? '接送服务费 (Rp 20k / 单程)' : 'Ongkir Antar & Jemput (Rp 20rb / trip)'}
+                  {usesEnglishSource(lang) ? phrase(lang, "Delivery & Pickup Fee (Rp 20k / trip)") : lang === 'ZH' ? '接送服务费 (Rp 20k / 单程)' : 'Ongkir Antar & Jemput (Rp 20rb / trip)'}
                 </span>
                 <span className="font-bold text-slate-900">
                   + Rp {calculation.deliveryFee.toLocaleString('id-ID')}
@@ -642,7 +637,7 @@ export const ReserveForm: React.FC<ReserveFormProps> = ({ t, lang, selectedBikeI
 
               <div className="border-t border-sky-200 pt-3 flex justify-between items-center">
                 <span className="text-sm sm:text-base font-extrabold text-sky-950">
-                  {lang === 'EN' ? 'Total Estimate' : lang === 'ZH' ? '预估总额' : 'Total Estimasi'}
+                  {usesEnglishSource(lang) ? phrase(lang, "Total Estimate") : lang === 'ZH' ? '预估总额' : 'Total Estimasi'}
                 </span>
                 <span className="text-lg sm:text-xl font-extrabold text-teal-700">
                   Rp {calculation.totalEstimate.toLocaleString('id-ID')}
@@ -652,9 +647,7 @@ export const ReserveForm: React.FC<ReserveFormProps> = ({ t, lang, selectedBikeI
               <div className="flex items-start gap-1.5 pt-1 text-[11px] text-slate-600 font-medium">
                 <Info className="w-3.5 h-3.5 text-sky-600 shrink-0 mt-0.5" />
                 <span>
-                  {lang === 'EN'
-                    ? 'Overtime rate is Rp 15,000/hr (up to 4 hrs max). Rentals exceeding 4 hrs overtime automatically count as 1 full additional day.'
-                    : lang === 'ZH'
+                  {usesEnglishSource(lang) ? phrase(lang, "Overtime rate is Rp 15,000/hr (up to 4 hrs max). Rentals exceeding 4 hrs overtime automatically count as 1 full additional day.") : lang === 'ZH'
                     ? '超时费为 Rp 15,000/小时 (最多 4 小时)。超过 4 小时将自动按 1 天整算。'
                     : 'Tarif overtime Rp 15.000/jam (maksimal 4 jam). Lebih dari 4 jam otomatis dihitung sewa 1 hari penuh.'}
                 </span>

@@ -1,3 +1,4 @@
+import { phrase, usesEnglishSource } from '../data/localization';
 import React from 'react';
 import { Language } from '../data/translations';
 import { MessageCircle } from 'lucide-react';
@@ -9,14 +10,12 @@ interface FloatingWhatsAppProps {
 
 export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({ lang }) => {
   const whatsappUrl = `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${encodeURIComponent(
-    lang === 'EN'
-      ? 'Hi HelloBajo! I am interested in renting a scooter in Labuan Bajo.'
-      : lang === 'ZH'
+    usesEnglishSource(lang) ? phrase(lang, "Hi HelloBajo! I am interested in renting a scooter in Labuan Bajo.") : lang === 'ZH'
       ? '你好 HelloBajo！我想咨询在拉布安巴佐租摩托车。'
       : 'Halo HelloBajo! Saya mau tanya booking sewa motor di Labuan Bajo.'
   )}`;
 
-  const chatText = lang === 'EN' ? 'Chat with us' : lang === 'ZH' ? '在线咨询' : 'Chat dengan kami';
+  const chatText = usesEnglishSource(lang) ? phrase(lang, "Chat with us") : lang === 'ZH' ? '在线咨询' : 'Chat dengan kami';
 
   return (
     <div className="fixed bottom-24 right-4 sm:bottom-6 sm:right-6 z-[46] flex items-center">

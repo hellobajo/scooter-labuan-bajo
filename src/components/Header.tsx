@@ -1,3 +1,5 @@
+import { LanguageSelector } from './LanguageSelector';
+import { phrase, usesEnglishSource } from '../data/localization';
 import React, { useState } from 'react';
 import { Language, TranslationContent } from '../data/translations';
 import { MessageCircle, Menu, X } from 'lucide-react';
@@ -15,9 +17,7 @@ export const Header: React.FC<HeaderProps> = ({ lang, onLanguageChange, t, onOpe
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const whatsappUrl = `https://wa.me/${SITE_CONFIG.whatsappNumber}?text=${encodeURIComponent(
-    lang === 'EN'
-      ? 'Hi HelloBajo! I am interested in renting a scooter in Labuan Bajo.'
-      : lang === 'ZH'
+    usesEnglishSource(lang) ? phrase(lang, "Hi HelloBajo! I am interested in renting a scooter in Labuan Bajo.") : lang === 'ZH'
       ? '你好 HelloBajo！我想在拉布安巴佐租摩托车。'
       : 'Halo HelloBajo! Saya berminat sewa motor di Labuan Bajo.'
   )}`;
@@ -70,39 +70,7 @@ export const Header: React.FC<HeaderProps> = ({ lang, onLanguageChange, t, onOpe
           {/* Right Action Controls (Lang Toggle & WhatsApp CTA) */}
           <div className="flex items-center space-x-3">
             
-            {/* Language Selector Pill Capsule */}
-            <div className="flex items-center bg-slate-100 p-1 rounded-full text-xs font-semibold border border-slate-200/60">
-              <button
-                onClick={() => onLanguageChange('EN')}
-                className={`px-2.5 py-1 rounded-full transition-all duration-200 ${
-                  lang === 'EN'
-                    ? 'bg-white text-teal-600 shadow-sm font-bold'
-                    : 'text-slate-500 hover:text-slate-800'
-                }`}
-              >
-                EN
-              </button>
-              <button
-                onClick={() => onLanguageChange('ID')}
-                className={`px-2.5 py-1 rounded-full transition-all duration-200 ${
-                  lang === 'ID'
-                    ? 'bg-white text-teal-600 shadow-sm font-bold'
-                    : 'text-slate-500 hover:text-slate-800'
-                }`}
-              >
-                ID
-              </button>
-              <button
-                onClick={() => onLanguageChange('ZH')}
-                className={`px-2.5 py-1 rounded-full transition-all duration-200 ${
-                  lang === 'ZH'
-                    ? 'bg-white text-teal-600 shadow-sm font-bold'
-                    : 'text-slate-500 hover:text-slate-800'
-                }`}
-              >
-                中文
-              </button>
-            </div>
+            <LanguageSelector language={lang} onChange={onLanguageChange} />
 
             {/* Direct WhatsApp Pill CTA */}
             <a
