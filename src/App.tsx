@@ -8,6 +8,7 @@ import { ItineraryTimeline } from './components/ItineraryTimeline';
 import { PricingCard } from './components/PricingCard';
 import { WhyChooseUs } from './components/WhyChooseUs';
 import { SocialProofGallery } from './components/SocialProofGallery';
+import { PartnerGarage } from './components/PartnerGarage';
 import { AlternativeDestinations } from './components/AlternativeDestinations';
 import { FaqAccordion } from './components/FaqAccordion';
 import { Footer } from './components/Footer';
@@ -67,6 +68,7 @@ export default function App() {
 
         {/* Social Proof & Delivery Gallery Section */}
         <SocialProofGallery lang={lang} />
+        <PartnerGarage lang={lang} />
 
         {/* 7. Explore More & Private Charter Banner */}
         <AlternativeDestinations t={t} lang={lang} onOpenReserveModal={handleOpenReserveModal} />
