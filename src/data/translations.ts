@@ -165,7 +165,7 @@ const baseTranslations: Record<'EN' | 'ID' | 'ZH', TranslationContent> = {
         {
           stepNumber: '03',
           title: 'Verify Identity',
-          description: 'Share a photo of your ID/Passport, return flight ticket, and hotel booking confirmation. It is quick, simple, and keeps everyone safe.',
+          description: 'Show your passport or national ID at handover. We photograph it in person for verification; you keep the original.',
         },
         {
           stepNumber: '04',
@@ -283,7 +283,7 @@ const baseTranslations: Record<'EN' | 'ID' | 'ZH', TranslationContent> = {
       items: [
         {
           q: 'What documents do I need to rent?',
-          a: 'Simply provide your ID card or Passport, a round-trip flight ticket, hotel booking confirmation, and a link to an active social media profile (Instagram/Facebook name) for a quick verification. Please note that all rentals are subject to this standard security check.',
+          a: 'Bring your passport or national ID to handover. We photograph it in person for verification and return it to you immediately. We may ask for flight tickets or hotel confirmation when needed to arrange handover.',
         },
         {
           q: 'Where do you deliver?',
@@ -357,7 +357,7 @@ const baseTranslations: Record<'EN' | 'ID' | 'ZH', TranslationContent> = {
         {
           stepNumber: '03',
           title: 'Verifikasi Identitas',
-          description: 'Kirim foto KTP/Paspor, tiket pesawat PP, dan konfirmasi booking hotel. Cepat, sederhana, dan aman.',
+          description: 'Tunjukkan paspor atau KTP saat serah terima. Kami memotretnya langsung untuk verifikasi; dokumen asli tetap Anda pegang.',
         },
         {
           stepNumber: '04',
@@ -475,7 +475,7 @@ const baseTranslations: Record<'EN' | 'ID' | 'ZH', TranslationContent> = {
       items: [
         {
           q: 'Dokumen apa saja yang saya butuhkan untuk menyewa?',
-          a: 'Cukup berikan KTP atau Paspor Anda, tiket pesawat pulang-pergi, konfirmasi pemesanan hotel, serta akun/link media sosial aktif (Instagram/Facebook) untuk verifikasi cepat. Seluruh penyewaan mengikuti pemeriksaan keamanan standar ini.',
+          a: 'Bawa paspor atau KTP saat serah terima. Kami memotretnya langsung untuk verifikasi dan segera mengembalikan dokumen asli. Tiket pesawat atau konfirmasi hotel dapat diminta jika diperlukan untuk mengatur serah terima.',
         },
         {
           q: 'Di mana saja area pengantarannya?',
@@ -549,7 +549,7 @@ const baseTranslations: Record<'EN' | 'ID' | 'ZH', TranslationContent> = {
         {
           stepNumber: '03',
           title: '身份核验',
-          description: '提供护照/身份证照片、往返机票及酒店预订确认信。简单快速，保障安全。',
+          description: '交车时请出示护照或身份证。我们当面拍照核验，原件由您保管。',
         },
         {
           stepNumber: '04',
@@ -667,7 +667,7 @@ const baseTranslations: Record<'EN' | 'ID' | 'ZH', TranslationContent> = {
       items: [
         {
           q: '租车需要提供什么证件？',
-          a: '您只需提供身份证或护照、往返机票、酒店预订确认信以及活跃的社交媒体账号链接（Instagram/Facebook）以供快速核验。所有租赁均需通过此标准安全核验。',
+          a: '交车时请携带护照或身份证。我们当面拍照核验并立即归还原件。如需安排交车，可能会要求提供机票或酒店确认。',
         },
         {
           q: '送车范围涵盖哪些地方？',
